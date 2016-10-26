@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ECHO</title>
+        <meta charset="UTF-8">
+        <link rel="icon" href="img/favicon.ico">
+        <link rel="stylesheet" href="css/index.css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="js/treeFunctions.js"></script>
+        <script src="js/functions.js"></script>
+
+    </head>
+    <body>
+        <div id="statusBar">
+            <p id="status"></p>
+            <p>Logged in as <?php echo $_SESSION['username'];  ?></p>
+            <a href="logout.php">Logout</a>
+        </div>
+        <div id="menuBar">
+        </div>
+
+        <div id="leftPanel">
+            <a href="#index" id="topHeaderLink">
+                <div id="topHeader" onclick="indexScreen()">
+                    <img src="img/echo.png" alt="ECHO logo" width="20px" height="20px">
+                    <p>echo</p><h5>0.0.7</h5> 
+                </div>
+            </a>
+            <a href="#createProject" id="newProject" onclick="loadProjectForm()"><p>+</p></a>
+            <p id="container"></p>
+        </div>
+
+        <div id="content">
+           <p>Welcome to the Echo system!</p>
+        </div>
+
+        <div id="overview">
+        </div>
+
+        <div id="versionContainer">
+        </div>
+
+        <script>
+            loadProjects();
+        </script>
