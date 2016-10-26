@@ -1,7 +1,6 @@
 <?php
 session_start();
 	require('db.php');
-
     if (isset($_SESSION['username'])){
         $username = $_SESSION['username'];
 		$username = stripslashes($username);

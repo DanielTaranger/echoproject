@@ -124,13 +124,17 @@ var treeData = input;
 
     // Toggle children on click.
     function click(d) {
-        console.log(d.versionID);
         LoadVersionInfo(d.versionID);
-        updateMenu(d.projectID);
+        updateMenu(d.projectID, d.versionID);
         update(d);
+
+        d3.selectAll("g")
+         .attr("fill", "black");
         
         d3.select(this)
-          .attr("fill", "orange");
+          .attr("fill", "#dd155b");
+
+        statusUpdate("Version " + d.title + " selected!");
     }
 
 }

@@ -31,8 +31,12 @@ $data 			= array(); 		// array to pass back data
                 $description = $_POST['description'];
                 $description = stripslashes($description);
 
-				$parent = $_POST['parent'];
-                $parent = stripslashes($parent);
+				if(isset($_POST['parent'])){
+					$parent = $_POST['parent'];
+               	 	$parent = stripslashes($parent);
+				}else {
+					$parent = 0;
+				}
 
 				$projectID = $_POST['projectID'];
                 $projectID = stripslashes($projectID);

@@ -44,11 +44,44 @@ function loadProject(input) {
 
 				}else {
 					getProjectInfo(input);	
-
+					updateMenu(input, null);
 					cleanDiv("overview");
 					makeTree(data);
 					statusUpdate("Project loaded successfully!");
 
+				}
+				});
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+    	
+}
+
+function loadTree(input) {
+cleanDiv("overview");
+		var projectID = input;
+        var formData = {
+			'projectID' : input
+		};
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'versionTreeLoader.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+			$(document).ready(function() {
+				
+				if(data['success']==false){
+					statusUpdate("Please create a new version!");
+				}else {
+					makeTree(data);
 				}
 				});
 			})
@@ -118,8 +151,18 @@ $(document).ready(function() {
 
 
 
-function updateMenu(input){
-		var newVersion = '<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+input+"')" + '">new version</a>';
+function updateMenu(input, input2){	
+		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+input+"')" + '">New</a>';
+
+		var newVersion = "";
+
+		if (input2 == null){
+			newVersion = out1;
+		}else {
+			var out2 = '<a href="#" class="menuButton" onclick="'+"deleteVersion('"+input+","+input2+"')" + '">Delete</a>';
+			newVersion = out1 + out2;	
+		}
+
 		document.getElementById("menuBar").innerHTML = newVersion;	
 
 }
@@ -156,6 +199,33 @@ function loadVersionForm(input){
 				console.log(data);
 			});
 		    event.preventDefault();
+}
+
+function deleteVersion(input, input2){
+$(document).ready(function() {
+        var formData = {
+			'projectID' : input,
+			'versionID' : input2
+		};
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'versionDelete.php', 
+			data 		: formData,
+			encode 		: true
+		})
+
+			.done(function(data) {
+					loadProject(input);
+				
+					loadTree(input);
+					
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+		});
 }
 
 function indexScreen(){

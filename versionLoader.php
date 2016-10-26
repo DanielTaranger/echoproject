@@ -9,7 +9,6 @@ session_start();
          $data = array();
          $versionID = $_POST['versionID'];
 
-	//Checking is user existing in the database or not
         $query = "SELECT * FROM versions  WHERE versionID='$versionID'";
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$rows = mysqli_num_rows($result);
