@@ -154,14 +154,16 @@ $(document).ready(function() {
 
 function updateMenu(input, input2){	
 		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+input+"')" + '">New</a>';
+		var out3 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm()" + '">Upload</a>';
 
 		var newVersion = "";
 
 		if (input2 == null){
-			newVersion = out1;
+			newVersion = out1 + out3;
 		}else {
 			var out2 = '<a href="#" class="menuButton" onclick="'+"deleteVersion('"+input+"', '"+input2+"')" + '">Delete</a>';
-			newVersion = out1 + out2;
+			
+			newVersion = out1 + out2 + out3;
 		}
 
 		document.getElementById("menuBar").innerHTML = newVersion;	
@@ -171,6 +173,12 @@ function updateMenu(input, input2){
 
 function loadProjectForm(){
         $( "#content" ).load( "include/projectForm2.html");
+        cleanDiv("overview");
+		statusUpdate("Projectform loaded successfully!")
+}
+
+function loadUploadForm(){
+        $( "#content" ).load( "include/uploadForm.html");
         cleanDiv("overview");
 		statusUpdate("Projectform loaded successfully!")
 }
