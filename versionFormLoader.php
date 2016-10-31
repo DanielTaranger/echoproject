@@ -14,22 +14,36 @@ require('db.php');
         $rows = mysqli_num_rows($result);
 
         $data = array();
+
+        //selection of versions
         $first = file_get_contents("include/versionForm.html");
         $end = file_get_contents("include/versionFormEnd.html");
         $before = '<div><p>Parent version</p><select id="myselect" class="form-group">';
         $middle = "";
         $after = "</select></div>";
-        
         $sumbit = '	<input  type="submit"  onclick="submitVersionFormAjax(' ."'".$projectID. "'". ')" value="Create Version">';
+      
+        //selection of files
+        $fileListing = "";
+        $fileBefore = '<div><p>Audio file</p><select id="fileselect" class="form-group">';
+        $fileAfter = "</select></div>";
+        $dir = 'uploaded_files/';
+        $files = scandir($dir,1);
+
+        foreach ($files as $value){
+            $fileListing = $fileListing . '<option value="' . $value . '">' . $value . '</option>';
+        }
+        $fileSelect = $fileBefore . $fileListing . $fileAfter;
+
 
         if($rows>=1){
             while($row = mysqli_fetch_array($result)) {
                 $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
             }                    
-            $data['data'] =  "". $first ."". $before . $middle . $after . $sumbit . $end;
+            $data['data'] =  "". $first ."". $before . $middle . $after . $fileSelect . $sumbit . $end;
             $data['success'] = true;
         }else{
-            $data['data'] =  "". $first . $sumbit . $end;
+            $data['data'] =  "". $first  . $fileSelect .  $sumbit . $end;
             $data['success'] = true;
         }   
 
