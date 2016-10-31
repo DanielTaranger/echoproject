@@ -45,6 +45,7 @@ function loadProject(input) {
 				}else {
 					getProjectInfo(input);	
 					updateMenu(input, null);
+					cleanDiv("versionContainer");
 					cleanDiv("overview");
 					makeTree(data);
 					statusUpdate("Project loaded successfully!");
@@ -159,8 +160,8 @@ function updateMenu(input, input2){
 		if (input2 == null){
 			newVersion = out1;
 		}else {
-			var out2 = '<a href="#" class="menuButton" onclick="'+"deleteVersion('"+input+","+input2+"')" + '">Delete</a>';
-			newVersion = out1 + out2;	
+			var out2 = '<a href="#" class="menuButton" onclick="'+"deleteVersion('"+input+"', '"+input2+"')" + '">Delete</a>';
+			newVersion = out1 + out2;
 		}
 
 		document.getElementById("menuBar").innerHTML = newVersion;	
@@ -172,6 +173,15 @@ function loadProjectForm(){
         $( "#content" ).load( "include/projectForm2.html");
         cleanDiv("overview");
 		statusUpdate("Projectform loaded successfully!")
+}
+
+function createNewProject(){
+$(document).ready(function() {
+		cleanDiv('overview');
+		cleanDiv('content');
+		cleanDiv('versionContainer');
+		loadProjectForm();
+	});
 }
 
 function loadVersionForm(input){
@@ -201,8 +211,11 @@ function loadVersionForm(input){
 		    event.preventDefault();
 }
 
-function deleteVersion(input, input2){
+function deleteVersion(input,input2){
 $(document).ready(function() {
+var result = confirm("Want to delete?");
+if (result) {
+
         var formData = {
 			'projectID' : input,
 			'versionID' : input2
@@ -216,16 +229,16 @@ $(document).ready(function() {
 
 			.done(function(data) {
 					loadProject(input);
+
 				
-					loadTree(input);
-					
 			})
 
 			.fail(function(data) {
 				console.log(data);
 			});
 		    event.preventDefault();
-		});
+	}
+	});
 }
 
 function indexScreen(){
@@ -235,7 +248,6 @@ function indexScreen(){
 }
 
 function cleanDiv(input){
-        
 		document.getElementById(input).innerHTML = "";
 }
 
@@ -272,7 +284,7 @@ $(document).ready(function() {
 
 			.done(function(data) {
 
-				console.log(data); 
+			
 
 				if ( ! data.success) {
 
@@ -331,7 +343,7 @@ $(document).ready(function() {
 
 			.done(function(data) {
 
-				console.log(data); 
+				
 
 				if ( ! data.success) {
 

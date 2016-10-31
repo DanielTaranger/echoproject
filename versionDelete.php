@@ -8,20 +8,16 @@ session_start();
         $projectID = $_POST['projectID'];
         $versionID = $_POST['versionID'];
 
-        $sql = "DELETE versions WHERE versionID=".$versionID;
+        $sql = "DELETE FROM versions WHERE versionID='$versionID'";
 
-            if (mysqli_query($conn, $sql)) {
+            if (mysqli_query($conn,$sql)) {
                 echo "Record deleted successfully";
             } else {
                 echo "Error deleting record: " . mysqli_error($conn);
             }
 
-        mysqli_close($conn);
 
-    
-        mysql_close($conn);
-
-        echo "<p>You did it</p>";
+        echo $sql;
     }else{
 		echo "<p>You are not permitted to do this</p>";
 	}
