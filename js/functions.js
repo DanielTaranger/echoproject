@@ -199,7 +199,7 @@ function loadProjectForm(){
 }
 
 function loadUploadForm(){
-        $( "#content" ).load( "include/uploadForm.html");
+        $( "#content" ).load( "uploadFormLoader.php");
         cleanDiv("overview");
 		cleanDiv("versionContainer");
 		statusUpdate("Projectform loaded successfully!")
@@ -241,6 +241,7 @@ function loadVersionForm(input){
 			});
 		    event.preventDefault();
 }
+
 
 function deleteVersion(input,input2){
 $(document).ready(function() {
