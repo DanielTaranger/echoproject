@@ -28,7 +28,11 @@ require('db.php');
         $fileBefore = '<div><p>Audio file</p><select id="fileselect" class="form-group">';
         $fileAfter = "</select></div>";
         $dir = 'uploaded_files/';
-        $files = scandir($dir,1);
+        $files = scandir($dir,2);
+
+        unset($files[0]);
+        unset($files[1]);
+
 
         foreach ($files as $value){
             $fileListing = $fileListing . '<option value="' . $value . '">' . $value . '</option>';
@@ -43,6 +47,7 @@ require('db.php');
             $data['data'] =  "". $first ."". $before . $middle . $after . $fileSelect . $sumbit . $end;
             $data['success'] = true;
         }else{
+
             $data['data'] =  "". $first  . $fileSelect .  $sumbit . $end;
             $data['success'] = true;
         }   

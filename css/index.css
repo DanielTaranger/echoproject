@@ -326,7 +326,6 @@ input[type='submit']:hover {
 }
 
 
-
 a.boxclose{
 	text-decoration: none;
     float: right;
@@ -338,7 +337,6 @@ a.boxclose{
 	font-weight: lighter;
     display: inline-block;
     line-height: 0px;
-     
 }
 
 .boxclose:before {
@@ -348,7 +346,10 @@ a.boxclose{
 	font-weight: lighter;
 }
 
-
+audio {
+	margin-top: 30px;
+	width: 500px;
+}
 
 .boxclose:hover {
 	color: #333;	

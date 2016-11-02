@@ -5,13 +5,13 @@
 			<h1>Create new project</h1>
 
 			<div id="title-group" class="form-group">
-				<input type="text" class="form-control" name="title" placeholder="Title of your project">
+				<input type="text" class="form-control" name="title" placeholder="Title of your project" maxlength="50">
 
 			</div>
 
 			<div id="description-group" class="form-group">
 
-					<textarea id="description" class="form-control" rows="5"  name="description" placeholder="Project description" maxlength="300"></textarea>
+					<textarea id="description" class="form-control" rows="5"  name="description" placeholder="Project description" maxlength="250"></textarea>
 			</div>
 
 			<input  type="submit"  onclick="submitProjectFormAjax()" value="Create Project">

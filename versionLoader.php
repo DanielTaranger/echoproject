@@ -16,7 +16,15 @@ session_start();
 		if($rows>=1){
 	
 			while($row = mysqli_fetch_array($result)) {
-				$data = '<div id="contentBox">'.'<a class="boxclose" id="boxclose" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.'<h1>'.$row[2].'</h1>'.$row[3].'</div>';
+				$data = '<div id="contentBox">'.'<a class="boxclose" id="boxclose" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
+				'<h1>'.$row[2].'</h1><p>'.$row[3].
+				'<audio controls>'.
+				'<source src="uploaded_files/'. $row[5].
+				'" type="audio/mpeg">'.
+				'Your browser does not support the audio element.'.
+				'</audio>'.
+				
+				'</div>';
 
 			}
 

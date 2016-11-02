@@ -1,3 +1,24 @@
+$(document).ready(function() {  
+  
+    $('textarea[maxlength]').keyup(function(){  
+        //get the limit from maxlength attribute  
+        var limit = parseInt($(this).attr('maxlength'));  
+        //get the current text inside the textarea  
+        var text = $(this).val();  
+        //count the number of characters in the text  
+        var chars = text.length;  
+  
+        //check if there are more characters then allowed  
+        if(chars > limit){  
+            //and if there are use substr to get the text before the limit  
+            var new_text = text.substr(0, limit);  
+  
+            //and change the current text with the new text  
+            $(this).val(new_text);  
+        }  
+    });  
+  
+});  
 
 function loadProjects() {
         $( "#container" ).load( "projectLoader.php" );
@@ -38,7 +59,7 @@ function loadProject(input) {
 			$(document).ready(function() {
 				
 				if(data['success']==false){
-
+					cleanDiv("overview");
 					statusUpdate("Please create a new version!");
 					 loadVersionForm(projectID);
 
@@ -172,7 +193,7 @@ function updateMenu(input, input2){
 
 
 function loadProjectForm(){
-        $( "#content" ).load( "include/projectForm2.html");
+        $( "#content" ).load( "include/projectForm.html");
         cleanDiv("overview");
 		statusUpdate("Projectform loaded successfully!")
 }
@@ -180,8 +201,10 @@ function loadProjectForm(){
 function loadUploadForm(){
         $( "#content" ).load( "include/uploadForm.html");
         cleanDiv("overview");
+		cleanDiv("versionContainer");
 		statusUpdate("Projectform loaded successfully!")
 }
+
 
 function createNewProject(){
 $(document).ready(function() {
@@ -256,7 +279,7 @@ function indexScreen(){
 }
 
 function cleanDiv(input){
-		document.getElementById(input).innerHTML = "";
+			document.getElementById(input).innerHTML = "";
 }
 
 function statusUpdate(input){
@@ -265,16 +288,12 @@ function statusUpdate(input){
 		document.getElementById("status").innerHTML = input;
 		$( "#status" ).delay(5000).fadeOut(2000);
 }
-	
 
 
 function submitProjectFormAjax(){
 $(document).ready(function() {
 
 	$('form').submit(function(event) {
-
-		$('.form-group').removeClass('has-error'); 
-		$('.help-block').remove(); // remove the error text
 	
 		var formData = {
 			'title' 				: $('input[name=title]').val(),
@@ -297,11 +316,17 @@ $(document).ready(function() {
 				if ( ! data.success) {
 
 					if (data.errors.title) {
+						$('.form-group').removeClass('has-error'); 
+						$('.help-block').remove(); // remove the error text
+						
 						$('#title-group').addClass('has-error'); 
 						$('#title-group').append('<div class="help-block">' + data.errors.title + '</div>'); 
 					}
 
 					if (data.errors.description) {
+						$('.form-group').removeClass('has-error'); 
+						$('.help-block').remove(); // remove the error text
+
 						$('#description-group').addClass('has-error'); 
 						$('#description-group').append('<div class="help-block">' + data.errors.description + '</div>'); 
 					}
@@ -337,6 +362,7 @@ $(document).ready(function() {
 			'title' 				: $('input[name=title]').val(),
 			'description' 			: $('#description').val(),
 			'parent'				: $( "#myselect" ).val(),
+			'file'					: $( "#fileselect" ).val(),
 			'projectID'				: input
 		};
 
@@ -356,11 +382,17 @@ $(document).ready(function() {
 				if ( ! data.success) {
 
 					if (data.errors.title) {
+						$('.form-group').removeClass('has-error'); 
+						$('.help-block').remove(); // remove the error text
+
 						$('#title-group').addClass('has-error'); 
 						$('#title-group').append('<div class="help-block">' + data.errors.title + '</div>'); 
 					}
 
 					if (data.errors.description) {
+						$('.form-group').removeClass('has-error'); 
+						$('.help-block').remove(); // remove the error text
+
 						$('#description-group').addClass('has-error'); 
 						$('#description-group').append('<div class="help-block">' + data.errors.description + '</div>'); 
 					}

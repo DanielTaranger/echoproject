@@ -40,8 +40,14 @@ $data 			= array(); 		// array to pass back data
 
 				$projectID = $_POST['projectID'];
                 $projectID = stripslashes($projectID);
+
+				$file = $_POST['file'];
       
-                $query =  "INSERT INTO versions (projectID, title, description, parent) VALUES ('".$projectID."', '".$title."', '".$description."', '".$parent."')";
+                $query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID."', '".
+																										$title."', '".
+																										$description."', '".
+																										$parent."', '".
+																										$file."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
             }
 
