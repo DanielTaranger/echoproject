@@ -1,8 +1,18 @@
 <?php
+$uploadProjectSelect = $_POST['uploadProjectSelect'];
 $valid_formats = array("mp3");
 $max_file_size = 2*1024*1000; //100 kb
 $path = "uploaded_files/"; // Upload directory
+
+if (!file_exists($path . $uploadProjectSelect)) {
+    mkdir($path . $uploadProjectSelect, 0777, true);
+	$path = $path . $uploadProjectSelect . "/";
+}else{
+	$path = $path . $uploadProjectSelect . "/";
+}
 $count = 0;
+
+ 
 
 if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 	// Loop $_FILES to exeicute all files
@@ -24,10 +34,10 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 	            $count++; // Number of successfully uploaded file
 				header('Location: index.php#');
 				echo "<h1>Upload successful</h1>";
-	        }
-	    }
+				}
+			}
+		}
 	}
-}
 
 
 

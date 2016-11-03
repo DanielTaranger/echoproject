@@ -174,8 +174,8 @@ $(document).ready(function() {
 
 
 function updateMenu(input, input2){	
-		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+input+"')" + '">New</a>';
-		var out3 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm()" + '">Upload</a>';
+		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New</a>';
+		var out3 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">Upload</a>';
 
 		var newVersion = "";
 
@@ -198,11 +198,37 @@ function loadProjectForm(){
 		statusUpdate("Projectform loaded successfully!")
 }
 
-function loadUploadForm(){
-        $( "#content" ).load( "uploadFormLoader.php");
+function loadUploadForm(input){
+
+    //    $( "#content" ).load( "uploadFormLoader.php");
         cleanDiv("overview");
 		cleanDiv("versionContainer");
-		statusUpdate("Projectform loaded successfully!")
+
+		var formData = {
+			'projectID' : input
+		};
+
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'uploadFormLoader.php', 
+			data 		: formData,
+			encode 		: true
+		})
+
+			.done(function(data) {
+					var obj = jQuery.parseJSON(data);
+					
+					document.getElementById("content").innerHTML = obj.data;
+	
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+
+		statusUpdate("Projectform loaded successfully!");
 }
 
 
