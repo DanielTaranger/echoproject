@@ -60,6 +60,7 @@ function loadProject(input) {
 				
 				if(data['success']==false){
 					cleanDiv("overview");
+					cleanDiv("versionContainer");
 					statusUpdate("Please create a new version!");
 					 loadVersionForm(projectID);
 

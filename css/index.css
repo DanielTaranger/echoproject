@@ -340,7 +340,7 @@ a.boxclose{
 }
 
 .boxclose:before {
-    content: "×";
+    content: "x";
 	text-decoration: none;
 	
 	font-weight: lighter;
