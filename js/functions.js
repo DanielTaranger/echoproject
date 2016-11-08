@@ -200,7 +200,7 @@ function loadProjectForm(){
 }
 
 function loadUploadForm(input){
-
+updateMenu(input);
     //    $( "#content" ).load( "uploadFormLoader.php");
         cleanDiv("overview");
 		cleanDiv("versionContainer");
@@ -244,7 +244,6 @@ $(document).ready(function() {
 
 function loadVersionForm(input){
 cleanDiv("versionContainer");
-cleanDiv("overview");
         var formData = {
 			'projectID' : input
 		};

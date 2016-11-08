@@ -360,7 +360,7 @@ audio {
 	font-size: 23px;
 	text-decoration: none;
 	position:relative;
-	left: 465px;
+	left: 473px;
     margin-right: 16px;
 	margin-top: 20px;
     cursor:pointer;
@@ -378,6 +378,10 @@ audio {
 
 #editButton:hover {
 	color: #333;	
+}
+
+h1#versionHeading {
+	padding-top: 0px ;
 }
 
 .node {

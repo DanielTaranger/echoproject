@@ -19,7 +19,7 @@ session_start();
 				$data['data'] = '<div id="contentBox">'.
 				'<a id="editButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
 				'<a class="boxclose" id="boxclose" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
-				'<h1>'.$row[2].'</h1><p>'.$row[3].'</p>';
+				'<h1 id="versionHeading">'.$row[2].'</h1><p>'.$row[3].'</p>';
 				if(!isset($row5)){
 					$data['data'] = $data['data'] . '</div>';
 				}else {
