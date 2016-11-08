@@ -422,7 +422,8 @@ if (result) {
 }
 
 function indexScreen(){
-        
+        cleanDiv('overview');
+		cleanDiv('versionContainer');
         $( "#content" ).load( "include/indexScreen.html");
         
 }
