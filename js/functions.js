@@ -243,7 +243,8 @@ $(document).ready(function() {
 }
 
 function loadVersionForm(input){
-
+cleanDiv("versionContainer");
+cleanDiv("overview");
         var formData = {
 			'projectID' : input
 		};
