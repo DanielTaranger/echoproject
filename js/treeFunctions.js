@@ -25,9 +25,8 @@ var treeData = input;
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    console.log(treeData);
+  
 	var str = JSON.stringify(treeData, null, 2);
-						console.log(str);
 
     root = treeData[0];
     root.x0 = height / 2;

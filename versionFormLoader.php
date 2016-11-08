@@ -24,7 +24,7 @@ require('db.php');
         $before = '<div><p>Parent version</p><select id="myselect" class="form-group">';
         $middle = "";
         $after = "</select></div>";
-        $sumbit = '	<input  type="submit"  onclick="submitVersionFormAjax(' ."'".$projectID. "'". ')" value="Create Version">';
+        $sumbit = '	<input  type="submit"  onclick="submitVersionFormAjax(' ."'".$projectID. "'". ')" value="Create">';
       
         //selection of files
 
@@ -56,7 +56,7 @@ require('db.php');
                 $data['success'] = true;
             }else{
 
-                $data['data'] =  $bfirst . $first . $fileSelect .  $sumbit . $end;
+                $data['data'] =  $beforefirst . $bfirst . $first . $fileSelect .  $sumbit . $end;
                 $data['success'] = true;
             }   
 

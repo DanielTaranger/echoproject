@@ -329,7 +329,7 @@ input[type='submit']:hover {
 a.boxclose{
 	text-decoration: none;
     float: right;
-    margin-right: -12px;
+    margin-right: -9px;
 	margin-top: 20px;
     cursor:pointer;
     color: #c9c9c9;
@@ -351,6 +351,32 @@ audio {
 }
 
 .boxclose:hover {
+	color: #333;	
+}
+
+#editButton {
+	text-decoration: none;
+	color: gray;
+	font-size: 23px;
+	text-decoration: none;
+	position:relative;
+	left: 465px;
+    margin-right: 16px;
+	margin-top: 20px;
+    cursor:pointer;
+    color: #c9c9c9;
+    font-size: 19px;
+	font-weight: lighter;
+    display: inline-block;
+    line-height: 0px;
+}
+
+#editButton:before {
+	content: "✎";
+	text-decoration: none;
+}
+
+#editButton:hover {
 	color: #333;	
 }
 

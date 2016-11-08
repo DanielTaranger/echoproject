@@ -162,7 +162,7 @@ $(document).ready(function() {
 			.done(function(data) {
 				
 					cleanDiv("versionContainer");
-					document.getElementById("versionContainer").innerHTML = data;	
+					document.getElementById("versionContainer").innerHTML = data.data;	
 			})
 
 			.fail(function(data) {
@@ -270,6 +270,127 @@ function loadVersionForm(input){
 }
 
 
+function editVersion(input){
+$(document).ready(function() {
+        var formData = {
+			'versionID' : input
+		};
+
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'loadEditVersionForm.php', 
+			data 		: formData,
+			encode 		: true
+		})
+
+			.done(function(data) {
+					var obj = jQuery.parseJSON(data);
+					document.getElementById("versionContainer").innerHTML = obj.data;
+					$( "#title-group" ).children().val(obj.title);
+					$( "#description-group" ).children().val(obj.description);		
+
+					statusUpdate(obj.title);		
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+	});
+}
+
+
+
+function updateVersion(input){
+$(document).ready(function() {
+
+	$('form').submit(function(event) {
+
+		$('.form-group').removeClass('has-error'); 
+		$('.help-block').remove(); // remove the error text
+
+		var formData = {
+			'title' 				: $('input[name=title]').val(),
+			'description' 			: $('#description').val(),
+			'parent'				: $( "#myselect" ).val(),
+			'file'					: $( "#fileselect" ).val(),
+			'versionID'				: input
+		};
+
+		// process the form
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'versionUpdate.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+
+				if ( ! data.success) {
+
+					if (data.errors.title) {
+						$('.form-group').removeClass('has-error'); 
+						$('.help-block').remove(); // remove the error text
+
+						$('#title-group').addClass('has-error'); 
+						$('#title-group').append('<div class="help-block">' + data.errors.title + '</div>'); 
+					}
+
+					if (data.errors.description) {
+						$('.form-group').removeClass('has-error'); 
+						$('.help-block').remove(); // remove the error text
+
+						$('#description-group').addClass('has-error'); 
+						$('#description-group').append('<div class="help-block">' + data.errors.description + '</div>'); 
+					}
+
+				} else {
+					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
+                                        loadProjects();
+										loadProject(data.projectID);
+										LoadVersionInfo(data.versionID);
+				}
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+			event.preventDefault();
+		});
+
+	});
+}
+
+function getFileList(input){ 
+
+		var projectID = input;
+        var formData = {
+			'projectID' : input
+		};
+
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'fileListLoader.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+					document.getElementById("fileSelector").innerHTML = data;	
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+}
+
+
 function deleteVersion(input,input2){
 $(document).ready(function() {
 var result = confirm("Want to delete?");
@@ -315,10 +436,13 @@ function cleanDiv(input, input2){
 }
 
 function statusUpdate(input){
+		$("#status").clearQueue();
 		$("#status").stop();
 		$("#status").fadeIn(1);
 		document.getElementById("status").innerHTML = input;
-		$( "#status" ).delay(5000).fadeOut(2000);
+		$( "#status" ).delay(2222).fadeOut(2000);
+
+		
 }
 
 
@@ -366,7 +490,7 @@ $(document).ready(function() {
 				} else {	
 					statusUpdate("Project created successfully!")
 					cleanDiv("content");
-					loadProject(data.projectID);
+					getProjectInfo(data.projectID);
 					loadProjects();
 										
 				}
