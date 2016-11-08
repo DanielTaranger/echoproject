@@ -306,8 +306,12 @@ function indexScreen(){
         
 }
 
-function cleanDiv(input){
+function cleanDiv(input, input2){
 			document.getElementById(input).innerHTML = "";
+			if (typeof input2 !== 'undefined') {
+				loadProject(input2);
+			}
+			
 }
 
 function statusUpdate(input){
@@ -359,9 +363,10 @@ $(document).ready(function() {
 						$('#description-group').append('<div class="help-block">' + data.errors.description + '</div>'); 
 					}
 
-				} else {
+				} else {	
 					statusUpdate("Project created successfully!")
 					cleanDiv("content");
+					loadProject(data.projectID);
 					loadProjects();
 										
 				}

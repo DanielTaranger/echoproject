@@ -15,8 +15,11 @@ require('db.php');
 
         $data = array();
 
-        //selection of versions
+        $beforefirst = file_get_contents("include/contentBox.html");
         $first = file_get_contents("include/versionForm.html");
+
+        $bfirst = '<a class="boxclose" id="boxclose" onclick="cleanDiv'."('content'," . "'" . $projectID . "')".'"></a>';
+
         $end = file_get_contents("include/versionFormEnd.html");
         $before = '<div><p>Parent version</p><select id="myselect" class="form-group">';
         $middle = "";
@@ -25,7 +28,7 @@ require('db.php');
       
         //selection of files
 
-        $filename = 'uploaded_files/'.$projectID ;
+        $filename = 'uploaded_files/'.$projectID;
         if (file_exists($filename)) {
             $fileListing = "";
             $fileBefore = '<div><p>Audio file</p><select id="fileselect" class="form-group">';
@@ -49,27 +52,26 @@ require('db.php');
                 while($row = mysqli_fetch_array($result)) {
                     $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
                 }                    
-                $data['data'] =   $first . $before . $middle . $after . $fileSelect . $sumbit . $end;
+                $data['data'] =   $beforefirst . $bfirst . $first  . $before . $middle . $after . $fileSelect . $sumbit . $end;
                 $data['success'] = true;
             }else{
 
-                $data['data'] =  $first  . $fileSelect .  $sumbit . $end;
+                $data['data'] =  $bfirst . $first . $fileSelect .  $sumbit . $end;
                 $data['success'] = true;
             }   
 
         } else {
 
-            $noUploadedMessage = "<p><b>No files uploaded!</b> click upload above to add files to this project</p>"; //'<a href="#" class="menuButton" onclick="'. "loadUploadForm('".  $projectID. "')".'">Click here to upload files</a>';
+            $noUploadedMessage = "<p><b>No files uploaded!</b> click upload above to add files to this project</p>"; 
 
             if($rows>=1){
                 while($row = mysqli_fetch_array($result)) {
                     $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
-                }                    
-                $data['data'] =   $first . $before . $middle . $after . $noUploadedMessage. $sumbit . $end;
+                }
+                $data['data'] =   $beforefirst . $bfirst . $first . $before . $middle . $after . $noUploadedMessage. $sumbit . $end;
                 $data['success'] = true;
             }else{
-
-                $data['data'] =  $first  . $noUploadedMessage .  $sumbit . $end;
+                $data['data'] =  $beforefirst . $bfirst . $first . $noUploadedMessage .  $sumbit . $end;
                 $data['success'] = true;
             }   
         }

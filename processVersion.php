@@ -41,7 +41,11 @@ $data 			= array(); 		// array to pass back data
 				$projectID = $_POST['projectID'];
                 $projectID = stripslashes($projectID);
 
-				$file = $_POST['file'];
+				if(isset($_POST['file'])){
+					$file = $_POST['file'];
+				}else {
+					$file = "no file";
+				}
       
                 $query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID."', '".
 																										$title."', '".
@@ -57,4 +61,3 @@ $data 			= array(); 		// array to pass back data
 
 	// return all our data to an AJAX call
 	echo json_encode($data);
-    

@@ -33,6 +33,19 @@ $data 			= array(); 		// array to pass back data
       
                 $query =  "INSERT INTO projects (username, title, description) VALUES ('".$username."', '".$title."', '".$description."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+				$query = "SELECT * FROM projects  WHERE title='$title'";
+				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				$rows = mysqli_num_rows($result);
+
+
+				if($rows>=1){
+					while($row = mysqli_fetch_array($result)) {
+							$data['projectID'] = $row[1];
+						}
+					
+				}
+
             }
 
 		$data['success'] = true;

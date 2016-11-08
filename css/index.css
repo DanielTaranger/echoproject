@@ -333,16 +333,15 @@ a.boxclose{
 	margin-top: 20px;
     cursor:pointer;
     color: #c9c9c9;
-    font-size: 41px;
+    font-size: 19px;
 	font-weight: lighter;
     display: inline-block;
     line-height: 0px;
 }
 
 .boxclose:before {
-    content: "x";
+    content: "✖";
 	text-decoration: none;
-	
 	font-weight: lighter;
 }
 
