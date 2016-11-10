@@ -47,7 +47,7 @@ $data 			= array(); 		// array to pass back data
 					$file = "no file";
 				}
 
-                $query="SELECT * FROM versions WHERE projectID='$projectID'";
+                $query="SELECT * FROM versions WHERE versionID='$versionID'";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
                 $rows = mysqli_num_rows($result);
                 if($rows>=1){

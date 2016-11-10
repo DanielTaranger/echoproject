@@ -1,7 +1,8 @@
 <?php      
 
     $projectID = $_POST['projectID'];
-
+    $filename = 'uploaded_files/'.$projectID;
+    
     if (file_exists($filename)) {
         $fileListing = "";
         $fileBefore = '<p>Audio file</p><select id="fileselect" class="form-group">';

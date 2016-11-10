@@ -365,7 +365,7 @@ $(document).ready(function() {
 }
 
 function getFileList(input){ 
-
+$(document).ready(function() {
 		var projectID = input;
         var formData = {
 			'projectID' : input
@@ -381,13 +381,14 @@ function getFileList(input){
 		})
 
 			.done(function(data) {
-					document.getElementById("fileSelector").innerHTML = data;	
+					document.getElementById("fileSelector").innerHTML = data.data;	
 			})
 
 			.fail(function(data) {
 				console.log(data);
 			});
 		    event.preventDefault();
+	});
 }
 
 
@@ -430,7 +431,7 @@ function indexScreen(){
 
 function cleanDiv(input, input2){
 			document.getElementById(input).innerHTML = "";
-			if (typeof input2 !== 'undefined') {
+			if (input2) {
 				loadProject(input2);
 			}
 			

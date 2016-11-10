@@ -36,7 +36,7 @@ require('db.php');
         $beforefirst = file_get_contents("include/contentBox.html");
         $first = file_get_contents("include/editForm.html");
         $editClick = '<a id="editButton" onclick="LoadVersionInfo('."'". $versionID ."'".')"></a>';
-        $bfirst = $editClick . '<a class="boxclose" id="boxclose" onclick="cleanDiv'."('content'," . "'" . $row[1] . "')".'"></a>';              
+        $bfirst = $editClick . '<a class="boxclose" id="boxclose" onclick="cleanDiv'."('" ."versionContainer" . "')".'"></a>';              
         $end = file_get_contents("include/editFormEnd.html");
         $middle = "";
         $sumbit = '	<input  type="submit"  onclick="updateVersion(' ."'".$versionID. "'". ')" value="Update">';
@@ -45,11 +45,11 @@ require('db.php');
         $filename = 'uploaded_files/'.$projectID;
         $fileSelect = "<p><b>No files uploaded!</b> click upload above to add files to this project</p>"; 
 
-        if (file_exists($filename)) {
-            if($row[5]=="no file"){
+        if (is_dir($filename)) {
+            if($fileData=="no file"){
                 $fileSelect = "<p><b>No files selected!</b> click here to pick track to use</p>"; 
                 $clickList = '<a onclick="getFileList'."('" . $projectID . "')".'">Click</a>';    
-                $filePicker = '<div id="fileSelector></div>';
+                $filePicker = '<div id="fileSelector"></div>';
 
                 $fileSelect = $fileSelect . $filePicker . $clickList;
             }else {

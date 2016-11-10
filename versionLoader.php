@@ -16,14 +16,14 @@ session_start();
 		
 		if($rows>=1){
 			while($row = mysqli_fetch_array($result)) {
-				$data['data'] = '<div id="contentBox">'.
+				$dataOut= '<div id="contentBox">'.
 				'<a id="editButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
 				'<a class="boxclose" id="boxclose" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
 				'<h1 id="versionHeading">'.$row[2].'</h1><p>'.$row[3].'</p>';
-				if(!isset($row5)){
-					$data['data'] = $data['data'] . '</div>';
+				if($row[5]=="no file"){
+					$data['data'] = $dataOut . '</div>';
 				}else {
-					$data['data'] = $data . 
+					$data['data'] = $dataOut . 
 					'<audio controls>'.
 					'<source src="uploaded_files/'. $row[0] ."/".$row[5].
 					'" type="audio/mpeg">'.

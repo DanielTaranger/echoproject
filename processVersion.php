@@ -46,7 +46,26 @@ $data 			= array(); 		// array to pass back data
 				}else {
 					$file = "no file";
 				}
-      
+				
+				$query = "SELECT * FROM versions  WHERE projectID='$projectID'";
+				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				$rows = mysqli_num_rows($result);
+
+				
+				if($rows>=1){
+					while($row = mysqli_fetch_array($result)) {
+						$c = 2;
+						if($row[2] == $title){
+							$title = $title . "_" . $c;
+
+						}else if(strtok($row[2],  '_') == $title){
+							$c = substr($row[2], strpos($row[2], "_") + 2);
+							$c++;
+							$title = $title . "_" . $c;
+						}
+					}
+				}
+
                 $query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID."', '".
 																										$title."', '".
 																										$description."', '".
