@@ -394,7 +394,7 @@ $(document).ready(function() {
 
 function deleteVersion(input,input2){
 $(document).ready(function() {
-var result = confirm("Want to delete?");
+var result = confirm("Are you sure you want to delete this version?");
 if (result) {
 
         var formData = {
@@ -405,11 +405,19 @@ if (result) {
 			type 		: 'POST',
 			url 		: 'versionDelete.php', 
 			data 		: formData,
+			dataType 	: 'json',
 			encode 		: true
 		})
 
 			.done(function(data) {
-					loadProject(input);
+
+				if(data.success == true){
+
+				statusUpdate(data.data);
+				loadTree(input);
+				}else{
+					alert ("You cannot delete the root version!");
+				}
 
 				
 			})

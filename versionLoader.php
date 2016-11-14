@@ -12,12 +12,14 @@ session_start();
         $query = "SELECT * FROM versions  WHERE versionID='$versionID'";
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$rows = mysqli_num_rows($result);
+		
 
 		
 		if($rows>=1){
 			while($row = mysqli_fetch_array($result)) {
 				$dataOut= '<div id="contentBox">'.
 				'<a id="editButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
+				'<a id="deleteButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		
 				'<a class="boxclose" id="boxclose" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
 				'<h1 id="versionHeading">'.$row[2].'</h1><p>'.$row[3].'</p>';
 				if($row[5]=="no file"){

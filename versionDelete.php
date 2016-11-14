@@ -7,9 +7,11 @@ session_start();
 
         $projectID = $_POST['projectID'];
         $versionID = $_POST['versionID'];
+        $dataOut = array();
 
         $parentID = "";
         $children = array();
+        $delete = true;
 
         $query="SELECT * FROM versions WHERE projectID='$projectID' ORDER BY parent DESC";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -18,7 +20,11 @@ session_start();
         if($rows>=1){
             while($row = mysqli_fetch_array($result)) {
                 if($row[1] == $versionID){
-                    $parentID = $row[4];
+                    if($row[4] == 0){
+                        $delete = false;
+                    }else {
+                        $parentID = $row[4];
+                    }
                 }
 
                 if($row[4] == $versionID){
@@ -27,6 +33,8 @@ session_start();
                 }
             }
         }
+
+        if($delete == true){
 
         foreach($children as $value){
                 $query = "UPDATE versions SET parent = '$parentID' WHERE versionID='$value'";
@@ -37,15 +45,19 @@ session_start();
         $sql = "DELETE FROM versions WHERE versionID='$versionID'";
 
             if (mysqli_query($conn,$sql)) {
-                echo "Record deleted successfully";
+                $dataOut['success'] = true;
+                $dataOut['data'] = "Record deleted successfully";
             } else {
-                echo "Error deleting record: " . mysqli_error($conn);
+                 $dataOut['data'] ="Error deleting record: " . mysqli_error($conn);
+                 $dataOut['success'] = false;
             }
 
+        }else {
+            $dataOut['success'] = false;
+        }
 
-        echo $sql;
+        echo json_encode($dataOut);
     }else{
-		echo "<p>You are not permitted to do this</p>";
 	}
 
 ?>
