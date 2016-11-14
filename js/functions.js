@@ -412,7 +412,8 @@ if (result) {
 			.done(function(data) {
 
 				if(data.success == true){
-
+				
+				LoadVersionInfo(data.parent);
 				statusUpdate(data.data);
 				loadTree(input);
 				}else{

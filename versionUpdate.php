@@ -31,12 +31,14 @@ $data 			= array(); 		// array to pass back data
                 $description = $_POST['description'];
                 $description = stripslashes($description);
 
+/*
 				if(isset($_POST['parent'])){
 					$parent = $_POST['parent'];
                	 	$parent = stripslashes($parent);
 				}else {
 					$parent = 0;
 				}
+				*/
 
 				$versionID = $_POST['versionID'];
                 $projectID = "";
@@ -60,7 +62,7 @@ $data 			= array(); 		// array to pass back data
 
 
                 
-                $query = "UPDATE versions SET title = '$title', description = '$description', parent = '$parent', file = '$file' WHERE versionID='$versionID'";
+                $query = "UPDATE versions SET title = '$title', description = '$description', file = '$file' WHERE versionID='$versionID'";
          /*       $query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID."', '".
 																										$title."', '".
 																										$description."', '".

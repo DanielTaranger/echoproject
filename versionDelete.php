@@ -45,6 +45,7 @@ session_start();
         $sql = "DELETE FROM versions WHERE versionID='$versionID'";
 
             if (mysqli_query($conn,$sql)) {
+                $dataOut['parent'] = $parentID;
                 $dataOut['success'] = true;
                 $dataOut['data'] = "Record deleted successfully";
             } else {
