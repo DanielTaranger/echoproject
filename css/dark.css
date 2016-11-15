@@ -3,11 +3,11 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	color: #333333;
-	background-color: #e3e3e3;
+	background-color: #272727;
 }
 #leftPanel {
 	width: 200px;
-	background-color: white;
+	background-color: #3d3d3d;
 	height: 100%;
 	position: absolute;
 	top: 0px;
@@ -21,6 +21,10 @@ html, body {
 	stroke: 5px solid red;
 }
 
+form p{
+	color: black;
+}
+
 #contentBox {
 	width: 500px;
 	background-color: white;
@@ -29,7 +33,6 @@ html, body {
 	z-index: 2;
 	padding: 20px;
 	padding-top: 0px;
-	border-radius: 2px;
 }
 
 #contentBox h1 {
@@ -85,9 +88,9 @@ html, body {
 	padding-bottom: 3px;
 	width: 100%;
 	text-decoration: none; 
-	color: #333333;
+	color: white;
 	font-size: 14px;
-	background: white;
+	background: #313131;
 
 }
 
@@ -138,6 +141,7 @@ html, body {
 	height: auto;
 	min-width: 300px;
 	max-width: 700px;
+	color: white;
 }
 
 #container {
@@ -147,6 +151,7 @@ html, body {
 
 h1 {
 	margin-top: 0px;
+	color: white;
 }
 
 #overview {

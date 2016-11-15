@@ -4,7 +4,9 @@
         <title>ECHO</title>
         <meta charset="UTF-8">
         <link rel="icon" href="img/favicon.ico">
-        <link rel="stylesheet" href="css/index.css" />
+        <link id="pagestyle" rel="stylesheet" href="css/index.css" />
+        <link id="pagestyle" rel="stylesheet" href="css/switch.css" />
+
         <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
    
         <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -12,13 +14,17 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
         <script src="http://d3js.org/d3.v3.min.js"></script>
-        <script src="js/treeFunctions.js"></script>
+        <script id="darkScript" src="js/treeFunctions.js"></script>
         <script src="js/functions.js"></script>
 
     </head>
     <body>
         <div id="statusBar">
             <p id="status"></p>
+           <label class="switch">
+            <input type="checkbox" id="checkBoxTheme" onclick="switchTheme()">
+            <div class="slider round"></div>
+            </label>
             <p>Logged in as <?php echo $_SESSION['username'];  ?></p>
             <a href="logout.php">Logout</a>
         </div>
@@ -29,7 +35,7 @@
             <a href="#index" id="topHeaderLink">
                 <div id="topHeader" onclick="indexScreen()">
                     <img src="img/echo.png" alt="ECHO logo" width="20px" height="20px">
-                    <p>echo</p><h5>0.0.7</h5> 
+                    <p>echo</p><h5>1.0.0</h5> 
                 </div>
             </a>
             <a href="#createProject" id="newProject" onclick="createNewProject()"><p>+</p></a>

@@ -63,12 +63,7 @@ $data 			= array(); 		// array to pass back data
 
                 
                 $query = "UPDATE versions SET title = '$title', description = '$description', file = '$file' WHERE versionID='$versionID'";
-         /*       $query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID."', '".
-																										$title."', '".
-																										$description."', '".
-																										$parent."', '".
-																										$file."')";
-                                                                                                        */
+
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
             }
 

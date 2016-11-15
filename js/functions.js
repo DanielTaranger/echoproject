@@ -1,24 +1,104 @@
+var theme = "off";
+var projectIDStore = "";
+
 $(document).ready(function() {  
   
-    $('textarea[maxlength]').keyup(function(){  
-        //get the limit from maxlength attribute  
-        var limit = parseInt($(this).attr('maxlength'));  
-        //get the current text inside the textarea  
-        var text = $(this).val();  
-        //count the number of characters in the text  
-        var chars = text.length;  
-  
-        //check if there are more characters then allowed  
-        if(chars > limit){  
-            //and if there are use substr to get the text before the limit  
-            var new_text = text.substr(0, limit);  
-  
-            //and change the current text with the new text  
-            $(this).val(new_text);  
-        }  
-    });  
-  
+  loadTheme();
+
 });  
+
+
+function switchTheme(){
+
+  
+	if(document.getElementById('checkBoxTheme').checked){
+	  statusUpdate("Box is checked");
+	  saveTheme("on");
+	 
+  }else{
+	  statusUpdate("Box is not checked");
+	  saveTheme("off");
+	 
+  }
+ 
+}
+
+function loadTheme() {
+		var data = "test";
+        var formData = {
+			'state' : data
+		};
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'themeLoad.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+				if(data.success){
+					if(data.theme=="on"){
+					swapStyleSheet('css/dark.css');
+					theme = "on";
+					document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
+					loadTree(projectIDStore);
+					}else{
+					swapStyleSheet('css/index.css');
+					document.getElementById('checkBoxTheme').removeAttribute('checked');
+					theme = "off";
+					loadTree(projectIDStore);
+					}
+				}
+
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    
+}
+
+
+function saveTheme(input) {
+        var formData = {
+			'state' : input
+		};
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'themeSave.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+				if(data.success){
+					if(input=="on"){
+						swapStyleSheet('css/dark.css');
+						document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
+						theme = "on";
+						loadTree(projectIDStore);
+					}else if (input=="off"){
+						swapStyleSheet('css/index.css');
+						document.getElementById('checkBoxTheme').removeAttribute('checked');
+						theme = "off";
+						loadTree(projectIDStore);
+					}
+				}
+
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		   
+}
+
+function swapStyleSheet(sheet){
+	document.getElementById('pagestyle').setAttribute('href', sheet);
+}
+
 
 function loadProjects() {
         $( "#container" ).load( "projectLoader.php" );
@@ -41,6 +121,7 @@ window.onhashchange = locationHashChanged;
 
 function loadProject(input) {
 
+		projectIDStore = input;
 		var projectID = input;
         var formData = {
 			'projectID' : input
