@@ -13,7 +13,7 @@ var treeData = input;
       height = 200 - margin.top - margin.bottom;
       
     var i = 0,
-      duration = 750,
+      duration = 500,
       root;
 
     var tree = d3.layout.tree()
@@ -151,7 +151,7 @@ var treeData = input;
       height = 200 - margin.top - margin.bottom;
       
     var i = 0,
-      duration = 750,
+      duration = 500,
       root;
 
     var tree = d3.layout.tree()

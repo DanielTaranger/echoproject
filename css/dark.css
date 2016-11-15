@@ -319,6 +319,7 @@ input[type='submit']{
 	border-radius: 2px; 
 	margin-top: 10px; 
 	cursor:pointer;
+	display: block;
 }
 
 input[type='submit']:hover {
@@ -436,3 +437,8 @@ g text{
             user-select: none; /* Non-prefixed version, currently
                                   not supported by any browser */
 }
+
+#fileAlert {
+	display: inline-block;
+}
+

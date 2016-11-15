@@ -1,5 +1,5 @@
 <?php      
-
+    $data = array();
     $projectID = $_POST['projectID'];
     $filename = 'uploaded_files/'.$projectID;
     
@@ -21,9 +21,7 @@
         $fileSelect = $fileBefore . $fileListing . $fileAfter;
     }
 
-    $data = array();
-
     $data['data'] = $fileSelect;
-
+    echo json_encode($data);
 
 ?>

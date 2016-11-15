@@ -48,13 +48,40 @@ require('db.php');
 
         if (is_dir($filename)) {
             if($fileData=="no file"){
-                $fileSelect = "<p><b>No files selected!</b> click here to pick track to use</p>"; 
-                $clickList = '<a onclick="getFileList'."('" . $projectID . "')".'">Click</a>';    
+                $fileSelect = '<p id="fileAlert"><b>No files attached!</b> click here to pick track to use</p>'; 
+                $clickList = '<a id="fileClick" onclick="getFileList'."('" . $projectID . "', '". $versionID .")".'">Click</a>';    
                 $filePicker = '<div id="fileSelector"></div>';
 
-                $fileSelect = $fileSelect . $filePicker . $clickList;
+                $fileSelect = $fileSelect . $clickList. $filePicker ;
             }else {
 
+                $fileListing = "";
+                $fileBefore = '<p>Audio file</p><select id="fileselect" class="form-group">';
+                $fileAfter = "</select>";
+                $dir = 'uploaded_files/'.$projectID ."/";
+                $files = scandir($dir,2);
+
+                unset($files[0]);
+                unset($files[1]);
+
+                foreach ($files as $value){
+                    if( is_file($dir.$value)){
+                        if($fileData == $value){
+                             $fileListing = $fileListing . '<option value="' . $value . '" selected>' . $value . '</option>';
+                        }else{
+                            $fileListing = $fileListing . '<option value="' . $value . '" >' . $value . '</option>';
+                        }
+                    }
+                }
+                $fileSelect = $fileBefore . $fileListing . $fileAfter;
+            
+/*
+                $fileSelect = '<p id="fileAlert">click here to change file</p>'; 
+                $clickList = '<a id="fileClick" onclick="getFileList'."('" . $projectID . "')".'">Click</a>';    
+                $filePicker = '<div id="fileSelector"></div>';
+
+                $fileSelect = $fileSelect  . $clickList. $filePicker;
+*/
             }
         }  
 

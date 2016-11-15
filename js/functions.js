@@ -468,7 +468,6 @@ $(document).ready(function() {
 
 function getFileList(input){ 
 $(document).ready(function() {
-		var projectID = input;
         var formData = {
 			'projectID' : input
 		};
@@ -484,6 +483,9 @@ $(document).ready(function() {
 
 			.done(function(data) {
 					document.getElementById("fileSelector").innerHTML = data.data;	
+					$( "#fileAlert" ).remove();
+					$( "#fileClick" ).remove();
+				
 			})
 
 			.fail(function(data) {
