@@ -21,9 +21,10 @@
     <body>
         <div id="statusBar">
             <p id="status"></p>
-           <label class="switch">
-            <input type="checkbox" id="checkBoxTheme" onclick="switchTheme()">
-            <div class="slider round"></div>
+            <p>switch theme</p>
+            <label class="switch">
+                <input type="checkbox" id="checkBoxTheme" onclick="switchTheme()">
+                <div class="slider round"></div>
             </label>
             <p>Logged in as <?php echo $_SESSION['username'];  ?></p>
             <a href="logout.php">Logout</a>

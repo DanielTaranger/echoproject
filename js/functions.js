@@ -12,11 +12,11 @@ function switchTheme(){
 
   
 	if(document.getElementById('checkBoxTheme').checked){
-	  statusUpdate("Box is checked");
+	  statusUpdate("Dark mode enabled");
 	  saveTheme("on");
 	 
   }else{
-	  statusUpdate("Box is not checked");
+	  statusUpdate("Light mode enabled");
 	  saveTheme("off");
 	 
   }
@@ -42,12 +42,16 @@ function loadTheme() {
 					swapStyleSheet('css/dark.css');
 					theme = "on";
 					document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
-					loadTree(projectIDStore);
+					if(isItEmpty("overview") == false){
+						loadTree(projectIDStore);
+					}
 					}else{
 					swapStyleSheet('css/index.css');
 					document.getElementById('checkBoxTheme').removeAttribute('checked');
 					theme = "off";
-					loadTree(projectIDStore);
+					if(isItEmpty("overview") == false){
+						loadTree(projectIDStore);
+					}
 					}
 				}
 
@@ -59,6 +63,14 @@ function loadTheme() {
 		    
 }
 
+
+function isItEmpty(input){
+	if ($("#"+input).is('empty')) {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 function saveTheme(input) {
         var formData = {
@@ -78,12 +90,16 @@ function saveTheme(input) {
 						swapStyleSheet('css/dark.css');
 						document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 						theme = "on";
+					if(isItEmpty("overview") == false){
 						loadTree(projectIDStore);
+					}
 					}else if (input=="off"){
 						swapStyleSheet('css/index.css');
 						document.getElementById('checkBoxTheme').removeAttribute('checked');
 						theme = "off";
+					if(isItEmpty("overview") == false){
 						loadTree(projectIDStore);
+					}
 					}
 				}
 
@@ -104,6 +120,8 @@ function loadProjects() {
         $( "#container" ).load( "projectLoader.php" );
 }
 
+
+/*
 if ("onhashchange" in window) {
 
 }
@@ -117,7 +135,10 @@ function locationHashChanged() {
     }
 }
 
+
+
 window.onhashchange = locationHashChanged;
+*/
 
 function loadProject(input) {
 
@@ -183,7 +204,7 @@ cleanDiv("overview");
 			$(document).ready(function() {
 				
 				if(data['success']==false){
-					statusUpdate("Please create a new version!");
+				
 				}else {
 					makeTree(data);
 				}

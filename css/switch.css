@@ -3,6 +3,8 @@
   display: inline-block;
   width: 30px;
   height: 14px;
+  top: 2px;
+  margin-right: 5px;
 }
 
 /* Hide default HTML checkbox */
@@ -17,8 +19,8 @@
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: .05s;
+  transition: .05s;
 }
 
 .slider:before {
@@ -29,16 +31,16 @@
   left: 0px;
   bottom: 0px;
   background-color: white;
-  -webkit-transition: .2s;
-  transition: .2s;
+  -webkit-transition: .05s;
+  transition: .05s;
 }
 
 input:checked + .slider {
-  background-color: #dd155b;
+  background-color: #cc074c;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #dd155b;
+  box-shadow: 0 0 1px #cc074c;
 }
 
 input:checked + .slider:before {

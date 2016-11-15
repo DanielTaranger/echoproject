@@ -114,7 +114,7 @@ form p{
 	cursor:pointer;
 	margin: 0px auto;
 	text-align: center;
-	background-color: #dd155b;
+	background-color: #cc074c;
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	height: 23px;
 	padding-top: 7px;
@@ -214,10 +214,9 @@ h1 {
 	color: white;
 	height: 24px;
 	display: inline-block;
-	margin-left: 10px;
 	padding-top: 6px;
-	padding-left:4px;
-	padding-right:4px;
+	width: 70px;
+	text-align: center;
 }
 
 #menuBar a:hover {
@@ -282,7 +281,7 @@ input[type='text'], input[type='password'] {
 	border-radius: 2px;
 	border: 1px solid #CCC; 
 	padding: 10px; 
-	color: #333; 
+	color: #000000; 
 	font-size: 14px; 
 	margin-top: 20px;
 	background-color: #f6f6f6;
@@ -301,7 +300,7 @@ textarea {
 	width: 478px; 
 	border-radius: 2px;border: 1px solid #CCC; 
 	padding: 10px; 
-	color: #333; 
+	color: #000000;
 	font-size: 14px; 
 	margin-top: 10px;	
 	resize: none;
@@ -334,7 +333,7 @@ a.boxclose{
     margin-right: -9px;
 	margin-top: 20px;
     cursor:pointer;
-    color: #c9c9c9;
+    color: #4c4c4c;
     font-size: 19px;
 	font-weight: lighter;
     display: inline-block;
@@ -353,12 +352,11 @@ audio {
 }
 
 .boxclose:hover {
-	color: #333;	
+	color: #d4d4d4;	
 }
 
 #editButton {
 	text-decoration: none;
-	color: gray;
 	font-size: 23px;
 	text-decoration: none;
 	position:relative;
@@ -366,7 +364,7 @@ audio {
     margin-right: 16px;
 	margin-top: 20px;
     cursor:pointer;
-    color: #c9c9c9;
+    color: #4c4c4c;
     font-size: 19px;
 	font-weight: lighter;
     display: inline-block;
@@ -379,7 +377,7 @@ audio {
 }
 
 #editButton:hover {
-	color: #333;	
+	color: #d4d4d4;	
 }
 
 a#deleteButton {
@@ -387,13 +385,13 @@ a#deleteButton {
 	left: 438px;
 	width: 50px;
 	height: 50px;
-	opacity: 0.25;
+	opacity: 0.8;
 	cursor:pointer;
 }
 
 
-A#deleteButton:hover {
-	opacity: 0.9;	
+a#deleteButton:hover {
+	opacity: 0.2;	
 }
 
 h1#versionHeading {
@@ -416,7 +414,7 @@ h1#versionHeading {
 
 .link {
 	fill: none;
-	stroke: #ccc;
+	stroke: #b70040;
 	stroke-width: 2px;
 }
 
@@ -426,4 +424,15 @@ svg {
 	position: relative;
 	 left: -267px;
 	 top: 328px; */
+}
+
+
+g text{
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Chrome/Safari/Opera */
+     -khtml-user-select: none; /* Konqueror */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  not supported by any browser */
 }

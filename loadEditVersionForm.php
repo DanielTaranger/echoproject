@@ -35,7 +35,8 @@ require('db.php');
 
         $beforefirst = file_get_contents("include/contentBox.html");
         $first = file_get_contents("include/editForm.html");
-        $editClick = '<a id="editButton" onclick="LoadVersionInfo('."'". $versionID ."'".')"></a>';
+        $editClick = '<a id="editButton" onclick="LoadVersionInfo('."'". $versionID ."'".')"></a>' . '<a id="deleteButton" onclick="deleteVersion('."'". $projectID ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>';		
+;
         $bfirst = $editClick . '<a class="boxclose" id="boxclose" onclick="cleanDiv'."('" ."versionContainer" . "')".'"></a>';              
         $end = file_get_contents("include/editFormEnd.html");
         $middle = "";

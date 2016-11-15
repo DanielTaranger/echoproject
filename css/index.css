@@ -209,10 +209,9 @@ h1 {
 	color: white;
 	height: 24px;
 	display: inline-block;
-	margin-left: 10px;
 	padding-top: 6px;
-	padding-left:4px;
-	padding-right:4px;
+	width: 70px;
+	text-align: center;
 }
 
 #menuBar a:hover {

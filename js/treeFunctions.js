@@ -59,7 +59,7 @@ var treeData = input;
 
       nodeEnter.append("circle")
         .attr("r", 1e-6)
-        .style("fill", "#666666");
+        .style("fill", "#ffffff");
 
       nodeEnter.append("text")
         .attr("x", function(d) { return d.children || d._children ? -13 : 13; })
@@ -75,7 +75,7 @@ var treeData = input;
 
       nodeUpdate.select("circle")
         .attr("r", 7)
-        .style("fill", "#666666");
+        .style("fill", "#ffffff");
 
       nodeUpdate.select("text")
         .style("fill-opacity", 1);
