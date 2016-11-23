@@ -129,7 +129,7 @@ var treeData = input;
     function click(d) {
         getProjectInfo(d.projectID);
         LoadVersionInfo(d.versionID);
-        updateMenu(d.projectID, d.versionID);
+        updateMenu(d.projectID);
         update(d);
 
         d3.selectAll("g")
@@ -267,7 +267,7 @@ var treeData = input;
     function click(d) {
         getProjectInfo(d.projectID);
         LoadVersionInfo(d.versionID);
-        updateMenu(d.projectID, d.versionID);
+        updateMenu(d.projectID);
         update(d);
 
         d3.selectAll("g")

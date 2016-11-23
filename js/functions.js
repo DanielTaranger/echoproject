@@ -121,24 +121,6 @@ function loadProjects() {
 }
 
 
-/*
-if ("onhashchange" in window) {
-
-}
-
-function locationHashChanged() {
-    if (location.hash === "#index") {
-        setTimeout(indexScreen, 0);
-    }
-    if (location.hash === "#createProject") {
-        setTimeout(loadProjectForm, 0);
-    }
-}
-
-
-
-window.onhashchange = locationHashChanged;
-*/
 
 function loadProject(input) {
 
@@ -163,12 +145,13 @@ function loadProject(input) {
 				if(data['success']==false){
 					cleanDiv("overview");
 					cleanDiv("versionContainer");
+					cleanDiv('menuBar');
 					statusUpdate("Please create a new version!");
 					 loadVersionForm(projectID);
 
 				}else {
 					getProjectInfo(input);	
-					updateMenu(input, null);
+					updateMenu(input);
 					cleanDiv("versionContainer");
 					cleanDiv("overview");
 					makeTree(data);
@@ -276,19 +259,13 @@ $(document).ready(function() {
 
 
 
-function updateMenu(input, input2){	
+function updateMenu(input){	
 		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New</a>';
-		var out3 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">Upload</a>';
-
-		var newVersion = "";
-
-		if (input2 == null){
-			newVersion = out1 + out3;
-		}else {
-			var out2 = '<a href="#" class="menuButton" onclick="'+"deleteVersion('"+input+"', '"+input2+"')" + '">Delete</a>';
+		var out2 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">File Manager</a>';
+		var out3 = '<a href="#" class="menuButton" onclick="'+"deleteProject('"+input+"')" + '">Delete Project</a>';
 			
-			newVersion = out1 + out2 + out3;
-		}
+		var	newVersion = out1 + out2 + out3;
+		
 
 		document.getElementById("menuBar").innerHTML = newVersion;	
 
@@ -340,6 +317,7 @@ $(document).ready(function() {
 		cleanDiv('overview');
 		cleanDiv('content');
 		cleanDiv('versionContainer');
+		cleanDiv('menuBar');
 		loadProjectForm();
 	});
 }
@@ -522,6 +500,41 @@ if (result) {
 				loadTree(input);
 				}else{
 					alert ("You cannot delete the root version!");
+				}
+
+				
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+	}
+	});
+}
+
+function deleteProject(input){
+$(document).ready(function() {
+var result = confirm("Are you sure you want to delete this project? Everything will be deleted, even the project files and audio files.");
+if (result) {
+        var formData = {
+			'projectID' : input,
+		};
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'projectDelete.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+
+				if(data.success == true){
+					indexScreen();
+					loadProjects();
+				}else{
+					alert ("You cannot delete this project");
 				}
 
 				
