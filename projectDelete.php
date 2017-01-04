@@ -26,6 +26,16 @@ session_start();
                  $dataOut['data'] ="Error deleting record: " . mysqli_error($conn);
                  $dataOut['success'] = false;
             }
+        
+        $sql = "DELETE FROM versions WHERE projectID='$projectID'";
+
+            if (mysqli_query($conn,$sql)) {
+                $dataOut['success'] = true;
+                $dataOut['data'] = "Record deleted successfully";
+            } else {
+                 $dataOut['data'] ="Error deleting record: " . mysqli_error($conn);
+                 $dataOut['success'] = false;
+            }
 
 
         echo json_encode($dataOut);

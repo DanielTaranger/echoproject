@@ -5,6 +5,23 @@ html, body {
 	color: #333333;
 	background-color: #272727;
 }
+
+body {
+	margin: 0px;
+
+}
+
+#app {
+	right: 0px;
+	top:0px;
+	bottom: 0px;
+	margin: 0px;
+	position: absolute;
+	left: 0px;
+	-webkit-transition: left 0.1s; /* Safari */
+    transition: left 0.1s;	
+}
+
 #leftPanel {
 	width: 200px;
 	background-color: #3d3d3d;
@@ -14,12 +31,35 @@ html, body {
 	bottom: 0px;
 	float: left;
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
-	z-index: 2;
+	z-index: 7;
 }
 
-.active {
-	stroke: 5px solid red;
+#menuSlider {
+	text-decoration: none;
+	padding-top: 10px;
+	padding-left: 15px;
+	height: 35px;
+	width: 35px;
+	font-size: 20px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	color: #c6c6c6;
+	-webkit-transition: left 0.1s; /* Safari */
+    transition: left 0.1s;	
+	z-index: 9;
 }
+
+#menuSlider:hover {
+	text-decoration: none;
+	color: white;
+}
+
+#active {
+	background-color: #4b4b4b;
+	color: white;
+}
+
 
 form p{
 	color: black;
@@ -45,15 +85,18 @@ form p{
 
 #topHeaderLink {
    display:inline-block;
-    width:100%;
+    width: 150px;
 	text-decoration: none;
+	position: relative;
+	left: 0px;
+	margin-left: 50px;
 }
 
 #topHeader {
 	margin: 0px auto;
 	text-align: center;
 	background-color: #3d3d3d;
-	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	
 	height: 32px;
 	padding-top: 13px;
 	cursor:pointer;
@@ -78,7 +121,7 @@ form p{
 	color: white;
 }
 
-#projectContainer {
+a.projectContainer {
 	display: inline-block;
 	cursor:pointer;
 	margin: 0px auto;
@@ -94,12 +137,13 @@ form p{
 
 }
 
-#projectContainer:hover  {
+a.projectContainer:hover  {
+	 text-decoration: none;
 		background-color: #5b5b5b;
 		color: white;
 }
 
-#projectContainer p {
+a.projectContainer p {
 	display: inline-block;
 	font-size: 14px;
 	margin: 0px auto;
@@ -114,7 +158,7 @@ form p{
 	cursor:pointer;
 	margin: 0px auto;
 	text-align: center;
-	background-color: #cc074c;
+	background-color: #dd155b;
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	height: 23px;
 	padding-top: 7px;
@@ -159,7 +203,7 @@ h1 {
 	width: auto;
 	padding-left: 250px;
 	min-width: 920px;
-	min-height: 200px;
+	min-height: 100px;
 }
 
 #versionContainer {
@@ -192,6 +236,7 @@ h1 {
 	float:left;
 	padding-left: 20px;
 	color: white;
+	margin-left: 55px;
 }
 
 #menuBar {
@@ -230,6 +275,21 @@ h1 {
 	display: inline-block;
 }
 
+a#fileView {
+	background-color: #5b5b5b;
+	color: white;
+	text-decoration:none;
+	display: block;
+	height: 25px;
+	width: auto;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+a#fileView:hover {
+	background-color: #aaaaaa;
+}
+
 select {
 	border: 1px solid #aaaaaa;
 	border-radius: 2px;
@@ -249,9 +309,6 @@ hr {
 	margin-left: 50px;
 }
 
-body {
-	margin: 0px;
-}
 
 h5 {
 	display: inline-block;
@@ -269,7 +326,7 @@ h5 {
 	clear: both; 
 }
 
-a {
+#statusBar a {
 	color:#ff4083; 
 	text-decoration:none;
 }

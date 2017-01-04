@@ -15,7 +15,15 @@ ob_start();
 		if($rows>=1){
 	
 			while($row = mysqli_fetch_array($result)) {
-				echo '<a href="#'.$row[2].'" id="projectContainer" onclick="loadProject('."'".$row[1]."'".')">'.$row[2]."</div>";
+				
+				$projName = "";
+
+				if(strlen($row[2])>=14){
+					$projName = substr($row[2], 0, 14) . "..."; 
+				}else{
+					$projName = $row[2];
+				}
+				echo '<a href="#'.$row[2].'" class="projectContainer" onclick="loadProject('."'".$row[1]."'".')">'. $projName ."</a>";
 			}
 		  
 		}else{

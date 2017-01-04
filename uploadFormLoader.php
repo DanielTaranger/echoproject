@@ -30,13 +30,36 @@ require('db.php');
                  $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
                 }
 
-            }                    
-            $data['data'] =  $uploadFormStart . $before . $middle . $after . $uploadFormEnd;
+            }  
+
+             $fileSelect = "";
+            $dirname = "uploaded_files/";
+            $dirname = $dirname . $projectID;
+
+
+            if (is_dir($dirname)) {
+
+                    $fileListing = "";
+                    $dir = 'uploaded_files/'.$projectID ."/";
+                    $files = scandir($dir,2);
+
+                    unset($files[0]);
+                    unset($files[1]);
+
+                    foreach ($files as $value){
+                        if( is_file($dir.$value)){
+                                $fileListing = $fileListing . '<a href="#" id="fileView" onclick="(' . $value . '")>' . $value . '</a>';
+                        }
+                    }
+                    $fileSelect =  $fileListing;
+        }  
+             $data['data2'] = $fileSelect;
+            $data['data1'] =  $uploadFormStart . $before . $middle . $after . $uploadFormEnd;
             $data['success'] = true;
 
         }else{
-
-            $data['data'] =  "<h3>An error occurred fetching our projects</h3>";
+            $data['data2'] = $fileSelect;
+            $data['data1'] =  "<h3>An error occurred fetching our projects</h3>";
             $data['success'] = true;
         }   
 

@@ -19,6 +19,9 @@
 
     </head>
     <body>
+        
+                <a href="#index" onclick="slideMenuLeft()" id="menuSlider">&#9776;</a>
+    <div id="app">
         <div id="statusBar">
             <p id="status"></p>
             <p>switch theme</p>
@@ -33,12 +36,15 @@
         </div>
 
         <div id="leftPanel">
+            <div id="topCont">
             <a href="#index" id="topHeaderLink">
-                <div id="topHeader" onclick="indexScreen()">
-                    <img src="img/echo.png" alt="ECHO logo" width="20px" height="20px">
-                    <p>echo</p><h5>1.0.0</h5> 
-                </div>
-            </a>
+                    <div id="topHeader" onclick="indexScreen()">
+                        <img src="img/echo.png" alt="ECHO logo" width="20px" height="20px">
+                        <p>echo</p><h5>1.0.0</h5> 
+                    </div>
+                </a>
+            </div>
+
             <a href="#createProject" id="newProject" onclick="createNewProject()"><p>+</p></a>
             <p id="container"></p>
         </div>
@@ -51,6 +57,7 @@
         </div>
 
         <div id="versionContainer">
+        </div>
         </div>
 
         <script>

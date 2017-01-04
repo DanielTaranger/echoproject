@@ -7,6 +7,20 @@ $(document).ready(function() {
 
 });  
 
+function slideMenuLeft(){
+	document.getElementById("app").style.left = "-200px";
+
+	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuRight()");
+
+}
+
+function slideMenuRight(){
+	document.getElementById("app").style.left = "0px";
+	
+	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuLeft()");
+
+}
+
 
 function switchTheme(){
 
@@ -20,7 +34,20 @@ function switchTheme(){
 	  saveTheme("off");
 	 
   }
- 
+}
+
+function activeProject(input){
+	unactiveProjects();
+	document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
+}
+
+
+
+function unactiveProjects(){
+		var elems = document.getElementsByClassName('projectContainer')
+    for (var i = 0; i < elems.length; i++) {
+				elems[i].removeAttribute("id");
+    }
 }
 
 function loadTheme() {
@@ -148,6 +175,7 @@ function loadProject(input) {
 					cleanDiv('menuBar');
 					statusUpdate("Please create a new version!");
 					 loadVersionForm(projectID);
+					 activeProject(input);
 
 				}else {
 					getProjectInfo(input);	
@@ -156,6 +184,7 @@ function loadProject(input) {
 					cleanDiv("overview");
 					makeTree(data);
 					statusUpdate("Project loaded successfully!");
+					activeProject(input);
 
 				}
 				});
@@ -167,6 +196,8 @@ function loadProject(input) {
 		    event.preventDefault();
     	
 }
+
+
 
 function loadTree(input) {
 cleanDiv("overview");
@@ -273,6 +304,7 @@ function updateMenu(input){
 
 
 function loadProjectForm(){
+		unactiveProjects();
         $( "#content" ).load( "include/projectForm.html");
         cleanDiv("overview");
 		statusUpdate("Projectform loaded successfully!")
@@ -299,7 +331,8 @@ updateMenu(input);
 			.done(function(data) {
 					var obj = jQuery.parseJSON(data);
 					
-					document.getElementById("content").innerHTML = obj.data;
+					document.getElementById("content").innerHTML = obj.data1;
+					document.getElementById("versionContainer").innerHTML = obj.data2;
 	
 			})
 
@@ -620,6 +653,7 @@ $(document).ready(function() {
 					cleanDiv("content");
 					getProjectInfo(data.projectID);
 					loadProjects();
+					activeProject(data.projectID);
 										
 				}
 			})
