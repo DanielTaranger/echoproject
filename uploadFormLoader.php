@@ -13,7 +13,8 @@ require('db.php');
 
         $data = array();
 
-        //selection of versions
+
+        $uploadFormBeforeStart = '<div id="contentBox">' . '<a class="boxclose" id="boxclose" onclick="loadProject('."'".$projectID."'".')"></a>';  
         $uploadFormStart = file_get_contents("include/uploadFormStart.html");
         $uploadFormEnd = file_get_contents("include/uploadFormEnd.html");
 
@@ -54,7 +55,7 @@ require('db.php');
                     $fileSelect =  $fileListing;
         }  
              $data['data2'] = $fileSelect;
-            $data['data1'] =  $uploadFormStart . $before . $middle . $after . $uploadFormEnd;
+            $data['data1'] =  $uploadFormBeforeStart . $uploadFormStart . $before . $middle . $after . $uploadFormEnd;
             $data['success'] = true;
 
         }else{

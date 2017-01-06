@@ -23,7 +23,7 @@ include ("include/header.html");
 			
 		}else{
 		
-		echo "<div class='form'><h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+		echo '<div  id="loginRegisterForm">'."<h3>Username/password is incorrect.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
 		} 
 
     }else{

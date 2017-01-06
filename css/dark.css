@@ -378,7 +378,7 @@ input[type='submit']{
 	border-radius: 2px; 
 	margin-top: 10px; 
 	cursor:pointer;
-	display: block;
+
 }
 
 input[type='submit']:hover {
@@ -501,3 +501,10 @@ g text{
 	display: inline-block;
 }
 
+#loginRegisterForm {
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -50px;
+}

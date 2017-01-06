@@ -1,8 +1,25 @@
 var theme = "off";
 var projectIDStore = "";
 
+if ("onhashchange" in window) {
+    
+}
+
+//Hash change handler
+function locationHashChanged() {
+    if (location.hash.substr(0, 8) === "#project") {
+       loadProject(location.hash.substr(9));
+    }else if(location.hash.substr(0, 7) === "#upload"){
+		 loadUploadForm(location.hash.substr(8));
+	}else if (location.hash.substr(0, 8) === "#version"){	
+		 LoadVersionInfo(location.hash.substr(9));
+	}
+}
+
+window.onhashchange = locationHashChanged;
+
 $(document).ready(function() {  
-  
+  locationHashChanged();
   loadTheme();
 
 });  
@@ -150,7 +167,7 @@ function loadProjects() {
 
 
 function loadProject(input) {
-
+window.location.hash = '#project/'+input;
 		projectIDStore = input;
 		var projectID = input;
         var formData = {
@@ -291,7 +308,7 @@ $(document).ready(function() {
 
 
 function updateMenu(input){	
-		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New</a>';
+		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New Version</a>';
 		var out2 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">File Manager</a>';
 		var out3 = '<a href="#" class="menuButton" onclick="'+"deleteProject('"+input+"')" + '">Delete Project</a>';
 			
@@ -311,6 +328,7 @@ function loadProjectForm(){
 }
 
 function loadUploadForm(input){
+window.location.hash = '#upload/'+input;
 updateMenu(input);
     //    $( "#content" ).load( "uploadFormLoader.php");
         cleanDiv("overview");

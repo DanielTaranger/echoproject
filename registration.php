@@ -1,10 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title>Registration</title>
-<link rel="stylesheet" href="css/index.css" />
-</head>
+    <head>
+        <title>Registration</title>
+        <meta charset="UTF-8">
+        <link rel="icon" href="img/favicon.ico">
+        <link id="pagestyle" rel="stylesheet" href="css/index.css" />
+        <link id="pagestyle" rel="stylesheet" href="css/switch.css" />
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+   
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+        <script src="//cdnjs.cloudflare.com/ajax/libs/wavesurfer.js/1.0.52/wavesurfer.min.js"></script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script id="darkScript" src="js/treeFunctions.js"></script>
+        <script src="js/functions.js"></script>
+    </head>
 <body>
 <?php
 	require('db.php');
@@ -27,13 +39,15 @@
         }
     }else{
 ?>
-<div class="form">
+<div id="loginRegisterForm">
 <h1>Registration</h1>
 <form name="registration" action="" method="post">
-<input type="text" name="username" placeholder="Username" required />
-<input type="email" name="email" placeholder="Email" required />
-<input type="password" name="password" placeholder="Password" required />
+<input type="text" class="form-control" name="username" placeholder="Username" required />
+
+<input type="email" class="form-control" name="email" placeholder="Email" required />
+<input type="password" class="form-control" name="password" placeholder="Password" required />
 <input type="submit" name="submit" value="Register" />
+<p>Go back to  <a href='login.php'>login</a></p>
 </form>
 </div>
 <?php } ?>
