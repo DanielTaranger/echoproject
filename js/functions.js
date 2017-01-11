@@ -7,6 +7,7 @@ if ("onhashchange" in window) {
 
 //Hash change handler
 function locationHashChanged() {
+	
     if (location.hash.substr(0, 8) === "#project") {
        loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
@@ -26,14 +27,12 @@ $(document).ready(function() {
 
 function slideMenuLeft(){
 	document.getElementById("app").style.left = "-200px";
-
 	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuRight()");
 
 }
 
 function slideMenuRight(){
 	document.getElementById("app").style.left = "0px";
-	
 	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuLeft()");
 
 }
@@ -54,9 +53,11 @@ function switchTheme(){
 }
 
 function activeProject(input){
-	unactiveProjects();
-	document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
-}
+
+		unactiveProjects();
+		document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
+	}
+
 
 
 
@@ -134,16 +135,16 @@ function saveTheme(input) {
 						swapStyleSheet('css/dark.css');
 						document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 						theme = "on";
-					if(isItEmpty("overview") == false){
-						loadTree(projectIDStore);
-					}
+						if(isItEmpty("overview") == false){
+							loadTree(projectIDStore);
+						}
 					}else if (input=="off"){
 						swapStyleSheet('css/index.css');
 						document.getElementById('checkBoxTheme').removeAttribute('checked');
 						theme = "off";
-					if(isItEmpty("overview") == false){
-						loadTree(projectIDStore);
-					}
+						if(isItEmpty("overview") == false){
+							loadTree(projectIDStore);
+						}
 					}
 				}
 
@@ -167,6 +168,9 @@ function loadProjects() {
 
 
 function loadProject(input) {
+
+document.getElementById("content").innerHTML = '<img src="img/ripple.svg" style="float:left;width:25px;display:inline-block;">';
+
 window.location.hash = '#project/'+input;
 		projectIDStore = input;
 		var projectID = input;
@@ -211,12 +215,13 @@ window.location.hash = '#project/'+input;
 				console.log(data);
 			});
 		    event.preventDefault();
-    	
+
 }
 
 
 
 function loadTree(input) {
+	
 cleanDiv("overview");
 		var projectID = input;
         var formData = {
@@ -365,8 +370,8 @@ updateMenu(input);
 
 function createNewProject(){
 $(document).ready(function() {
-		cleanDiv('overview');
 		cleanDiv('content');
+		cleanDiv('overview');
 		cleanDiv('versionContainer');
 		cleanDiv('menuBar');
 		loadProjectForm();
@@ -612,6 +617,12 @@ function cleanDiv(input, input2){
 				loadProject(input2);
 			}
 			
+}
+
+function cleanAll(){
+	cleanDiv("content");
+	cleanDiv("overview");
+	cleanDiv("versionContainer");
 }
 
 function statusUpdate(input){
