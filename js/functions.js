@@ -1,11 +1,11 @@
 var theme = "off";
 var projectIDStore = "";
+var isWorking = false;
 
 if ("onhashchange" in window) {
     
 }
 
-//Hash change handler
 function locationHashChanged() {
 	
     if (location.hash.substr(0, 8) === "#project") {
@@ -48,18 +48,16 @@ function switchTheme(){
   }else{
 	  statusUpdate("Light mode enabled");
 	  saveTheme("off");
-	 
   }
 }
 
 function activeProject(input){
+	$(document).ready(function() {  
+			unactiveProjects();
+			document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
 
-		unactiveProjects();
-		document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
-	}
-
-
-
+	});  
+}
 
 function unactiveProjects(){
 		var elems = document.getElementsByClassName('projectContainer')
@@ -105,7 +103,6 @@ function loadTheme() {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    
 }
 
 
@@ -165,10 +162,10 @@ function loadProjects() {
         $( "#container" ).load( "projectLoader.php" );
 }
 
-
-
 function loadProject(input) {
 
+if(isWorking == false){
+isWorking == true;
 document.getElementById("content").innerHTML = '<img src="img/ripple.svg" style="float:left;width:25px;display:inline-block;">';
 
 window.location.hash = '#project/'+input;
@@ -197,6 +194,7 @@ window.location.hash = '#project/'+input;
 					statusUpdate("Please create a new version!");
 					 loadVersionForm(projectID);
 					 activeProject(input);
+					 isWorking == false;
 
 				}else {
 					getProjectInfo(input);	
@@ -206,6 +204,7 @@ window.location.hash = '#project/'+input;
 					makeTree(data);
 					statusUpdate("Project loaded successfully!");
 					activeProject(input);
+					isWorking == false;
 
 				}
 				});
@@ -215,10 +214,8 @@ window.location.hash = '#project/'+input;
 				console.log(data);
 			});
 		    event.preventDefault();
-
+	}
 }
-
-
 
 function loadTree(input) {
 	

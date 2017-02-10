@@ -1,8 +1,8 @@
-<?php
-$data2 = array(); 		
+<?php 		
 session_start();
 require('db.php');  
     if (isset($_SESSION['username'])){
+        $data2 = array();
         $username = $_SESSION['username'];
         $username = stripslashes($username);
         $data = array();
@@ -43,7 +43,7 @@ require('db.php');
                     } 
                     return $tree;
 
-            }
+                }
                        $tree = createTree($new, array($data[0]));
                 $data = $tree;
 

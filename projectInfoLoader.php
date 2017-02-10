@@ -9,7 +9,7 @@ session_start();
 
         $data = array();
 
-        $query = "SELECT * FROM projects WHERE projectID='$projectID'";
+        $query = "SELECT * FROM projects WHERE projectID='$projectID' LIMIT 1";
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$rows = mysqli_num_rows($result);
 
