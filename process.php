@@ -30,21 +30,31 @@ $data 			= array(); 		// array to pass back data
 
                 $description = $_POST['description'];
                 $description = stripslashes($description);
+
+				$last_version = 0;
       
-                $query =  "INSERT INTO projects (username, title, description) VALUES ('".$username."', '".$title."', '".$description."')";
+                $query =  "INSERT INTO projects (username, title, description, last_version) VALUES ('".$username."', '".$title."', '".$description."', '".$last_version."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 				$query = "SELECT * FROM projects  WHERE title='$title'";
 				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 				$rows = mysqli_num_rows($result);
 
+				$projectID;
+
 
 				if($rows>=1){
 					while($row = mysqli_fetch_array($result)) {
+							$projectID = $row[1];
 							$data['projectID'] = $row[1];
 						}
 					
 				}
+				
+
+				$query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID.
+				"', 'Ver 1', 'Default version text, please edit to your liking using the pencil icon in the top right', '0', 'no file')";
+                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
             }
 

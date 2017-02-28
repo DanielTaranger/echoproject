@@ -61,9 +61,9 @@ function activeProject(input){
 
 function unactiveProjects(){
 		var elems = document.getElementsByClassName('projectContainer')
-    for (var i = 0; i < elems.length; i++) {
-				elems[i].removeAttribute("id");
-    }
+		for (var i = 0; i < elems.length; i++) {
+					elems[i].removeAttribute("id");
+		}
 }
 
 function loadTheme() {
@@ -86,14 +86,18 @@ function loadTheme() {
 					theme = "on";
 					document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 					if(isItEmpty("overview") == false){
-						loadTree(projectIDStore);
+						if(location.hash.substr(0, 7) != "#upload"){
+							loadTree(projectIDStore);							
+						}
 					}
 					}else{
 					swapStyleSheet('css/index.css');
 					document.getElementById('checkBoxTheme').removeAttribute('checked');
 					theme = "off";
 					if(isItEmpty("overview") == false){
-						loadTree(projectIDStore);
+						if(location.hash.substr(0, 7) != "#upload"){
+							loadTree(projectIDStore);							
+						}
 					}
 					}
 				}
@@ -252,7 +256,7 @@ cleanDiv("overview");
 }
 
 function getProjectInfo(input){ 
-
+$(document).ready(function() {
 		var projectID = input;
         var formData = {
 			'projectID' : input
@@ -269,13 +273,18 @@ function getProjectInfo(input){
 
 			.done(function(data) {
 					cleanDiv("content");
-					document.getElementById("content").innerHTML = data;	
+					document.getElementById("content").innerHTML = data.project;	
+					if(data.active > 0){
+						LoadVersionInfo(data.active);
+					}
+					
 			})
 
 			.fail(function(data) {
 				console.log(data);
 			});
 		    event.preventDefault();
+	});
 }
 
 function LoadVersionInfo(input){ 
@@ -310,15 +319,19 @@ $(document).ready(function() {
 
 
 function updateMenu(input){	
-		var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New Version</a>';
+	//	var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New Version</a>';
 		var out2 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">File Manager</a>';
 		var out3 = '<a href="#" class="menuButton" onclick="'+"deleteProject('"+input+"')" + '">Delete Project</a>';
 			
-		var	newVersion = out1 + out2 + out3;
+		var	newVersion = // out1 + 
+		out2 + out3;
 		
 
 		document.getElementById("menuBar").innerHTML = newVersion;	
 
+		if(input === undefined){
+			document.getElementById("menuBar").innerHTML = "";	
+		}	
 }
 
 
@@ -392,7 +405,7 @@ cleanDiv("versionContainer");
 			.done(function(data) {
 					var obj = jQuery.parseJSON(data);
 					
-					document.getElementById("content").innerHTML = obj.data;
+					document.getElementById("versionContainer").innerHTML = obj.data;
 	
 			})
 
@@ -586,6 +599,7 @@ if (result) {
 				if(data.success == true){
 					indexScreen();
 					loadProjects();
+					updateMenu();
 				}else{
 					alert ("You cannot delete this project");
 				}
@@ -674,13 +688,15 @@ $(document).ready(function() {
 						$('#description-group').append('<div class="help-block">' + data.errors.description + '</div>'); 
 					}
 
-				} else {	
-					statusUpdate("Project created successfully!")
-					cleanDiv("content");
-					getProjectInfo(data.projectID);
-					loadProjects();
-					activeProject(data.projectID);
-										
+				} else {
+				
+						loadProjects();
+						projectIDStore = data.projectID;
+						statusUpdate("Project created successfully!")
+						cleanDiv("content");
+						loadProject(projectIDStore);
+						
+					
 				}
 			})
 

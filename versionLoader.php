@@ -9,6 +9,7 @@ session_start();
          $data = array();
          $versionID = $_POST['versionID'];
 
+
         $query = "SELECT * FROM versions  WHERE versionID='$versionID'";
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$rows = mysqli_num_rows($result);
@@ -18,9 +19,12 @@ session_start();
 		if($rows>=1){
 			while($row = mysqli_fetch_array($result)) {
 				$dataOut= '<div id="contentBox">'.
-				'<a id="editButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
-				'<a id="deleteButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		
-				'<a class="boxclose" id="boxclose" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
+				'<div id="versionButtons">'.
+					'<a id="newVersionButton" class="versionButton" onclick="loadVersionForm('."'". $row[0] ."'".')"></a>'.
+					'<a id="editButton" class="versionButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
+					'<a id="deleteButton" class="versionButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		
+					'<a id="boxclose" class="versionButton" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
+				'</div>'.
 				'<h1 id="versionHeading">'.$row[2].'</h1><p>'.$row[3].'</p>';
 				if($row[5]=="no file"){
 					$data['data'] = $dataOut . '</div>';
@@ -32,8 +36,12 @@ session_start();
 					'Your browser does not support the audio element.'.
 					'</audio>'.'</div>';
 				}
+										 		//sets the last used version of a project 
+				$query2 = "UPDATE projects SET last_version = '$versionID' WHERE projectID='$row[0]'";
+				mysqli_query($conn, $query2) or die(mysqli_error($conn));
 				
 			}
+			
 
 		}else{
             echo "<p>No projects found</p>";

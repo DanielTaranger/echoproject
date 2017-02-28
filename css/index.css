@@ -36,6 +36,9 @@ body {
 	float: left;
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	z-index: 7;
+	overflow: hidden; 
+	margin-bottom: -5000px; /* any large number will do */
+	padding-bottom: 5000px; 
 }
 
 #menuSlider {
@@ -180,13 +183,13 @@ a.projectContainer p {
 }
 
 #content {
-	float:left;
 	padding-left: 250px;
 	padding-top: 120px;
 	width: auto;
 	height: auto;
 	min-width: 300px;
 	max-width: 700px;
+	clear: both;
 }
 
 #container {
@@ -326,7 +329,7 @@ h5 {
 	clear: both; 
 }
 
-a {
+#statusBar a {
 	color:#ff4083; 
 	text-decoration:none;
 }
@@ -386,73 +389,86 @@ input[type='submit']:hover {
 	background-color: #7f7f7f;
 }
 
-
-a.boxclose{
-	text-decoration: none;
-    float: right;
-    margin-right: -9px;
-	margin-top: 20px;
-    cursor:pointer;
-    color: #c9c9c9;
-    font-size: 19px;
-	font-weight: lighter;
-    display: inline-block;
-    line-height: 0px;
-}
-
-.boxclose:before {
-    content: "✖";
-	text-decoration: none;
-	font-weight: lighter;
-}
-
 audio {
 	margin-top: 30px;
 	width: 500px;
 }
 
-.boxclose:hover {
-	color: #333;	
+#versionButtons {
+	padding-top: 5px;
+	position: relative;
+	left: 10px;
+	text-align: right;
+	height: 25px;
+	width: 100%;
+}
+
+.versionButton {
+	height: 22px;
+	width: 22px;
+	cursor: pointer;
+	font-size: 20px;
+	display: inline-block;
+}	
+
+a.versionButton {
+		text-decoration: none;
+		text-align: center;
+}
+
+#newVersionButton {
+	text-decoration: none;
+	opacity: 0.35;
+	font-weight: bold;
+	font-size: 22px;
+}
+
+#newVersionButton:before {
+	content: "+";
+}
+
+#newVersionButton:hover {
+	opacity: 1.0;
 }
 
 #editButton {
-	text-decoration: none;
-	color: gray;
-	font-size: 23px;
-	text-decoration: none;
-	position:relative;
-	left: 449px;
-    margin-right: 16px;
-	margin-top: 20px;
-    cursor:pointer;
-    color: #c9c9c9;
-    font-size: 19px;
-	font-weight: lighter;
-    display: inline-block;
-    line-height: 0px;
+	opacity: 0.35;
 }
 
 #editButton:before {
 	content: "✎";
-	text-decoration: none;
 }
 
 #editButton:hover {
-	color: #333;	
+	opacity: 1.0;
 }
 
-a#deleteButton {
-	position: relative;
-	left: 438px;
-	width: 50px;
-	height: 50px;
-	opacity: 0.25;
-	cursor:pointer;
+#deleteButton {
+	opacity: 0.35;
 }
 
 
-A#deleteButton:hover {
-	opacity: 0.9;	
+#deleteButton:hover {
+	opacity: 1.0;	
+}
+
+
+#boxclose{
+    cursor:pointer;
+    color: #c9c9c9;
+    font-size: 19px;
+	font-weight: lighter;
+
+}
+
+#boxclose:before {
+    content: "✖";
+	text-decoration: none;
+	font-weight: lighter;
+}
+
+#boxclose:hover {
+	color: #d4d4d4;	
 }
 
 h1#versionHeading {

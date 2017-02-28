@@ -32,7 +32,7 @@ if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
 	        else{ // No error found! Move uploaded files 
 	            if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.$name))
 	            $count++; // Number of successfully uploaded file
-				header('Location: index.php#');
+				header('Location: #upload');
 				echo "<h1>Upload successful</h1>";
 				}
 			}

@@ -16,9 +16,21 @@ session_start();
 		if($rows>=1){
 	
 			while($row = mysqli_fetch_array($result)) {
-				$data = '<h1>'.$row[2].'</h1 id="projectH1">'.'<hr><p>'.$row[3].
-                '<div id="waveform"></div>'.
-                '</p>';
+				$data['project'] = '<h1>'.$row[2].'</h1 id="projectH1">'.'<hr><p>'.$row[3].'</p>';
+				if($row[5] === 0){
+					$query3 = "SELECT * FROM versions  WHERE projectID='$projectID' AND parent='0'";
+					$result2 = mysqli_query($conn, $query3) or die(mysqli_error($conn));
+					$rows2 = mysqli_num_rows($result2);
+						if($rows2>=1){
+							while($row4 = mysqli_fetch_array($result2)) {
+								$data['active'] = $row4[1];
+							}
+						}
+
+				}else {
+					$data['active'] = $row[5];
+				}
+
 			}
 
 		}else{

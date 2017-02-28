@@ -127,7 +127,6 @@ var treeData = input;
 
     // Toggle children on click.
     function click(d) {
-        getProjectInfo(d.projectID);
         LoadVersionInfo(d.versionID);
         updateMenu(d.projectID);
         update(d);
@@ -265,7 +264,6 @@ var treeData = input;
 
     // Toggle children on click.
     function click(d) {
-        getProjectInfo(d.projectID);
         LoadVersionInfo(d.versionID);
         updateMenu(d.projectID);
         update(d);
