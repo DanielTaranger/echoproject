@@ -388,10 +388,11 @@ $(document).ready(function() {
 	});
 }
 
-function loadVersionForm(input){
+function loadVersionForm(input,input2){
 cleanDiv("versionContainer");
         var formData = {
-			'projectID' : input
+			'projectID' : input,
+			'versionID' : input2
 		};
 
 

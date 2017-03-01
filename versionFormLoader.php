@@ -7,7 +7,8 @@ require('db.php');
         $username = stripslashes($username);
 
         $projectID = $_POST['projectID'];
-        $projectID = stripslashes($projectID);
+        $versionID = $_POST['versionID'];
+
 
         $query="SELECT * FROM versions WHERE projectID='$projectID'";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -50,7 +51,11 @@ require('db.php');
 
             if($rows>=1){
                 while($row = mysqli_fetch_array($result)) {
-                    $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
+                    if($row[1] == $versionID){
+                        $middle = $middle . '<option value="'.$row[1].'" selected="selected">'.$row[2].'</option>';
+                    }else{
+                        $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
+                    }
                 }                    
                 $data['data'] =   $beforefirst . $bfirst . $first  . $before . $middle . $after . $fileSelect . $sumbit . $end;
                 $data['success'] = true;
@@ -62,11 +67,15 @@ require('db.php');
 
         } else {
 
-            $noUploadedMessage = "<p><b>No files uploaded!</b> click upload above to add files to this project</p>"; 
+            $noUploadedMessage = "<p><b>No files uploaded!</b> click File Manager to add files to this project</p>"; 
 
             if($rows>=1){
                 while($row = mysqli_fetch_array($result)) {
-                    $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
+                    if($row[1] == $versionID){
+                        $middle = $middle . '<option value="'.$row[1].'" selected="selected">'.$row[2].'</option>';
+                    }else{
+                        $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';
+                    }
                 }
                 $data['data'] =   $beforefirst . $bfirst . $first . $before . $middle . $after . $noUploadedMessage. $sumbit . $end;
                 $data['success'] = true;

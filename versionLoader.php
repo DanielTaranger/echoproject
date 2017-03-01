@@ -20,7 +20,7 @@ session_start();
 			while($row = mysqli_fetch_array($result)) {
 				$dataOut= '<div id="contentBox">'.
 				'<div id="versionButtons">'.
-					'<a id="newVersionButton" class="versionButton" onclick="loadVersionForm('."'". $row[0] ."'".')"></a>'.
+					'<a id="newVersionButton" class="versionButton" onclick="loadVersionForm('."'". $row[0] ."',"."'".$versionID."'".')"></a>'.
 					'<a id="editButton" class="versionButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
 					'<a id="deleteButton" class="versionButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		
 					'<a id="boxclose" class="versionButton" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.

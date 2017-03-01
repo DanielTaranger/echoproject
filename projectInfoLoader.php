@@ -16,7 +16,7 @@ session_start();
 		if($rows>=1){
 	
 			while($row = mysqli_fetch_array($result)) {
-				$data['project'] = '<h1>'.$row[2].'</h1 id="projectH1">'.'<hr><p>'.$row[3].'</p>';
+				$data['project'] = '<h1>'.$row[2].'</h1>'."<p>Created ".substr($row[4], 0, 10)."</p>".'<hr><p>'.$row[3].'</p>';
 				if($row[5] === 0){
 					$query3 = "SELECT * FROM versions  WHERE projectID='$projectID' AND parent='0'";
 					$result2 = mysqli_query($conn, $query3) or die(mysqli_error($conn));

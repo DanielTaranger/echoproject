@@ -418,7 +418,7 @@ a.versionButton {
 
 #newVersionButton {
 	text-decoration: none;
-	opacity: 0.35;
+	color: #ff4083;
 	font-weight: bold;
 	font-size: 22px;
 }
@@ -428,7 +428,7 @@ a.versionButton {
 }
 
 #newVersionButton:hover {
-	opacity: 1.0;
+	color: #ff7aa9;
 }
 
 #editButton {
