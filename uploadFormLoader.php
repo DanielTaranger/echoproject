@@ -6,6 +6,7 @@ require('db.php');
         $username = stripslashes($username);
 
         $projectID = $_POST['projectID'];
+        $projectName = "";
 
         $query="SELECT * FROM projects WHERE username='$username'";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -14,7 +15,7 @@ require('db.php');
         $data = array();
 
 
-        $uploadFormBeforeStart = '<div id="contentBox">' . '<a class="boxclose" id="boxclose" onclick="loadProject('."'".$projectID."'".')"></a>';  
+        $uploadFormBeforeStart = '<div id="contentBox">' .'<div id="versionButtons">'. '<a class="versionButton" id="boxclose" onclick="loadProject('."'".$projectID."'".')"></a></div>';  
         $uploadFormStart = file_get_contents("include/uploadFormStart.html");
         $uploadFormEnd = file_get_contents("include/uploadFormEnd.html");
 
@@ -24,7 +25,7 @@ require('db.php');
 
         if($rows>=1){
             while($row = mysqli_fetch_array($result)) {
-
+                $projectName = $row[2];
                 if($row[1] == $projectID){
                     $middle = $middle . '<option value="'.$row[1].'" selected>'.$row[2].'</option>';
                 }else {
@@ -49,22 +50,38 @@ require('db.php');
 
                     foreach ($files as $value){
                         if( is_file($dir.$value)){
-                                $fileListing = $fileListing . '<a href="#" id="fileView" onclick="(' . $value . '")>' . $value . '</a>';
+                                $fileListing = $fileListing .'<div class="fileListPlayerContainer">' .'<p class="fileInfo">'.'file: '.$value.'</p>'.'<audio controls class="fileListPlayer"><source src="'.$dir.$value. '" type="audio/mpeg">Your browser does not support the audio element.</audio>'.'<a href="#" id="fileView" onclick="deleteFile('."'".$projectID."','".$value."'".')">' . 'Delete' . '</a>'. '</div>';
+
                         }
                     }
+                    if (is_dir_empty($dir)) {
                     $fileSelect =  $fileListing;
+                    }else{
+                    $fileSelect =  '<h1>'.$projectName.' project files</h1>'. $fileListing;
+                    }
+               
         }  
-             $data['data2'] = $fileSelect;
+            $data['data2'] = $fileSelect;
             $data['data1'] =  $uploadFormBeforeStart . $uploadFormStart . $before . $middle . $after . $uploadFormEnd;
             $data['success'] = true;
 
         }else{
             $data['data2'] = $fileSelect;
-            $data['data1'] =  "<h3>An error occurred fetching our projects</h3>";
+            $data['data1'] =  "<h3>An error occurred fetching your projects</h3>";
             $data['success'] = true;
         }   
 
         echo json_encode($data);
     }
     
+    function is_dir_empty($dir) {
+        if (!is_readable($dir)) return NULL; 
+        $handle = opendir($dir);
+        while (false !== ($entry = readdir($handle))) {
+            if ($entry != "." && $entry != "..") {
+            return FALSE;
+            }
+        }
+        return TRUE;
+        }
 ?>

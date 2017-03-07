@@ -278,20 +278,6 @@ h1 {
 	display: inline-block;
 }
 
-a#fileView {
-	background-color: #5b5b5b;
-	color: white;
-	text-decoration:none;
-	display: block;
-	height: 25px;
-	width: auto;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-a#fileView:hover {
-	background-color: #aaaaaa;
-}
 
 select {
 	border: 1px solid #aaaaaa;
@@ -394,6 +380,57 @@ audio {
 	width: 500px;
 }
 
+
+a#fileView {
+	text-decoration:none;
+	display: inline-block;
+	height: 24px;
+	width: auto;
+	padding-top: 6px;
+	padding-left: 7px;
+	padding-right:  7px;
+	border-radius: 2px;
+	position: relative;
+	bottom: 10px;
+}
+
+a#fileView:hover {
+	background-color: #d51659;
+	color: white;
+}
+
+.fileListPlayer {
+	margin: 0px;
+	width: 200px;
+}
+
+.fileListPlayerContainer{
+	width: 260px;
+	height: 77px;
+	background: white;	
+	padding: 5px;
+	display: inline-block;
+	margin-left: 4px;
+}
+
+audio::-internal-media-controls-download-button {
+    display:none;
+}
+
+audio::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+audio::-webkit-media-controls-panel {
+    width: calc(100% + 30px); /* Adjust as needed */
+}
+
+
+.fileInfo {
+	display: inline-block;
+	padding-left: 10px;
+}
+
 #versionButtons {
 	padding-top: 5px;
 	position: relative;
@@ -452,6 +489,14 @@ a.versionButton {
 	opacity: 1.0;	
 }
 
+#boxclose, #deletebutton{
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none;
+            user-select: none; 
+}
 
 #boxclose{
     cursor:pointer;

@@ -278,21 +278,6 @@ h1 {
 	display: inline-block;
 }
 
-a#fileView {
-	background-color: #5b5b5b;
-	color: white;
-	text-decoration:none;
-	display: block;
-	height: 25px;
-	width: auto;
-	padding-left: 15px;
-	padding-right: 15px;
-}
-
-a#fileView:hover {
-	background-color: #aaaaaa;
-}
-
 select {
 	border: 1px solid #aaaaaa;
 	border-radius: 2px;
@@ -311,7 +296,6 @@ hr {
 	display: inline-block;
 	margin-left: 50px;
 }
-
 
 h5 {
 	display: inline-block;
@@ -394,6 +378,57 @@ audio {
 	width: 500px;
 }
 
+a#fileView {
+	text-decoration:none;
+	display: inline-block;
+	height: 24px;
+	width: auto;
+	padding-top: 6px;
+	padding-left: 7px;
+	padding-right:  7px;
+	border-radius: 2px;
+	position: relative;
+	bottom: 10px;
+}
+
+a#fileView:hover {
+	background-color: #d51659;
+	color: white;
+}
+
+
+.fileListPlayer {
+	margin: 0px;
+	width: 200px;
+}
+
+.fileListPlayerContainer{
+	width: 260px;
+	height: 77px;
+	background: white;	
+	padding: 5px;
+	display: inline-block;
+	margin-left: 4px;
+}
+
+
+audio::-internal-media-controls-download-button {
+    display:none;
+}
+
+audio::-webkit-media-controls-enclosure {
+    overflow:hidden;
+}
+
+audio::-webkit-media-controls-panel {
+    width: calc(100% + 30px); /* Adjust as needed */
+}
+
+.fileInfo {
+	display: inline-block;
+	padding-left: 10px;
+}
+
 #versionButtons {
 	padding-top: 5px;
 	position: relative;
@@ -447,18 +482,24 @@ a.versionButton {
 	opacity: 0.35;
 }
 
-
 #deleteButton:hover {
 	opacity: 1.0;	
 }
 
+.versionButton {
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none;
+            user-select: none; 
+}
 
 #boxclose{
     cursor:pointer;
-    color: #c9c9c9;
     font-size: 19px;
 	font-weight: lighter;
-
+	opacity: 0.35;
 }
 
 #boxclose:before {
@@ -468,7 +509,7 @@ a.versionButton {
 }
 
 #boxclose:hover {
-	color: #d4d4d4;	
+	opacity: 1.0;	
 }
 
 h1#versionHeading {
@@ -501,6 +542,15 @@ svg {
 	position: relative;
 	 left: -267px;
 	 top: 328px; */
+}
+
+g text{
+  -webkit-touch-callout: none; 
+    -webkit-user-select: none;
+     -khtml-user-select: none; 
+       -moz-user-select: none; 
+        -ms-user-select: none;
+            user-select: none; 
 }
 
 #fileAlert {

@@ -35,7 +35,7 @@
         $query = "INSERT into `users` (username, password, email, trn_date) VALUES ('$username', '".md5($password)."', '$email', '$trn_date')";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         if($result){
-            echo "<div class='form'><h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
+            echo '<div class="form" id="loginRegisterForm">'."<h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
         }
     }else{
 ?>

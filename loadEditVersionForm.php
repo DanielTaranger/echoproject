@@ -35,9 +35,9 @@ require('db.php');
 
         $beforefirst = file_get_contents("include/contentBox.html");
         $first = file_get_contents("include/editForm.html");
-        $editClick = '<a id="editButton" onclick="LoadVersionInfo('."'". $versionID ."'".')"></a>' . '<a id="deleteButton" onclick="deleteVersion('."'". $projectID ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>';		
+        $editClick = '<div id="versionButtons">'.'<a id="editButton"  class="versionButton" onclick="LoadVersionInfo('."'". $versionID ."'".')"></a>' . '<a id="deleteButton"  class="versionButton" onclick="deleteVersion('."'". $projectID ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>';		
 ;
-        $bfirst = $editClick . '<a class="boxclose" id="boxclose" onclick="cleanDiv'."('" ."versionContainer" . "')".'"></a>';              
+        $bfirst = $editClick . '<a id="boxclose"  class="versionButton" onclick="cleanDiv'."('" ."versionContainer" . "')".'"></a></div>';              
         $end = file_get_contents("include/editFormEnd.html");
         $middle = "";
         $sumbit = '	<input  type="submit"  onclick="updateVersion(' ."'".$versionID. "'". ')" value="Update">' . '	<input  type="submit"  onclick="LoadVersionInfo(' ."'".$versionID. "'". ')" value="Cancel">';

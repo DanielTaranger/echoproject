@@ -55,7 +55,6 @@ function activeProject(input){
 	$(document).ready(function() {  
 			unactiveProjects();
 			document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
-
 	});  
 }
 
@@ -320,7 +319,7 @@ $(document).ready(function() {
 
 function updateMenu(input){	
 	//	var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New Version</a>';
-		var out2 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">File Manager</a>';
+		var out2 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">Project Files</a>';
 		var out3 = '<a href="#" class="menuButton" onclick="'+"deleteProject('"+input+"')" + '">Delete Project</a>';
 			
 		var	newVersion = // out1 + 
@@ -543,13 +542,14 @@ $(document).ready(function() {
 
 function deleteVersion(input,input2){
 $(document).ready(function() {
-var result = confirm("Are you sure you want to delete this version?");
+var result = confirm("Are you sure you want to delete this version? The mp3 file attached will not be deleted");
 if (result) {
 
         var formData = {
 			'projectID' : input,
 			'versionID' : input2
 		};
+
 		$.ajax({
 			type 		: 'POST',
 			url 		: 'versionDelete.php', 
@@ -580,6 +580,43 @@ if (result) {
 	});
 }
 
+function deleteFile(input,input2){
+$(document).ready(function() {
+var result = confirm("Are you sure you want to delete this file? The mp3 file attached will be deleted");
+if (result) {
+
+        var formData = {
+			'projectID' : input,
+			'file' : input2
+		};
+		
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'fileDelete.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+
+				if(data.success == true){
+					loadUploadForm(input);
+					statusUpdate("file "+input2+" deleted successfully!");
+				}else{
+					alert ("Something went wrong!");
+				}
+
+				
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		    event.preventDefault();
+	}
+	});
+}
 function deleteProject(input){
 $(document).ready(function() {
 var result = confirm("Are you sure you want to delete this project? Everything will be deleted, even the project files and audio files.");
