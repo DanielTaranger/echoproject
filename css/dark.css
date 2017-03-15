@@ -440,6 +440,14 @@ audio::-webkit-media-controls-panel {
 	width: 100%;
 }
 
+#timestamp {
+	font-size: 80%;
+	display: inline;
+	position: relative;
+	left: 320px;
+	top: 40px;
+}
+
 .versionButton {
 	height: 22px;
 	width: 22px;

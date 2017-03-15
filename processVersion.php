@@ -65,12 +65,16 @@ $data 			= array(); 		// array to pass back data
 						}
 					}
 				}
+				
+					
+				$timestamp = date('Y-m-d h:i:s');
 
-                $query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID."', '".
+                $query =  "INSERT INTO versions (projectID, title, description, parent, file, timestamp) VALUES ('".$projectID."', '".
 																										$title."', '".
 																										$description."', '".
 																										$parent."', '".
-																										$file."')";
+																										$file."', '".
+																										$timestamp."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
             }
 

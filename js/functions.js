@@ -496,7 +496,7 @@ $(document).ready(function() {
 				} else {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
                                         loadProjects();
-										loadProject(data.projectID);
+										loadTree(data.projectID);
 										LoadVersionInfo(data.versionID);
 				}
 			})
@@ -730,9 +730,10 @@ $(document).ready(function() {
 				
 						loadProjects();
 						projectIDStore = data.projectID;
-						statusUpdate("Project created successfully!")
+						statusUpdate("Project created successfully!");
 						cleanDiv("content");
 						loadProject(projectIDStore);
+						LoadVersionInfo(data.versionID);
 						
 					
 				}

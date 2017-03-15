@@ -31,6 +31,7 @@ $data 			= array(); 		// array to pass back data
                 $description = $_POST['description'];
                 $description = stripslashes($description);
 
+				$projectID;
 				$last_version = 0;
       
                 $query =  "INSERT INTO projects (username, title, description, last_version) VALUES ('".$username."', '".$title."', '".$description."', '".$last_version."')";
@@ -40,21 +41,25 @@ $data 			= array(); 		// array to pass back data
 				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 				$rows = mysqli_num_rows($result);
 
-				$projectID;
-
-
 				if($rows>=1){
 					while($row = mysqli_fetch_array($result)) {
 							$projectID = $row[1];
 							$data['projectID'] = $row[1];
 						}
-					
 				}
 				
+				$timestamp = date('Y-m-d h:i:s');
 
-				$query =  "INSERT INTO versions (projectID, title, description, parent, file) VALUES ('".$projectID.
-				"', 'Ver 1', 'Default version text, please edit to your liking using the pencil icon in the top right', '0', 'no file')";
+				$query =  "INSERT INTO versions (projectID, title, description, parent, file, timestamp) VALUES ('".$projectID.
+				"', 'Ver 1', 'Default version text, please edit to your liking using the pencil icon in the top right', '0', 'no file','".$timestamp."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+
+				$query = "SELECT * FROM versions WHERE projectID='$projectID' ORDER BY timestamp ASC LIMIT 1";
+				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				$row = mysqli_fetch_array($result);
+				$data['versionID'] = $row[1];
+
 
             }
 
@@ -64,3 +69,4 @@ $data 			= array(); 		// array to pass back data
 
 	// return all our data to an AJAX call
 	echo json_encode($data);
+?>
