@@ -14,6 +14,8 @@ function locationHashChanged() {
 		 loadUploadForm(location.hash.substr(8));
 	}else if (location.hash.substr(0, 8) === "#version"){	
 		 LoadVersionInfo(location.hash.substr(9));
+	}else if (location.hash.substr(0, 6) === "#index"){	
+		 indexScreen();
 	}
 }
 
@@ -85,7 +87,7 @@ function loadTheme() {
 					theme = "on";
 					document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 					if(isItEmpty("overview") == false){
-						if(location.hash.substr(0, 7) != "#upload"){
+						if(location.hash.substr(0, 8) === "#project"){
 							loadTree(projectIDStore);							
 						}
 					}
@@ -94,7 +96,7 @@ function loadTheme() {
 					document.getElementById('checkBoxTheme').removeAttribute('checked');
 					theme = "off";
 					if(isItEmpty("overview") == false){
-						if(location.hash.substr(0, 7) != "#upload"){
+						if(location.hash.substr(0, 8) === "#project"){
 							loadTree(projectIDStore);							
 						}
 					}
@@ -136,14 +138,18 @@ function saveTheme(input) {
 						document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 						theme = "on";
 						if(isItEmpty("overview") == false){
+							if(location.hash.substr(0, 8) === "#project"){
 							loadTree(projectIDStore);
+							}
 						}
 					}else if (input=="off"){
 						swapStyleSheet('css/index.css');
 						document.getElementById('checkBoxTheme').removeAttribute('checked');
 						theme = "off";
 						if(isItEmpty("overview") == false){
+							if(location.hash.substr(0, 8) === "#project"){
 							loadTree(projectIDStore);
+							}
 						}
 					}
 				}
@@ -654,9 +660,10 @@ if (result) {
 }
 
 function indexScreen(){
+		unactiveProjects();
         cleanDiv('overview');
 		cleanDiv('versionContainer');
-        $( "#content" ).load( "include/indexScreen.html");
+        $( "#content" ).load( "projectIndexLoad.php");
         
 }
 

@@ -31,6 +31,18 @@ $data 			= array(); 		// array to pass back data
                 $description = $_POST['description'];
                 $description = stripslashes($description);
 
+
+				
+				$query = "SELECT * FROM projects  WHERE title='$title'";
+				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				$rows = mysqli_num_rows($result);
+
+				if($rows>=1){
+					$data['success'] = false;
+					$errors['title'] = 'Title is taken.';
+					$data['errors']  = $errors;
+				}else{
+
 				$projectID;
 				$last_version = 0;
       
@@ -60,11 +72,23 @@ $data 			= array(); 		// array to pass back data
 				$row = mysqli_fetch_array($result);
 				$data['versionID'] = $row[1];
 
+				$colorBits = "";
 
+				foreach (range(1, 17) as $i) {
+					$colorBits = $colorBits . rand(0,1) . ",";
+				}
+
+				$query =  "INSERT INTO project_icons (projectID, colorBits) VALUES ('".$projectID."', '".$colorBits."')";
+                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				
+
+				
+				$data['success'] = true;
+				$data['message'] = 'Success!';
+				}
             }
 
-		$data['success'] = true;
-		$data['message'] = 'Success!';
+
 	}
 
 	// return all our data to an AJAX call

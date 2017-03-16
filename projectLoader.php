@@ -9,7 +9,7 @@ ob_start();
 		$username = stripslashes($username);
 
 	//Checking is user existing in the database or not
-        $query = "SELECT * FROM projects WHERE username='$username'";
+        $query = "SELECT * FROM projects WHERE username='$username' ORDER BY date DESC";
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$rows = mysqli_num_rows($result);
 		if($rows>=1){
