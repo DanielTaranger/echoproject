@@ -22,7 +22,7 @@ ob_start();
                 
 
 				if(strlen($row[2])>=14){
-					$projName = $projName . substr($row[2], 0, 14) . "...". "</p>"; 
+					$projName = $projName . substr($row[2], 0, 12) . "...". "</p>"; 
 				}else{
 					$projName = $projName . $row[2] . "</p>";
 				}
@@ -63,7 +63,7 @@ ob_start();
                     if($bit == "1"){
                         $colorBits = $colorBits . '<div class="bitDark"></div>';
                     }else{
-                        $colorBits = $colorBits . '<div class="bitLight"></div>';
+                        $colorBits = $colorBits . '<div class="bitLight" style="background-color: #'.$rowB[2]. ';"></div>';
                     }
                 }
 
@@ -72,7 +72,7 @@ ob_start();
                     if($bit == "1"){
                         $colorBits2 = $colorBits2 . '<div class="bitDark"></div>';
                     }else{
-                        $colorBits2 = $colorBits2 . '<div class="bitLight"></div>';
+                        $colorBits2 = $colorBits2 . '<div class="bitLight" style="background-color: #'.$rowB[2]. ';"></div>';
                     }
                 } 
             }

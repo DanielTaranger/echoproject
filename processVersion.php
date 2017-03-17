@@ -76,6 +76,13 @@ $data 			= array(); 		// array to pass back data
 																										$file."', '".
 																										$timestamp."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+
+				//new search to make sure the added version is loaded on creation
+				$query = "SELECT * FROM versions WHERE projectID='$projectID' ORDER BY timestamp ASC LIMIT 1";
+				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				$row = mysqli_fetch_array($result);
+				$data['versionID'] = $row[1];
             }
 
 		$data['success'] = true;

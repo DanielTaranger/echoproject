@@ -33,6 +33,7 @@ body {
 .indexProjectName {
 	display: inline-block;
 	margin-left: 10px;
+	overflow: hidden;
 }
 
 .indexProjectTime {
@@ -44,7 +45,6 @@ body {
 	height: 5px;
 	width: 5px;
 	display: inline-block;
-	background-color: #dd1564;
 	margin: 0px;
 	padding: 0px;
 }
@@ -63,6 +63,8 @@ body {
 	width: 15px;
 	height: auto;
 	display: inline-block;
+	position: relative;
+	top: 1px;
 }
 
 #topCont {
@@ -184,16 +186,17 @@ a.projectContainer {
 	display: inline-block;
 	cursor:pointer;
 	margin: 0px auto;
-	text-align: center;
+	text-align: left;
 	height: 25px;
 	padding-top: 12px;
 	padding-bottom: 3px;
+	padding-left: 39px;
 	width: 100%;
 	text-decoration: none; 
 	color: #333333;
 	font-size: 14px;
 	background: white;
-
+	position: relative;
 }
 
 a.projectContainer:hover  {
@@ -249,6 +252,11 @@ a.projectContainer p {
 #container {
 	text-align: center;
 	margin: 0px;
+}
+
+#projectHeader {
+	display: inline;
+	margin-left: 10px;
 }
 
 h1 {

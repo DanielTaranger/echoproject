@@ -7,7 +7,7 @@ if ("onhashchange" in window) {
 }
 
 function locationHashChanged() {
-	
+	loadTheme();
     if (location.hash.substr(0, 8) === "#project") {
        loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
@@ -19,13 +19,8 @@ function locationHashChanged() {
 	}
 }
 
-window.onhashchange = locationHashChanged;
+window.onload = locationHashChanged;
 
-$(document).ready(function() {  
-  locationHashChanged();
-  loadTheme();
-
-});  
 
 function slideMenuLeft(){
 	document.getElementById("app").style.left = "-200px";
@@ -54,9 +49,16 @@ function switchTheme(){
 }
 
 function activeProject(input){
+
 	$(document).ready(function() {  
 			unactiveProjects();
-			document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]').setAttribute('id', 'active');
+
+			var query = document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]');
+			if(query != null){
+				query.setAttribute('id', 'active');
+			}else{
+				console.log("no project found");
+			}
 	});  
 }
 
@@ -204,6 +206,7 @@ window.location.hash = '#project/'+input;
 					 loadVersionForm(projectID);
 					 activeProject(input);
 					 isWorking == false;
+					 console.log("stomething");
 
 				}else {
 					getProjectInfo(input);	
@@ -222,7 +225,6 @@ window.location.hash = '#project/'+input;
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	}
 }
 
@@ -256,8 +258,6 @@ cleanDiv("overview");
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
-    	
 }
 
 function getProjectInfo(input){ 
@@ -288,7 +288,6 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	});
 }
 
@@ -317,7 +316,6 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 		});
 }
 
@@ -377,7 +375,6 @@ updateMenu(input);
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 
 		statusUpdate("Projectform loaded successfully!");
 }
@@ -409,16 +406,13 @@ cleanDiv("versionContainer");
 		})
 
 			.done(function(data) {
-					var obj = jQuery.parseJSON(data);
-					
-					document.getElementById("versionContainer").innerHTML = obj.data;
+					document.getElementById("versionContainer").innerHTML = data.data;
 	
 			})
 
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 }
 
 
@@ -448,7 +442,6 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	});
 }
 
@@ -541,7 +534,6 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	});
 }
 
@@ -581,7 +573,6 @@ if (result) {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	}
 	});
 }
@@ -619,7 +610,6 @@ if (result) {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	}
 	});
 }
@@ -654,7 +644,6 @@ if (result) {
 			.fail(function(data) {
 				console.log(data);
 			});
-		    event.preventDefault();
 	}
 	});
 }
@@ -808,6 +797,7 @@ $(document).ready(function() {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
                                         loadProjects();
 										loadProject(input);
+										LoadVersionInfo(data.versionID);
 				}
 			})
 

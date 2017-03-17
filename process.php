@@ -77,8 +77,19 @@ $data 			= array(); 		// array to pass back data
 				foreach (range(1, 17) as $i) {
 					$colorBits = $colorBits . rand(0,1) . ",";
 				}
+				$color = "";
 
-				$query =  "INSERT INTO project_icons (projectID, colorBits) VALUES ('".$projectID."', '".$colorBits."')";
+				$query = "SELECT * FROM icon_colors ORDER BY RAND() LIMIT 1";
+				$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+				$rows = mysqli_num_rows($result);
+
+				if($rows>=1){
+					while($row = mysqli_fetch_array($result)) {
+							$color = $row[0];
+						}
+				}
+
+				$query =  "INSERT INTO project_icons (projectID, colorBits, color) VALUES ('".$projectID."', '".$colorBits."', '".$color."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 				
 
