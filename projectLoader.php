@@ -81,7 +81,7 @@ ob_start();
 				
         $color = '<div class="bitsContainer" style="width: 9px;height: 18px; float:left; position: absolute; top: 11px; left: 6px;">'.$colorBits2 .'</div>'. '<div class="bitsContainer" style="width: 9px; height: 18px;float:left;position: absolute; top: 11px; left: 15px;">'.$colorBits .'</div>';
            
-				echo '<a href="#'.$row[2].'" class="projectContainer" onclick="loadProject('."'".$row[1]."'".')">'. $color .$projName ."</a>";
+				echo '<a href="#'.$row[1].'" class="projectContainer" onclick="loadProject('."'".$row[1]."'".')">'. $color .$projName ."</a>";
 			}
 		  
 		}else{

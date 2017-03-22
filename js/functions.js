@@ -7,7 +7,6 @@ if ("onhashchange" in window) {
 }
 
 function locationHashChanged() {
-	loadTheme();
     if (location.hash.substr(0, 8) === "#project") {
        loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
@@ -17,6 +16,7 @@ function locationHashChanged() {
 	}else if (location.hash.substr(0, 6) === "#index"){	
 		 indexScreen();
 	}
+	loadTheme();
 }
 
 window.onload = locationHashChanged;
@@ -25,13 +25,11 @@ window.onload = locationHashChanged;
 function slideMenuLeft(){
 	document.getElementById("app").style.left = "-200px";
 	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuRight()");
-
 }
 
 function slideMenuRight(){
 	document.getElementById("app").style.left = "0px";
 	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuLeft()");
-
 }
 
 
@@ -41,7 +39,6 @@ function switchTheme(){
 	if(document.getElementById('checkBoxTheme').checked){
 	  statusUpdate("Dark mode enabled");
 	  saveTheme("on");
-	 
   }else{
 	  statusUpdate("Light mode enabled");
 	  saveTheme("off");
@@ -89,7 +86,7 @@ function loadTheme() {
 					theme = "on";
 					document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 					if(isItEmpty("overview") == false){
-						if(location.hash.substr(0, 8) === "#project"){
+						if(location.hash.substr(0, 8) === "#project" ){
 							loadTree(projectIDStore);							
 						}
 					}
@@ -225,6 +222,8 @@ window.location.hash = '#project/'+input;
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 	}
 }
 
@@ -258,6 +257,8 @@ cleanDiv("overview");
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 }
 
 function getProjectInfo(input){ 
@@ -288,6 +289,8 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 	});
 }
 
@@ -316,6 +319,8 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 		});
 }
 
@@ -375,6 +380,8 @@ updateMenu(input);
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 
 		statusUpdate("Projectform loaded successfully!");
 }
@@ -406,13 +413,16 @@ cleanDiv("versionContainer");
 		})
 
 			.done(function(data) {
-					document.getElementById("versionContainer").innerHTML = data.data;
+					var obj = jQuery.parseJSON(data);
+					document.getElementById("versionContainer").innerHTML = obj.data;
 	
 			})
 
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 }
 
 
@@ -442,6 +452,8 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 	});
 }
 
@@ -525,7 +537,8 @@ $(document).ready(function() {
 		})
 
 			.done(function(data) {
-					document.getElementById("fileSelector").innerHTML = data.data;	
+					
+					document.getElementById("fileSelector").innerHTML = data.data;
 					$( "#fileAlert" ).remove();
 					$( "#fileClick" ).remove();
 				
@@ -534,6 +547,8 @@ $(document).ready(function() {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+		event.preventDefault();
 	});
 }
 
@@ -573,6 +588,8 @@ if (result) {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 	}
 	});
 }
@@ -610,6 +627,8 @@ if (result) {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 	}
 	});
 }
@@ -644,6 +663,8 @@ if (result) {
 			.fail(function(data) {
 				console.log(data);
 			});
+			
+			event.preventDefault();
 	}
 	});
 }
