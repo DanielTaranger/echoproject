@@ -15,6 +15,8 @@ function locationHashChanged() {
 		 LoadVersionInfo(location.hash.substr(9));
 	}else if (location.hash.substr(0, 6) === "#index"){	
 		 indexScreen();
+	}else if (location.hash.substr(0, 10) === "#dashboard"){	
+		 dashboard();
 	}
 	loadTheme();
 }
@@ -56,6 +58,9 @@ function activeProject(input){
 			}else{
 				console.log("no project found");
 			}
+			
+			$('#'+input).attr("class", "buttonVisible");
+
 	});  
 }
 
@@ -64,7 +69,14 @@ function unactiveProjects(){
 		for (var i = 0; i < elems.length; i++) {
 					elems[i].removeAttribute("id");
 		}
+
+		var elems = document.getElementsByClassName('buttonVisible')
+		for (var i = 0; i < elems.length; i++) {
+			
+					elems[i].setAttribute("class","menuButtons");
+		}
 }
+
 
 function loadTheme() {
 		var data = "test";
@@ -198,7 +210,6 @@ window.location.hash = '#project/'+input;
 				if(data['success']==false){
 					cleanDiv("overview");
 					cleanDiv("versionContainer");
-					cleanDiv('menuBar');
 					statusUpdate("Please create a new version!");
 					 loadVersionForm(projectID);
 					 activeProject(input);
@@ -207,7 +218,7 @@ window.location.hash = '#project/'+input;
 
 				}else {
 					getProjectInfo(input);	
-					updateMenu(input);
+					
 					cleanDiv("versionContainer");
 					cleanDiv("overview");
 					makeTree(data);
@@ -225,6 +236,31 @@ window.location.hash = '#project/'+input;
 			
 			event.preventDefault();
 	}
+}
+
+function getLastProject() {
+		var data = "test";
+        var formData = {
+			'state' : data
+		};
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'themeLoad.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+				if(data.success){
+					loadProject(data.last_project);
+				}
+
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
 }
 
 function loadTree(input) {
@@ -325,23 +361,29 @@ $(document).ready(function() {
 }
 
 
+$(function () {
+    $('.projectContainer').click(function() {
+        $(this).children('#menuButton').slideToggle(function() {
+            $(this).toggleClass('in out');
+        });
+        
+        $(this).siblings().find('#menuButtons').slideUp(function() {
+            $(this).removeClass('in').addClass('out');
+        });
+    });
+});
 
-function updateMenu(input){	
-	//	var out1 =	'<a href="#" class="menuButton" onclick="'+"loadVersionForm('"+ input +"')" + '">New Version</a>';
-		var out2 = '<a href="#" class="menuButton" onclick="'+"loadUploadForm('"+ input + "')" + '">Project Files</a>';
-		var out3 = '<a href="#" class="menuButton" onclick="'+"deleteProject('"+input+"')" + '">Delete Project</a>';
-			
-		var	newVersion = // out1 + 
-		out2 + out3;
+
+
+//fills the menubar for first time login
+function fillMenu(){
 		
+		var out2 = '<a href="index.php" class="menuButton"'+ '>Echo app(under construction)</a>';
+		var out3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
 
-		document.getElementById("menuBar").innerHTML = newVersion;	
-
-		if(input === undefined){
-			document.getElementById("menuBar").innerHTML = "";	
-		}	
+		var	output = out2 + out3;
+		document.getElementById("menuBarDashboard").innerHTML = output;		
 }
-
 
 function loadProjectForm(){
 		unactiveProjects();
@@ -352,7 +394,7 @@ function loadProjectForm(){
 
 function loadUploadForm(input){
 window.location.hash = '#upload/'+input;
-updateMenu(input);
+
     //    $( "#content" ).load( "uploadFormLoader.php");
         cleanDiv("overview");
 		cleanDiv("versionContainer");
@@ -392,7 +434,6 @@ $(document).ready(function() {
 		cleanDiv('content');
 		cleanDiv('overview');
 		cleanDiv('versionContainer');
-		cleanDiv('menuBar');
 		loadProjectForm();
 	});
 }
@@ -650,9 +691,9 @@ if (result) {
 			.done(function(data) {
 
 				if(data.success == true){
-					indexScreen();
+					getLastProject();
 					loadProjects();
-					updateMenu();
+				
 				}else{
 					alert ("You cannot delete this project");
 				}
@@ -669,12 +710,17 @@ if (result) {
 	});
 }
 
+function dashboard(){
+	window.location.href = "dashboard.php";
+	$( "#contentDash" ).load( "dashboardLoader.php");	
+}
+
 function indexScreen(){
 		unactiveProjects();
         cleanDiv('overview');
 		cleanDiv('versionContainer');
         $( "#content" ).load( "projectIndexLoad.php");
-        
+		getLastProject();
 }
 
 function cleanDiv(input, input2){
@@ -698,7 +744,6 @@ function statusUpdate(input){
 		document.getElementById("status").innerHTML = input;
 		$( "#status" ).delay(2222).fadeOut(2000);
 
-		
 }
 
 

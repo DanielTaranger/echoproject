@@ -1,15 +1,33 @@
 <?php
 session_start();
+ob_start();
 	require('db.php');
+	
+    // If form submitted, insert values into the database.
     if (isset($_SESSION['username'])){
         $username = $_SESSION['username'];
 		$username = stripslashes($username);
 
-        $projectID = $_POST['projectID'];
+	//Checking is user existing in the database or not
+        $query = "SELECT * FROM projects WHERE username='$username'";
+		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+		$rows = mysqli_num_rows($result);
+		if($rows>=1){
+	
+			while($row = mysqli_fetch_array($result)) {
+				
+				$projName = '<p class="indexProjectName">';
+                $time = '<p class="indexProjectTime">'. $row[4] . "</p>";
+                $projectID = $row[1];
+                
 
-        $data = array();
+				if(strlen($row[2])>=14){
+					$projName = $projName . substr($row[2], 0, 12) . "...". "</p>"; 
+				}else{
+					$projName = $projName . $row[2] . "</p>";
+				}
 
-		$query = "SELECT * FROM project_icons WHERE projectID='$projectID'";
+        $query = "SELECT * FROM project_icons WHERE projectID='$projectID'";
         $resultB = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $rowsB = mysqli_num_rows($resultB);
 
@@ -61,56 +79,16 @@ session_start();
         }
 
 
-				
-        $data['project'] = '<div class="bitsContainer">'.$colorBits2 .'</div>'. '<div class="bitsContainer">'.$colorBits .'</div>';
+				echo '<a href="#'.$row[2].'" class="projectIndexContainer" onclick="loadProject('."'".$row[1]."'".')">'. 
+                '<div class="bitsContainer">'.$colorBits2 .'</div>'. '<div class="bitsContainer">'.$colorBits .'</div>'.$projName.$time."</a>";
                 
-
-
-        $query = "SELECT * FROM projects WHERE projectID='$projectID' LIMIT 1";
-		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-		$rows = mysqli_num_rows($result);
-
-		if($rows>=1){
-	
-			while($row = mysqli_fetch_array($result)) {
-				$data['project'] = $data['project'] . '<h1 id="projectHeader">'.$row[2].'</h1>'."<p>Created ".substr($row[4], 0, 10)."</p>".'<p>'.$row[3].'</p><hr>';
-				if($row[5] === 0){
-					$query3 = "SELECT * FROM versions  WHERE projectID='$projectID' AND parent='0'";
-					$result2 = mysqli_query($conn, $query3) or die(mysqli_error($conn));
-					$rows2 = mysqli_num_rows($result2);
-						if($rows2>=1){
-							while($row4 = mysqli_fetch_array($result2)) {
-								$data['active'] = $row4[1];
-							}
-						}
-
-				}else {
-					$data['active'] = $row[5];
-				}
 
 			}
-        
-        $query = "SELECT * FROM user_settings WHERE username='$username' LIMIT 1";
-		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-		$rows = mysqli_num_rows($result);
-
-		if($rows>=1){
-            	$row = mysqli_fetch_array($result) ;
-                $prevProj = $row[3];
-                $query = "UPDATE user_settings SET last_project = '$projectID' WHERE username='$username'";
-                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-
-                $query = "UPDATE user_settings SET pre_last_project = '$prevProj' WHERE username='$username'";
-                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-        }
-
-                
-
+		  
 		}else{
             echo "<p>No projects found</p>";
 		} 
 
-        echo json_encode($data);
     }else{
 		echo "<p>You are not permitted to do this</p>";
 	}

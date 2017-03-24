@@ -16,13 +16,16 @@ session_start();
            while($row = mysqli_fetch_array($result)) {
                $dataOut['theme'] = $row[2];
                $dataOut['success'] = true;
+               $dataOut['last_project'] = $row[3];
 		    }
+        }else{
+            $dataOut['success'] = false;
         }
 
 
         echo json_encode($dataOut);
     }else{
-    
+        echo "not allowed to do that";
 	}
 
 ?>
