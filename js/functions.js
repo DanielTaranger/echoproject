@@ -19,6 +19,7 @@ function locationHashChanged() {
 		 dashboard();
 	}
 	loadTheme();
+	fillMenu();
 }
 
 window.onload = locationHashChanged;
@@ -208,13 +209,8 @@ window.location.hash = '#project/'+input;
 			$(document).ready(function() {
 				
 				if(data['success']==false){
-					cleanDiv("overview");
-					cleanDiv("versionContainer");
-					statusUpdate("Please create a new version!");
-					 loadVersionForm(projectID);
-					 activeProject(input);
 					 isWorking == false;
-					 console.log("stomething");
+					 console.log("stomething wrong");
 
 				}else {
 					getProjectInfo(input);	
@@ -254,6 +250,7 @@ function getLastProject() {
 			.done(function(data) {
 				if(data.success){
 					loadProject(data.last_project);
+					window.location.hash = "#project/" + data.pre_last_project;
 				}
 
 			})
@@ -377,11 +374,11 @@ $(function () {
 
 //fills the menubar for first time login
 function fillMenu(){
-		
-		var out2 = '<a href="index.php" class="menuButton"'+ '>Echo app(under construction)</a>';
-		var out3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
+		var menuButton1 = '<a href="dashboard.php" class="menuButton"'+ '>Dashboard'+'</a>';
+		var menuButton2 = '<a href="index.php" class="menuButton"'+ '>echo'+'<span id="NB">BETA</span>'+ '</a>';
+		var menuButton3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
 
-		var	output = out2 + out3;
+		var	output = menuButton1 + menuButton2 + menuButton3;
 		document.getElementById("menuBarDashboard").innerHTML = output;		
 }
 

@@ -17,6 +17,7 @@ session_start();
                $dataOut['theme'] = $row[2];
                $dataOut['success'] = true;
                $dataOut['last_project'] = $row[3];
+               $dataOut['pre_last_project'] = $row[4];
 		    }
         }else{
             $dataOut['success'] = false;
