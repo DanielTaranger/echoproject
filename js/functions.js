@@ -1,6 +1,8 @@
 var theme = "off";
 var projectIDStore = "";
 var isWorking = false;
+var toggle = "on";
+var toggleID = "";
 
 if ("onhashchange" in window) {
     
@@ -59,10 +61,40 @@ function activeProject(input){
 			}else{
 				console.log("no project found");
 			}
-			
-			$('#'+input).attr("class", "buttonVisible");
 
 	});  
+}
+
+function menuCollapse(input){
+	if (toggleID == input) {
+			if(toggle == "on"){
+				menuOpen(input);
+			}else{
+				buttonClean();
+				toggle = "on";
+			}
+	}else if (toggleID !== input){
+	    toggleID = input;
+				buttonClean();
+				menuOpen(input);
+
+	}else if (toggleID == ""){
+	    toggleID = input;
+				menuOpen(input);
+	}
+}
+
+function menuOpen(input){
+		$('#'+input).attr("class", "buttonVisible");
+		toggle = "off";
+}
+
+function buttonClean(){
+	var elems = document.getElementsByClassName('buttonVisible')
+	for (var i = 0; i < elems.length; i++) {
+		
+				elems[i].setAttribute("class","menuButtons");
+	}
 }
 
 function unactiveProjects(){
@@ -71,11 +103,6 @@ function unactiveProjects(){
 					elems[i].removeAttribute("id");
 		}
 
-		var elems = document.getElementsByClassName('buttonVisible')
-		for (var i = 0; i < elems.length; i++) {
-			
-					elems[i].setAttribute("class","menuButtons");
-		}
 }
 
 
@@ -184,12 +211,14 @@ function loadProjects() {
 }
 
 function loadProject(input) {
+	$( document ).ready(function() {
+menuCollapse(input);
+if(isWorking == false && projectIDStore != input){
+	
+window.location.hash = '#project/'+input;
 
-if(isWorking == false){
 isWorking == true;
 document.getElementById("content").innerHTML = '<img src="img/ripple.svg" style="float:left;width:25px;display:inline-block;">';
-
-window.location.hash = '#project/'+input;
 		projectIDStore = input;
 		var projectID = input;
         var formData = {
@@ -211,6 +240,8 @@ window.location.hash = '#project/'+input;
 				if(data['success']==false){
 					 isWorking == false;
 					 console.log("stomething wrong");
+					 statusUpdate("no such project found");
+					 alert("23");
 
 				}else {
 					getProjectInfo(input);	
@@ -221,7 +252,6 @@ window.location.hash = '#project/'+input;
 					statusUpdate("Project loaded successfully!");
 					activeProject(input);
 					isWorking == false;
-
 				}
 				});
 			})
@@ -232,6 +262,7 @@ window.location.hash = '#project/'+input;
 			
 			event.preventDefault();
 	}
+	});
 }
 
 function getLastProject() {
@@ -249,8 +280,7 @@ function getLastProject() {
 
 			.done(function(data) {
 				if(data.success){
-					loadProject(data.last_project);
-					window.location.hash = "#project/" + data.pre_last_project;
+					loadProject(data.pre_last_project);
 				}
 
 			})
@@ -374,11 +404,13 @@ $(function () {
 
 //fills the menubar for first time login
 function fillMenu(){
+	
+		var menuButton0 = '<a href="purge.php" class="menuButton"'+ '>purge projects'+'</a>';
 		var menuButton1 = '<a href="dashboard.php" class="menuButton"'+ '>Dashboard'+'</a>';
 		var menuButton2 = '<a href="index.php" class="menuButton"'+ '>echo'+'<span id="NB">BETA</span>'+ '</a>';
 		var menuButton3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
 
-		var	output = menuButton1 + menuButton2 + menuButton3;
+		var	output = menuButton0 + menuButton1 + menuButton2 + menuButton3;
 		document.getElementById("menuBarDashboard").innerHTML = output;		
 }
 
@@ -432,6 +464,8 @@ $(document).ready(function() {
 		cleanDiv('overview');
 		cleanDiv('versionContainer');
 		loadProjectForm();
+		buttonClean();
+		
 	});
 }
 
@@ -716,7 +750,6 @@ function indexScreen(){
 		unactiveProjects();
         cleanDiv('overview');
 		cleanDiv('versionContainer');
-        $( "#content" ).load( "projectIndexLoad.php");
 		getLastProject();
 }
 
@@ -751,7 +784,7 @@ $(document).ready(function() {
 	
 		var formData = {
 			'title' 				: $('input[name=title]').val(),
-			'description' 			: $('#description').val(),
+			'description' 			: $('#description').val()
 		};
 
 		// process the form
@@ -764,9 +797,6 @@ $(document).ready(function() {
 		})
 
 			.done(function(data) {
-
-			
-
 				if ( ! data.success) {
 
 					if (data.errors.title) {
@@ -786,15 +816,16 @@ $(document).ready(function() {
 					}
 
 				} else {
-				
 						loadProjects();
-						projectIDStore = data.projectID;
-						statusUpdate("Project created successfully!");
+						statusUpdate("Project created successfully!" + projectIDStore);
 						cleanDiv("content");
-						loadProject(projectIDStore);
+						loadProject(data.projectID);
 						LoadVersionInfo(data.versionID);
 						
-					
+						$(document).ready(function() {
+							menuOpen(data.projectID);
+							
+						});
 				}
 			})
 
@@ -859,8 +890,9 @@ $(document).ready(function() {
 				} else {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
                                         loadProjects();
-										loadProject(input);
+										getProjectInfo(input);
 										LoadVersionInfo(data.versionID);
+										menuOpen(input);
 				}
 			})
 

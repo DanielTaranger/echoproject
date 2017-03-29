@@ -4,6 +4,7 @@ html, body {
 	font-size: 14px;
 	color: #333333;
 	background-color: #272727;
+	overflow: auto;
 }
 
 body {
@@ -84,14 +85,25 @@ body {
 	background-color: #3d3d3d;
 	height: 100%;
 	position: absolute;
-	top: 0px;
+	top: 75px;
 	bottom: 0px;
 	float: left;
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	z-index: 7;
-	overflow: hidden; 
-	margin-bottom: -5000px; /* any large number will do */
+	overflow-y: scroll;
+	margin-bottom: -5000px; 
 	padding-bottom: 5000px; 
+	   overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
 }
 
 #menuSlider {
@@ -231,9 +243,12 @@ a.projectContainer p {
 	box-shadow: 0 1px 2px rgba(0,0,0,.1);
 	height: 23px;
 	padding-top: 7px;
-	width: 100%;
+	width: 200px;
 	color: white;
 	text-decoration: none;
+	position: absolute;
+	top: 45px;
+	z-index: 22;
 }
 
 #newProject p {
@@ -247,8 +262,8 @@ a.projectContainer p {
 }
 
 #content {
-	padding-left: 250px;
-	padding-top: 120px;
+	padding-left: 240px;
+	padding-top: 70px;
 	width: auto;
 	height: auto;
 	min-width: 300px;
@@ -259,12 +274,10 @@ a.projectContainer p {
 
 #contentDash {
 	margin: 0px auto;
-	width: auto;
-	height: auto;
 	min-width: 300px;
 	max-width: 700px;
-	color: white;
-	clear: both;
+	margin-top: 60px;
+	color: white;	
 }
 
 #container {
@@ -285,7 +298,7 @@ h1 {
 #overview {
 	float: left;
 	width: auto;
-	padding-left: 250px;
+	padding-left: 240px;
 	min-width: 920px;
 	min-height: 100px;
 }
@@ -293,7 +306,7 @@ h1 {
 #versionContainer {
 	float: left;
 	width: auto;
-	padding-left: 250px;
+	padding-left: 240px;
 
 }
 

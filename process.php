@@ -62,8 +62,8 @@ $data 			= array(); 		// array to pass back data
 				
 				$timestamp = date('Y-m-d h:i:s');
 
-				$query =  "INSERT INTO versions (projectID, title, description, parent, file, timestamp) VALUES ('".$projectID.
-				"', 'Ver 1', 'Default version text, please edit to your liking using the pencil icon in the top right', '0', 'no file','".$timestamp."')";
+				$query =  "INSERT INTO versions (projectID, title, description, parent, file, timestamp, username) VALUES ('".$projectID.
+				"', 'Ver 1', 'Default version text, please edit to your liking using the pencil icon in the top right', '0', 'no file','".$timestamp."', '".$username."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 
 
@@ -89,7 +89,7 @@ $data 			= array(); 		// array to pass back data
 						}
 				}
 
-				$query =  "INSERT INTO project_icons (projectID, colorBits, color) VALUES ('".$projectID."', '".$colorBits."', '".$color."')";
+				$query =  "INSERT INTO project_icons (projectID, colorBits, color, username) VALUES ('".$projectID."', '".$colorBits."', '".$color."', '".$username."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 				
 
