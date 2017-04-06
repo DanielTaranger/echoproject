@@ -83,6 +83,7 @@ body {
 #leftPanel {
 	width: 200px;
 	background-color: #3d3d3d;
+	color: white;
 	height: 100%;
 	position: absolute;
 	top: 75px;

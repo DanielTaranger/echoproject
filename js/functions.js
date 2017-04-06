@@ -4,12 +4,10 @@ var isWorking = false;
 var toggle = "on";
 var toggleID = "";
 
-if ("onhashchange" in window) {
-    
-}
 
 function locationHashChanged() {
     if (location.hash.substr(0, 8) === "#project") {
+	//	menuOpen(location.hash.substr(9));
        loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
 		 loadUploadForm(location.hash.substr(8));
@@ -38,9 +36,8 @@ function slideMenuRight(){
 }
 
 
+//method responsible for the color theme of the app
 function switchTheme(){
-
-  
 	if(document.getElementById('checkBoxTheme').checked){
 	  statusUpdate("Dark mode enabled");
 	  saveTheme("on");
@@ -51,17 +48,16 @@ function switchTheme(){
 }
 
 function activeProject(input){
-
 	$(document).ready(function() {  
 			unactiveProjects();
 
 			var query = document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]');
 			if(query != null){
 				query.setAttribute('id', 'active');
+				menuOpen(input);
 			}else{
 				console.log("no project found");
 			}
-
 	});  
 }
 
@@ -85,8 +81,11 @@ function menuCollapse(input){
 }
 
 function menuOpen(input){
-		$('#'+input).attr("class", "buttonVisible");
+	
+$(document).ready(function() {
+		$('#'+input).delay(1000).attr("class", "buttonVisible");
 		toggle = "off";
+});
 }
 
 function buttonClean(){
@@ -241,7 +240,7 @@ document.getElementById("content").innerHTML = '<img src="img/ripple.svg" style=
 					 isWorking == false;
 					 console.log("stomething wrong");
 					 statusUpdate("no such project found");
-					 alert("23");
+					 document.getElementById("content").innerHTML = "<h1>No projects found</h1>";
 
 				}else {
 					getProjectInfo(input);	
@@ -374,7 +373,6 @@ $(document).ready(function() {
 		})
 		
 			.done(function(data) {
-				
 					cleanDiv("versionContainer");
 					document.getElementById("versionContainer").innerHTML = data.data;	
 			})
@@ -890,9 +888,10 @@ $(document).ready(function() {
 				} else {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
                                         loadProjects();
-										getProjectInfo(input);
-										LoadVersionInfo(data.versionID);
 										menuOpen(input);
+										loadTree(input);
+										LoadVersionInfo(data.versionID);
+										getProjectInfo(input);
 				}
 			})
 

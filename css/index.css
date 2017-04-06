@@ -4,7 +4,6 @@ html, body {
 	font-size: 14px;
 	color: #333333;
 	background-color: #e3e3e3;
-    overflow:hidden;
 }
 
 body {
@@ -85,7 +84,7 @@ body {
 
 #leftPanel {
 	width: 200px;
-	background-color: #3d3d3d;
+	background-color: white;
 	height: 100%;
 	position: absolute;
 	top: 75px;

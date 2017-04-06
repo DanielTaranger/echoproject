@@ -128,7 +128,6 @@ var treeData = input;
     // Toggle children on click.
     function click(d) {
         LoadVersionInfo(d.versionID);
-        updateMenu(d.projectID);
         update(d);
 
         d3.selectAll("g")
@@ -265,7 +264,6 @@ var treeData = input;
     // Toggle children on click.
     function click(d) {
         LoadVersionInfo(d.versionID);
-        updateMenu(d.projectID);
         update(d);
 
         d3.selectAll("g")
