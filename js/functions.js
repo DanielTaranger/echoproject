@@ -11,6 +11,7 @@ function locationHashChanged() {
        loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
 		 loadUploadForm(location.hash.substr(8));
+		 activeProject(location.hash.substr(8));
 	}else if (location.hash.substr(0, 8) === "#version"){	
 		 LoadVersionInfo(location.hash.substr(9));
 	}else if (location.hash.substr(0, 6) === "#index"){	
@@ -23,7 +24,7 @@ function locationHashChanged() {
 }
 
 window.onload = locationHashChanged;
-
+window.onhashchange  = locationHashChanged;
 
 function slideMenuLeft(){
 	document.getElementById("app").style.left = "-200px";
@@ -410,6 +411,35 @@ function fillMenu(){
 
 		var	output = menuButton0 + menuButton1 + menuButton2 + menuButton3;
 		document.getElementById("menuBarDashboard").innerHTML = output;		
+}
+
+function reviewProject(input){
+
+	$(document).ready(function() {
+        var formData = {
+			'projectID' : input
+		};
+
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'reviewFormLoader.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+				cleanAll();
+				document.getElementById("content").innerHTML  = data.data;
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+			
+			event.preventDefault();
+	});
 }
 
 function loadProjectForm(){
@@ -815,15 +845,13 @@ $(document).ready(function() {
 
 				} else {
 						loadProjects();
+						menuOpen(data.projectID);
 						statusUpdate("Project created successfully!" + projectIDStore);
 						cleanDiv("content");
 						loadProject(data.projectID);
 						LoadVersionInfo(data.versionID);
-						
-						$(document).ready(function() {
-							menuOpen(data.projectID);
 							
-						});
+						
 				}
 			})
 
