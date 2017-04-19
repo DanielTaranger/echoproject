@@ -18,93 +18,16 @@ function locationHashChanged() {
 		 indexScreen();
 	}else if (location.hash.substr(0, 10) === "#dashboard"){	
 		 dashboard();
+	}else if (location.hash.substr(0, 7) === "#review"){	
+		 reviewProject(location.hash.substr(8));
+		 menuCollapse(location.hash.substr(8));
 	}
 	loadTheme();
 	fillMenu();
 }
 
 window.onload = locationHashChanged;
-window.onhashchange  = locationHashChanged;
-
-function slideMenuLeft(){
-	document.getElementById("app").style.left = "-200px";
-	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuRight()");
-}
-
-function slideMenuRight(){
-	document.getElementById("app").style.left = "0px";
-	document.getElementById("menuSlider").setAttribute("onclick", "slideMenuLeft()");
-}
-
-
-//method responsible for the color theme of the app
-function switchTheme(){
-	if(document.getElementById('checkBoxTheme').checked){
-	  statusUpdate("Dark mode enabled");
-	  saveTheme("on");
-  }else{
-	  statusUpdate("Light mode enabled");
-	  saveTheme("off");
-  }
-}
-
-function activeProject(input){
-	$(document).ready(function() {  
-			unactiveProjects();
-
-			var query = document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]');
-			if(query != null){
-				query.setAttribute('id', 'active');
-				menuOpen(input);
-			}else{
-				console.log("no project found");
-			}
-	});  
-}
-
-function menuCollapse(input){
-	if (toggleID == input) {
-			if(toggle == "on"){
-				menuOpen(input);
-			}else{
-				buttonClean();
-				toggle = "on";
-			}
-	}else if (toggleID !== input){
-	    toggleID = input;
-				buttonClean();
-				menuOpen(input);
-
-	}else if (toggleID == ""){
-	    toggleID = input;
-				menuOpen(input);
-	}
-}
-
-function menuOpen(input){
-	
-$(document).ready(function() {
-		$('#'+input).delay(1000).attr("class", "buttonVisible");
-		toggle = "off";
-});
-}
-
-function buttonClean(){
-	var elems = document.getElementsByClassName('buttonVisible')
-	for (var i = 0; i < elems.length; i++) {
-		
-				elems[i].setAttribute("class","menuButtons");
-	}
-}
-
-function unactiveProjects(){
-		var elems = document.getElementsByClassName('projectContainer')
-		for (var i = 0; i < elems.length; i++) {
-					elems[i].removeAttribute("id");
-		}
-
-}
-
+///window.onhashchange  = locationHashChanged;
 
 function loadTheme() {
 		var data = "test";
@@ -150,14 +73,6 @@ function loadTheme() {
 }
 
 
-function isItEmpty(input){
-	if ($("#"+input).is('empty')) {
-		return true;
-	} else {
-		return false;
-	}
-}
-
 function saveTheme(input) {
         var formData = {
 			'state' : input
@@ -201,9 +116,7 @@ function saveTheme(input) {
 		   
 }
 
-function swapStyleSheet(sheet){
-	document.getElementById('pagestyle').setAttribute('href', sheet);
-}
+
 
 
 function loadProjects() {
@@ -212,56 +125,56 @@ function loadProjects() {
 
 function loadProject(input) {
 	$( document ).ready(function() {
-menuCollapse(input);
-if(isWorking == false && projectIDStore != input){
-	
-window.location.hash = '#project/'+input;
-
-isWorking == true;
-document.getElementById("content").innerHTML = '<img src="img/ripple.svg" style="float:left;width:25px;display:inline-block;">';
-		projectIDStore = input;
-		var projectID = input;
-        var formData = {
-			'projectID' : input
-		};
-
-
-		$.ajax({
-			type 		: 'POST',
-			url 		: 'versionTreeLoader.php', 
-			data 		: formData,
-			dataType 	: 'json',
-			encode 		: true
-		})
-
-			.done(function(data) {
-			$(document).ready(function() {
-				
-				if(data['success']==false){
-					 isWorking == false;
-					 console.log("stomething wrong");
-					 statusUpdate("no such project found");
-					 document.getElementById("content").innerHTML = "<h1>No projects found</h1>";
-
-				}else {
-					getProjectInfo(input);	
-					
-					cleanDiv("versionContainer");
-					cleanDiv("overview");
-					makeTree(data);
-					statusUpdate("Project loaded successfully!");
-					activeProject(input);
-					isWorking == false;
-				}
-				});
-			})
-
-			.fail(function(data) {
-				console.log(data);
-			});
+		menuCollapse(input);
+		if(isWorking == false && projectIDStore != input){
 			
-			event.preventDefault();
-	}
+		window.location.hash = '#project/'+input;
+
+		isWorking == true;
+		document.getElementById("content").innerHTML = '<img src="img/ripple.svg" style="float:left;width:25px;display:inline-block;">';
+				projectIDStore = input;
+				var projectID = input;
+				var formData = {
+					'projectID' : input
+				};
+
+
+				$.ajax({
+					type 		: 'POST',
+					url 		: 'versionTreeLoader.php', 
+					data 		: formData,
+					dataType 	: 'json',
+					encode 		: true
+				})
+
+					.done(function(data) {
+					$(document).ready(function() {
+						
+						if(data['success']==false){
+							isWorking == false;
+							console.log("stomething wrong");
+							statusUpdate("no such project found");
+							document.getElementById("content").innerHTML = "<h1>No projects found</h1>";
+
+						}else {
+							getProjectInfo(input);	
+							$('#rightPanel').removeClass('rightPanel');
+							cleanDiv("versionContainer");
+							cleanDiv("overview");
+							makeTree(data);
+							statusUpdate("Project loaded successfully!");
+							activeProject(input);
+							isWorking == false;
+						}
+						});
+					})
+
+					.fail(function(data) {
+						console.log(data);
+					});
+					
+					event.preventDefault();
+			}
 	});
 }
 
@@ -324,6 +237,40 @@ cleanDiv("overview");
 			event.preventDefault();
 }
 
+function loadTreeReview(input) {
+	
+		cleanDiv("overview");
+		var projectID = input;
+        var formData = {
+			'projectID' : input
+		};
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'versionTreeLoader.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+			$(document).ready(function() {
+				
+				if(data['success']==false){
+				
+				}else {
+					makeTreeReview(data);
+				}
+				});
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+			
+			event.preventDefault();
+}
+
 function getProjectInfo(input){ 
 $(document).ready(function() {
 		var projectID = input;
@@ -357,6 +304,12 @@ $(document).ready(function() {
 	});
 }
 
+//methon run when clicking the load Project button on the leftpanel button menu
+function buttonLoadProject(input){
+	getProjectInfo(input);
+	$('#rightPanel').removeClass('rightPanel');
+}
+
 function LoadVersionInfo(input){ 
 $(document).ready(function() {
 		var versionID = input;
@@ -386,70 +339,25 @@ $(document).ready(function() {
 		});
 }
 
-
-$(function () {
-    $('.projectContainer').click(function() {
-        $(this).children('#menuButton').slideToggle(function() {
-            $(this).toggleClass('in out');
-        });
-        
-        $(this).siblings().find('#menuButtons').slideUp(function() {
-            $(this).removeClass('in').addClass('out');
-        });
-    });
-});
-
-
-
-//fills the menubar for first time login
-function fillMenu(){
-	
-		var menuButton0 = '<a href="purge.php" class="menuButton"'+ '>purge projects'+'</a>';
-		var menuButton1 = '<a href="dashboard.php" class="menuButton"'+ '>Dashboard'+'</a>';
-		var menuButton2 = '<a href="index.php" class="menuButton"'+ '>echo'+'<span id="NB">BETA</span>'+ '</a>';
-		var menuButton3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
-
-		var	output = menuButton0 + menuButton1 + menuButton2 + menuButton3;
-		document.getElementById("menuBarDashboard").innerHTML = output;		
-}
-
 function reviewProject(input){
-
+	
+window.location.hash = '#review/'+input;
 	$(document).ready(function() {
-        var formData = {
-			'projectID' : input
-		};
-
-
-		$.ajax({
-			type 		: 'POST',
-			url 		: 'reviewFormLoader.php', 
-			data 		: formData,
-			dataType 	: 'json',
-			encode 		: true
-		})
-
-			.done(function(data) {
-				cleanAll();
-				document.getElementById("content").innerHTML  = data.data;
-			})
-
-			.fail(function(data) {
-				console.log(data);
-			});
-			
-			event.preventDefault();
+				if($('#versionContainer').is(':empty')){
+					getProjectInfo(input);
+				}
+				loadTreeReview(input);
+				$('#rightPanel').addClass('rightPanel');
+				$('#reviewButton').addClass('hiddenElement');
+				
 	});
 }
 
-function loadProjectForm(){
-		unactiveProjects();
-        $( "#content" ).load( "include/projectForm.html");
-        cleanDiv("overview");
-		statusUpdate("Projectform loaded successfully!")
-}
+
 
 function loadUploadForm(input){
+
+$('#rightPanel').removeClass('rightPanel');
 window.location.hash = '#upload/'+input;
 
     //    $( "#content" ).load( "uploadFormLoader.php");
@@ -469,6 +377,7 @@ window.location.hash = '#upload/'+input;
 		})
 
 			.done(function(data) {
+
 					var obj = jQuery.parseJSON(data);
 					
 					document.getElementById("content").innerHTML = obj.data1;
@@ -486,16 +395,6 @@ window.location.hash = '#upload/'+input;
 }
 
 
-function createNewProject(){
-$(document).ready(function() {
-		cleanDiv('content');
-		cleanDiv('overview');
-		cleanDiv('versionContainer');
-		loadProjectForm();
-		buttonClean();
-		
-	});
-}
 
 function loadVersionForm(input,input2){
 cleanDiv("versionContainer");
@@ -732,6 +631,7 @@ if (result) {
 	}
 	});
 }
+
 function deleteProject(input){
 $(document).ready(function() {
 var result = confirm("Are you sure you want to delete this project? Everything will be deleted, even the project files and audio files.");
@@ -769,40 +669,6 @@ if (result) {
 	});
 }
 
-function dashboard(){
-	window.location.href = "dashboard.php";
-	$( "#contentDash" ).load( "dashboardLoader.php");	
-}
-
-function indexScreen(){
-		unactiveProjects();
-        cleanDiv('overview');
-		cleanDiv('versionContainer');
-		getLastProject();
-}
-
-function cleanDiv(input, input2){
-			document.getElementById(input).innerHTML = "";
-			if (input2) {
-				loadProject(input2);
-			}
-			
-}
-
-function cleanAll(){
-	cleanDiv("content");
-	cleanDiv("overview");
-	cleanDiv("versionContainer");
-}
-
-function statusUpdate(input){
-		$("#status").clearQueue();
-		$("#status").stop();
-		$("#status").fadeIn(1);
-		document.getElementById("status").innerHTML = input;
-		$( "#status" ).delay(2222).fadeOut(2000);
-
-}
 
 
 function submitProjectFormAjax(){
@@ -932,3 +798,5 @@ $(document).ready(function() {
 });
 
 }
+
+

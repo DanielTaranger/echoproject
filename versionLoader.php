@@ -23,6 +23,7 @@ session_start();
 				$dataOut= '<div id="contentBox">'.
 				'<div id="versionButtons">'.
 					'<p id="timestamp">'.'updated: '.$date.'</p>'.
+					'<a id="reviewButton" class="versionButton"  title="Add version to review" onclick="loadVersionForm('."'". $row[0] ."',"."'".$versionID."'".')"></a>'.
 					'<a id="newVersionButton" class="versionButton" onclick="loadVersionForm('."'". $row[0] ."',"."'".$versionID."'".')"></a>'.
 					'<a id="editButton" class="versionButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
 					'<a id="deleteButton" class="versionButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		

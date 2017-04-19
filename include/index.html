@@ -18,6 +18,7 @@
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script id="darkScript" src="js/treeFunctions.js"></script>
         <script src="js/functions.js"></script>
+        <script src="js/utilityfunctions.js"></script>
 
     </head>
     <body>
@@ -60,7 +61,10 @@
         <div id="overview">
         </div>
 
-        <div id="versionContainer">
+        <div id="versionContainer"></div>
+        <div id="rightPanel" ondrop="drop(event)" ondragover="allowDrop(event)">
+
+            <p id="container"></p>
         </div>
         </div>
 

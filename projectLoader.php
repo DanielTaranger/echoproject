@@ -83,8 +83,9 @@ ob_start();
            
 				echo '<a href="#project/'.$row[1].'" class="projectContainer" onclick="loadProject('."'".$row[1]."'".')">'. $color .$projName ."</a>".
                 '<div id="'.$row[1].'" class="menuButtons">'.
-                '<a href="#" class="dropDownButton" onclick="'."loadUploadForm('". $row[1] . "')" . '">Project Files</a>'.
+                '<a href="#" class="dropDownButton" onclick="'."buttonLoadProject('". $row[1] . "')" . '">Load Project</a>'.
                 '<a href="#" class="dropDownButton" onclick="'."reviewProject('".$row[1]."')" . '">Review Project</a>'.
+                '<a href="#" class="dropDownButton" onclick="'."loadUploadForm('". $row[1] . "')" . '">Project Files</a>'.
                 '<a href="#" class="dropDownButton" onclick="'."deleteProject('".$row[1]."')" . '">Delete Project</a>'.
                 "</div>";
 			}

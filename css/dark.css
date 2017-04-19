@@ -98,6 +98,25 @@ body {
     overflow-x: hidden;
 }
 
+.rightPanel {
+	width: 200px;
+	background-color: #3d3d3d;
+	color: white;
+	height: 100%;
+	position: absolute;
+	top: 75px;
+	bottom: 0px;
+	right: 0px;
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	z-index: 7;
+	overflow-y: scroll;
+	margin-bottom: -5000px; 
+	padding-bottom: 5000px; 
+	   overflow: scroll;
+    overflow-x: hidden;
+}
+
+
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
     background: transparent;  /* optional: just make scrollbar invisible */
@@ -435,7 +454,7 @@ h1 {
 
 .buttonVisible {
 	width: 100%;
-	height: 100px;
+	height: auto;
 	display: inline-block;
 	background-color: #272727;
     -webkit-transition: height .2s;
@@ -607,8 +626,8 @@ audio::-webkit-media-controls-panel {
 	font-size: 80%;
 	display: inline;
 	position: relative;
-	left: -320px;
-	top: 40px;
+	left: -298px;
+	top: 42px;
 }
 
 .versionButton {
@@ -635,8 +654,24 @@ a.versionButton {
 	content: "+";
 }
 
-#newVersionButton:hover {
-	color: #ff7aa9;
+#reviewButton {
+	background-color: #797979;
+    text-decoration: none;
+    color: white;
+    padding-bottom: 5px;
+	visibility: hidden;
+}
+
+#reviewButton:before {
+	content: "★";
+}
+
+#reviewButton:hover {
+	color: #fff500;
+}
+
+.hiddenElement{
+	visibility: visible !important;
 }
 
 #editButton {

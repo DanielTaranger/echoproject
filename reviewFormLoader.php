@@ -19,15 +19,16 @@ ob_start();
 		if($rows>=1){
 	
 			while($row = mysqli_fetch_array($result)) {
-				$beforefirst = file_get_contents("include/contentBox.html");
-				$first = file_get_contents("include/reviewForm.html");
+				$contentBox = file_get_contents("include/contentBox.html");
+				$buttons = '<div id="versionButtons">'.'<a id="boxclose" class="versionButton" onclick="cleanDiv'."('content'," . "'" . $projectID . "')".'"></a>'."</div>";
+				$formStart = file_get_contents("include/reviewForm.html");
 
-				$middle = '<div id="duration">';
+				$formContent = '<div id="duration">erserserer</div>';
 
+				
+				$formEnd = file_get_contents("include/reviewFormEnd.html");
 
-				$end = file_get_contents("include/reviewFormEnd.html");
-
-				$data['data'] = $beforefirst . $middle . $first . $end;
+				$data['data'] = $contentBox .$buttons . $formStart . $formContent . $formEnd;
 			}
 		  
 		}else{
