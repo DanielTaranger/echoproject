@@ -670,8 +670,23 @@ a.versionButton {
 	color: #fff500;
 }
 
+#reviewTitle{
+	font-size: 110%;
+	text-align: center;
+	display: none;
+	opacity: 0.0;
+}
+
+#reviewContainer{
+
+}
+
 .hiddenElement{
 	visibility: visible !important;
+}
+
+.displayElement{
+	opacity: 1.0;
 }
 
 #editButton {

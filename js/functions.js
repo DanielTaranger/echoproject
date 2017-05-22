@@ -308,6 +308,8 @@ $(document).ready(function() {
 function buttonLoadProject(input){
 	getProjectInfo(input);
 	$('#rightPanel').removeClass('rightPanel');
+	$('reviewTitle').removeClass('displayElement');
+	cleanDiv('rightPanel');
 }
 
 function LoadVersionInfo(input){ 
@@ -349,10 +351,16 @@ window.location.hash = '#review/'+input;
 				loadTreeReview(input);
 				$('#rightPanel').addClass('rightPanel');
 				$('#reviewButton').addClass('hiddenElement');
+				$('reviewTitle').addClass('displayElement');
 				
 	});
 }
 
+function reviewAddVersion(input1, input2){
+	$(document).ready(function(){	
+		document.getElementById("rightPanel").innerHTML = '<p id="reviewVersionTitle">'+input1+"</p>";
+	});
+}
 
 
 function loadUploadForm(input){
