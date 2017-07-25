@@ -25,8 +25,8 @@ require('db.php');
 
         if($rows>=1){
             while($row = mysqli_fetch_array($result)) {
-                $projectName = $row[2];
                 if($row[1] == $projectID){
+                    $projectName = $row[2];
                     $middle = $middle . '<option value="'.$row[1].'" selected>'.$row[2].'</option>';
                 }else {
                  $middle = $middle . '<option value="'.$row[1].'">'.$row[2].'</option>';

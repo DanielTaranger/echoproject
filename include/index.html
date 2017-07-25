@@ -17,8 +17,9 @@
         <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.js"></script>
         <script src="http://d3js.org/d3.v3.min.js"></script>
         <script id="darkScript" src="js/treeFunctions.js"></script>
+        <script src="js/utilityfunctions.js"></script>  
         <script src="js/functions.js"></script>
-        <script src="js/utilityfunctions.js"></script>
+
 
     </head>
     <body>
@@ -63,11 +64,13 @@
 
         <div id="versionContainer"></div>
         <div id="rightPanel" ondrop="drop(event)" ondragover="allowDrop(event)">
-            <p id="reviewTitle">Versions to review</p>
-            <div id="reviewContainer"></div>
+          
+                <p id="reviewHeader">Versions up for review</p>
+            
         </div>
         </div>
 
         <script>
             loadProjects();
+            getLastProject();
         </script>

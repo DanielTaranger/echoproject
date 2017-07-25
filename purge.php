@@ -11,6 +11,7 @@ session_start();
         mysqli_query($conn,$sql);
         $sql = "DELETE FROM project_icons WHERE username='$username'";
         mysqli_query($conn,$sql);
+        header('Location: index.php');
     }
 
 ?>

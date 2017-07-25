@@ -19,13 +19,13 @@ require('db.php');
         $beforefirst = file_get_contents("include/contentBox.html");
         $first = file_get_contents("include/versionForm.html");
 
-        $bfirst = '<div id="versionButtons">'.'<a id="boxclose" class="versionButton" onclick="cleanDiv'."('content'," . "'" . $projectID . "')".'"></a>'."</div>";
+        $bfirst = '<div id="versionButtons">'.'<a id="boxclose" class="versionButton" onclick='.'"LoadVersionInfo('."'"."$versionID"."'".')"></a>' ."</div>";
 
         $end = file_get_contents("include/versionFormEnd.html");
         $before = '<div><p>Parent version</p><select id="myselect" class="form-group">';
         $middle = "";
         $after = "</select></div>";
-        $sumbit = '	<input  type="submit"  onclick="submitVersionFormAjax(' ."'".$projectID. "'". ')" value="Create">';
+        $sumbit = '	<input  type="submit"  onclick="submitVersionFormAjax(' ."'".$projectID. "'". ')" value="Create">' . '<input  type="submit"  onclick="LoadVersionInfo(' ."'".$versionID. "'". ')" value="Cancel">';
       
         //selection of files
 

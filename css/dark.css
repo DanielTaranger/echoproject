@@ -290,6 +290,7 @@ a.projectContainer p {
 	max-width: 700px;
 	color: white;
 	clear: both;
+	min-height: 113px;
 }
 
 #contentDash {
@@ -320,7 +321,7 @@ h1 {
 	width: auto;
 	padding-left: 240px;
 	min-width: 920px;
-	min-height: 100px;
+	min-height: 200px;
 }
 
 #versionContainer {
@@ -678,10 +679,18 @@ a.versionButton {
 }
 
 #reviewContainer{
-
+	display: none;
 }
 
-.hiddenElement{
+
+#reviewHeader{
+	font-size: 150%;
+	padding-left: 10px;
+	padding-right: 10px;
+	display: none;
+}
+
+.visibleElement{
 	visibility: visible !important;
 }
 

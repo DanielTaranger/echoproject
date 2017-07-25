@@ -3,6 +3,8 @@ var projectIDStore = "";
 var isWorking = false;
 var toggle = "on";
 var toggleID = "";
+var review = false;
+var reviewActive = false;
 
 
 function locationHashChanged() {
@@ -158,9 +160,10 @@ function loadProject(input) {
 
 						}else {
 							getProjectInfo(input);	
-							$('#rightPanel').removeClass('rightPanel');
 							cleanDiv("versionContainer");
 							cleanDiv("overview");
+							$('#rightPanel').removeClass('rightPanel');
+							cleanDiv("rightPanel");
 							makeTree(data);
 							statusUpdate("Project loaded successfully!");
 							activeProject(input);
@@ -193,7 +196,7 @@ function getLastProject() {
 
 			.done(function(data) {
 				if(data.success){
-					loadProject(data.pre_last_project);
+					loadProject(data.last_project);
 				}
 
 			})
@@ -308,8 +311,9 @@ $(document).ready(function() {
 function buttonLoadProject(input){
 	getProjectInfo(input);
 	$('#rightPanel').removeClass('rightPanel');
+	cleanDiv("rightPanel");
 	$('reviewTitle').removeClass('displayElement');
-	cleanDiv('rightPanel');
+	
 }
 
 function LoadVersionInfo(input){ 
@@ -331,6 +335,9 @@ $(document).ready(function() {
 			.done(function(data) {
 					cleanDiv("versionContainer");
 					document.getElementById("versionContainer").innerHTML = data.data;	
+					if(reviewActive == true){
+						$('#reviewButton').addClass('visibleElement');
+					}
 			})
 
 			.fail(function(data) {
@@ -342,7 +349,8 @@ $(document).ready(function() {
 }
 
 function reviewProject(input){
-	
+
+reviewActive = true;
 window.location.hash = '#review/'+input;
 	$(document).ready(function() {
 				if($('#versionContainer').is(':empty')){
@@ -350,15 +358,17 @@ window.location.hash = '#review/'+input;
 				}
 				loadTreeReview(input);
 				$('#rightPanel').addClass('rightPanel');
-				$('#reviewButton').addClass('hiddenElement');
-				$('reviewTitle').addClass('displayElement');
+				$('#reviewButton').addClass('visibleElement');
+				$('#rightPanel').addClass('visibleElement');
+				
 				
 	});
 }
 
 function reviewAddVersion(input1, input2){
 	$(document).ready(function(){	
-		document.getElementById("rightPanel").innerHTML = '<p id="reviewVersionTitle">'+input1+"</p>";
+		var temp = document.getElementById("rightPanel");
+		temp.innerHTML = temp.innerHTML + '<p id="reviewVersionTitle">'+input1+"</p>";
 	});
 }
 
