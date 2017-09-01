@@ -181,3 +181,39 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
 }
+
+function isVersionStored(input){
+	var len = reviewArray.length;
+	var counter =0;
+	var check = false;
+
+	do{
+		if(reviewArray[counter]==input){
+			reviewArray.splice(counter,1);
+			check = false;
+			break;
+		}else{
+			check = true;
+		}
+		counter++;
+	}
+	while(counter < len);
+	if(check){
+		reviewArray.push(input);
+	}
+
+	return check;
+}
+
+
+function removeReviewVersion(input){
+	$(document).ready(function() {  
+			console.log('[onclick="loadVersionInfo('+"'"+input+"'"+')"]')
+			var query = document.querySelector('[onclick="loadVersionInfo('+"'"+input+"'"+')"]');
+			if(query != null){
+				$(query).remove();
+			}else{
+				console.log("no project found");
+			}
+	});  
+}

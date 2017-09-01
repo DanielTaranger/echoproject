@@ -116,6 +116,14 @@ body {
     overflow-x: hidden;
 }
 
+#rightPanelContainer{
+	background-color: #3d3d3d;
+	color: white;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	min-height: 200px;
+}
+
 
 ::-webkit-scrollbar {
     width: 0px;  /* remove scrollbar space */
@@ -684,10 +692,19 @@ a.versionButton {
 
 
 #reviewHeader{
-	font-size: 150%;
+	font-size: 120%;
 	padding-left: 10px;
 	padding-right: 10px;
-	display: none;
+}
+
+#reviewHeaderInfo{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.reviewVersionTitle{
+	margin: 0px auto;
+	text-align: center;
 }
 
 .visibleElement{

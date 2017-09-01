@@ -5,11 +5,11 @@ var toggle = "on";
 var toggleID = "";
 var review = false;
 var reviewActive = false;
+var reviewArray = [];
 
 
 function locationHashChanged() {
     if (location.hash.substr(0, 8) === "#project") {
-	//	menuOpen(location.hash.substr(9));
        loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
 		 loadUploadForm(location.hash.substr(8));
@@ -349,7 +349,8 @@ $(document).ready(function() {
 }
 
 function reviewProject(input){
-
+cleanDiv('rightPanel');
+reviewArray = [];
 reviewActive = true;
 window.location.hash = '#review/'+input;
 	$(document).ready(function() {
@@ -357,18 +358,27 @@ window.location.hash = '#review/'+input;
 					getProjectInfo(input);
 				}
 				loadTreeReview(input);
+				$('#rightPanel').append('<p id="reviewHeader">Get feedback</p>'+'<p id="reviewHeaderInfo">click the add button on a version to add it here</p>'+'<div id="rightPanelContainer"></div>')
+				$('#reviewHeader').addClass('visibleElement');
 				$('#rightPanel').addClass('rightPanel');
 				$('#reviewButton').addClass('visibleElement');
-				$('#rightPanel').addClass('visibleElement');
-				
-				
+				$('#rightPanel').addClass('visibleElement');	
 	});
 }
 
+
 function reviewAddVersion(input1, input2){
-	$(document).ready(function(){	
-		var temp = document.getElementById("rightPanel");
-		temp.innerHTML = temp.innerHTML + '<p id="reviewVersionTitle">'+input1+"</p>";
+	$(document).ready(function(){
+		var check = isVersionStored(input2);
+		if(check === true){
+			var temp = document.getElementById("rightPanelContainer");
+			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle" onclick="'+"loadVersionInfo('"+input2+"')"+'">'+input1+"</p>";
+			statusUpdate("Version "+input1+" added for review!");
+		}else{
+			removeReviewVersion(input2);
+				statusUpdate("Version "+input1+" removed");
+		}
+
 	});
 }
 
