@@ -7,9 +7,24 @@ if(theme == "off"){
 var treeData = input;
 
 
+getDepth = function (obj) {
+    var depth = 0;
+    if (obj.children) {
+        obj.children.forEach(function (d) {
+            var tmpDepth = getDepth(d)
+            if (tmpDepth > depth) {
+                depth = tmpDepth
+            }
+        })
+    }
+    return 1 + depth
+}
+
+var depth = getDepth(treeData[0]) - 1;
+
     // ************** Generate the tree diagram	 *****************
     var margin = {top: 20, right: 120, bottom: 20, left: 60},
-      width = 960 - margin.right - margin.left,
+      width = 30 - margin.right - margin.left + 270 * depth,
       height = 200 - margin.top - margin.bottom;
       
     var i = 0,

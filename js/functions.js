@@ -127,6 +127,7 @@ function loadProjects() {
 
 function loadProject(input) {
 	$( document ).ready(function() {
+		reviewActive = false;
 		menuCollapse(input);
 		if(isWorking == false && projectIDStore != input){
 			
@@ -309,10 +310,13 @@ $(document).ready(function() {
 
 //methon run when clicking the load Project button on the leftpanel button menu
 function buttonLoadProject(input){
+	reviewActive = false;
 	getProjectInfo(input);
 	$('#rightPanel').removeClass('rightPanel');
 	cleanDiv("rightPanel");
 	$('reviewTitle').removeClass('displayElement');
+	$('reviewButton').removeClass('visibleElement');
+	
 	
 }
 

@@ -128,14 +128,6 @@ body {
 	min-height: 200px;
 }
 
-::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
-}
-/* optional: show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
-}
 
 #menuSlider {
 	text-decoration: none;
@@ -151,6 +143,16 @@ body {
 	-webkit-transition: left 0.1s; /* Safari */
     transition: left 0.1s;	
 	z-index: 9;
+}
+
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: white;
 }
 
 #menuSlider:hover {
@@ -324,10 +326,10 @@ h1 {
 
 #overview {
 	float: left;
-	width: auto;
+	width: 900px;
 	padding-left: 240px;
-	min-width: 920px;
 	min-height: 200px;
+	overflow-x: scroll;
 }
 
 #versionContainer {
@@ -679,7 +681,7 @@ a.versionButton {
 }
 
 #reviewButton:hover {
-	color: #fff500;
+	color: #ff4083;
 }
 
 #reviewTitle{
@@ -789,10 +791,7 @@ h1#versionHeading {
 
 
 svg {
-/*	 transform: rotate(90deg);
-	position: relative;
-	 left: -267px;
-	 top: 328px; */
+  overflow-x: scroll;
 }
 
 g text{

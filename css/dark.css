@@ -117,8 +117,8 @@ body {
 }
 
 #rightPanelContainer{
-	background-color: #3d3d3d;
-	color: white;
+	background-color: white;
+	color: #3d3d3d;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	min-height: 200px;
@@ -131,7 +131,7 @@ body {
 }
 /* optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-    background: #FF0000;
+    background: white;
 }
 
 #menuSlider {
@@ -326,10 +326,10 @@ h1 {
 
 #overview {
 	float: left;
-	width: auto;
+	width: 900px;
 	padding-left: 240px;
-	min-width: 920px;
 	min-height: 200px;
+	overflow-x: scroll;
 }
 
 #versionContainer {
@@ -676,7 +676,7 @@ a.versionButton {
 }
 
 #reviewButton:hover {
-	color: #fff500;
+	color: #ff4083;
 }
 
 #reviewTitle{
@@ -788,10 +788,7 @@ h1#versionHeading {
 
 
 svg {
-/*	 transform: rotate(90deg);
-	position: relative;
-	 left: -267px;
-	 top: 328px; */
+	overflow: scroll;
 }
 
 
