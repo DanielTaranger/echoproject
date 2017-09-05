@@ -376,7 +376,7 @@ function reviewAddVersion(input1, input2){
 		var check = isVersionStored(input2);
 		if(check === true){
 			var temp = document.getElementById("rightPanelContainer");
-			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle" onclick="'+"loadVersionInfo('"+input2+"')"+'">'+input1+"</p>";
+			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+"</p>";
 			statusUpdate("Version "+input1+" added for review!");
 		}else{
 			removeReviewVersion(input2);
