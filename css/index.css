@@ -330,6 +330,7 @@ h1 {
 	padding-left: 240px;
 	min-height: 200px;
 	overflow-x: scroll;
+	margin-bottom: 15px;
 }
 
 #versionContainer {

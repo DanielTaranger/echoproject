@@ -10,7 +10,7 @@ var reviewArray = [];
 
 function locationHashChanged() {
     if (location.hash.substr(0, 8) === "#project") {
-       loadProject(location.hash.substr(9));
+       //loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
 		 loadUploadForm(location.hash.substr(8));
 		 activeProject(location.hash.substr(8));
@@ -51,7 +51,8 @@ function loadTheme() {
 					theme = "on";
 					document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 					if(isItEmpty("overview") == false){
-						if(location.hash.substr(0, 8) === "#project" ){
+						if(location.hash.substr(0, 7) == "review" ){
+							console-log("am up");
 							loadTree(projectIDStore);							
 						}
 					}
@@ -60,7 +61,8 @@ function loadTheme() {
 					document.getElementById('checkBoxTheme').removeAttribute('checked');
 					theme = "off";
 					if(isItEmpty("overview") == false){
-						if(location.hash.substr(0, 8) === "#project"){
+						if(location.hash.substr(0, 7) == "review" ){
+							console-log("am down");
 							loadTree(projectIDStore);							
 						}
 					}
@@ -74,6 +76,16 @@ function loadTheme() {
 			});
 }
 
+//method responsible for the color theme of the app
+function switchTheme(){
+	if(document.getElementById('checkBoxTheme').checked){
+	  statusUpdate("Dark mode enabled");
+	  saveTheme("on");
+  }else{
+	  statusUpdate("Light mode enabled");
+	  saveTheme("off");
+  }
+}
 
 function saveTheme(input) {
         var formData = {
@@ -94,7 +106,7 @@ function saveTheme(input) {
 						document.getElementById('checkBoxTheme').setAttribute('checked', 'checked');
 						theme = "on";
 						if(isItEmpty("overview") == false){
-							if(location.hash.substr(0, 8) === "#project"){
+							if(location.hash.substr(0, 8) === "#project" || location.hash.substr(0, 7) === "#review"){
 							loadTree(projectIDStore);
 							}
 						}
@@ -103,7 +115,7 @@ function saveTheme(input) {
 						document.getElementById('checkBoxTheme').removeAttribute('checked');
 						theme = "off";
 						if(isItEmpty("overview") == false){
-							if(location.hash.substr(0, 8) === "#project"){
+							if(location.hash.substr(0, 8) === "#project" || location.hash.substr(0, 7) === "#review"){
 							loadTree(projectIDStore);
 							}
 						}
@@ -297,6 +309,7 @@ $(document).ready(function() {
 					if(data.active > 0){
 						LoadVersionInfo(data.active);
 					}
+					console.log(projectIDStore);
 					
 			})
 
@@ -310,6 +323,7 @@ $(document).ready(function() {
 
 //methon run when clicking the load Project button on the leftpanel button menu
 function buttonLoadProject(input){
+	window.location.hash = '#project/'+input;
 	reviewActive = false;
 	getProjectInfo(input);
 	$('#rightPanel').removeClass('rightPanel');
