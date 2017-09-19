@@ -6,6 +6,7 @@ var toggleID = "";
 var review = false;
 var reviewActive = false;
 var reviewArray = [];
+var overviewScrollPos = "";
 
 
 function locationHashChanged() {
@@ -275,7 +276,7 @@ function loadTreeReview(input) {
 				if(data['success']==false){
 				
 				}else {
-					makeTreeReview(data);
+					makeTree(data);
 				}
 				});
 			})
@@ -330,7 +331,8 @@ function buttonLoadProject(input){
 	cleanDiv("rightPanel");
 	$('reviewTitle').removeClass('displayElement');
 	$('reviewButton').removeClass('visibleElement');
-	
+	loadTree(projectIDStore);	
+	setTimeout(scrollFunction(), 1);
 	
 }
 
@@ -367,21 +369,33 @@ $(document).ready(function() {
 }
 
 function reviewProject(input){
+if(reviewActive == !true || projectIDStore == !input){
+cleanDiv('versionContainer');
+cleanDiv('content');
 cleanDiv('rightPanel');
 reviewArray = [];
 reviewActive = true;
 window.location.hash = '#review/'+input;
+
 	$(document).ready(function() {
 				if($('#versionContainer').is(':empty')){
 					getProjectInfo(input);
 				}
-				loadTreeReview(input);
 				$('#rightPanel').append('<p id="reviewHeader">Get feedback</p>'+'<p id="reviewHeaderInfo">click the add button on a version to add it here</p>'+'<div id="rightPanelContainer"></div>')
+				$('#rightPanel').append('<p>Date from:</p> <input type="text" id="datepickerfrom">');
+				$('#rightPanel').append('<p>Date to:</p> <input type="text" id="datepickerto">');
+				$('#rightPanel').append('<input type="submit" id="submitReviewButton" onclick="submitReviewAjax()" value="Submit reivew">')
 				$('#reviewHeader').addClass('visibleElement');
 				$('#rightPanel').addClass('rightPanel');
 				$('#reviewButton').addClass('visibleElement');
 				$('#rightPanel').addClass('visibleElement');	
+				$( "#datepickerfrom" ).datepicker();
+				$( "#datepickerto" ).datepicker();
+				loadTree(projectIDStore);	
+
 	});
+	setTimeout(scrollFunction(), 1);
+	}
 }
 
 
@@ -390,7 +404,8 @@ function reviewAddVersion(input1, input2){
 		var check = isVersionStored(input2);
 		if(check === true){
 			var temp = document.getElementById("rightPanelContainer");
-			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+"</p>";
+			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+"</p>"+
+			'<span onclick="removeReviewVersion('+"'"+input+"'"+')>✖</span>';
 			statusUpdate("Version "+input1+" added for review!");
 		}else{
 			removeReviewVersion(input2);
@@ -402,8 +417,11 @@ function reviewAddVersion(input1, input2){
 
 
 function loadUploadForm(input){
-
-$('#rightPanel').removeClass('rightPanel');
+reviewActive = false;
+	$('#rightPanel').removeClass('rightPanel');
+	cleanDiv("rightPanel");
+	$('reviewTitle').removeClass('displayElement');
+	$('reviewButton').removeClass('visibleElement');
 window.location.hash = '#upload/'+input;
 
     //    $( "#content" ).load( "uploadFormLoader.php");
@@ -777,8 +795,47 @@ $(document).ready(function() {
 
 }
 
+function submitReviewAjax(){
+$(document).ready(function() {
+	
+		reviewArray.unshift($('#datepickerfrom').val(), $('#datepickerto').val());
+	
+		var json_arr = JSON.stringify(reviewArray);
+	
+
+		var formData = {
+			'data' 					: json_arr
+		};
+
+		// process the form
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'processReview.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+			.done(function(data) {
+
+				if ( ! data.success) {
+					statusUpdate("Review posting was not successful");
+
+				} else {
+
+
+				}
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+		event.preventDefault();
+	
+});
+}
 
 function submitVersionFormAjax(input){
+overviewScrollPos = $('#overview').scrollLeft();
 $(document).ready(function() {
 
 	$('form').submit(function(event) {
@@ -805,7 +862,7 @@ $(document).ready(function() {
 
 			.done(function(data) {
 
-				
+
 
 				if ( ! data.success) {
 
@@ -827,11 +884,14 @@ $(document).ready(function() {
 
 				} else {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
+										overviewScrollPos = $('#overview').scrollLeft();
+										
                                         loadProjects();
 										menuOpen(input);
 										loadTree(input);
 										LoadVersionInfo(data.versionID);
 										getProjectInfo(input);
+
 				}
 			})
 
@@ -840,8 +900,12 @@ $(document).ready(function() {
 			});
 		event.preventDefault();
 	});
-
 });
+setTimeout(scrollFunction, 1);
+}
+
+function scrollFunction(){
+$('#overview').animate({scrollLeft: overviewScrollPos+271}, 900);	
 
 }
 

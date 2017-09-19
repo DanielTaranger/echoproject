@@ -99,8 +99,17 @@ body {
     overflow-x: hidden;
 }
 
-#rightPanel {
-	visibility: hidden;
+#datepickerfrom, #datepickerto{
+	margin: 0px;
+	width: 177px;
+}
+
+#submitReviewButton{
+	display: block;
+	margin: 20px auto;
+	background-color: #dd155b;
+	box-shadow: none;
+	width: 100%;
 }
 
 .rightPanel {
@@ -116,8 +125,10 @@ body {
 	overflow-y: scroll;
 	margin-bottom: -5000px; 
 	padding-bottom: 5000px; 
-	   overflow: scroll;
+	overflow: scroll;
     overflow-x: hidden;
+	border-left: 10px solid white;
+	border-right: 10px solid white;
 }
 
 #rightPanelContainer{
@@ -127,6 +138,7 @@ body {
 	padding-bottom: 10px;
 	min-height: 200px;
 }
+
 
 
 #menuSlider {
