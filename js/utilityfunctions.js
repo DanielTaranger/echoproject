@@ -208,10 +208,9 @@ function isVersionStored(input){
 
 function removeReviewVersion(input){
 	$(document).ready(function() {  
-			console.log('[onclick="loadVersionInfo('+"'"+input+"'"+')"]')
-			var query = document.querySelector('[onclick="loadVersionInfo('+"'"+input+"'"+')"]');
+			var query = document.querySelector('[onclick="removeReviewVersion('+"'"+input+"'"+')"]');
 			if(query != null){
-				$(query).remove();
+				$(query).parent().remove();
 			}else{
 				console.log("no project found");
 			}

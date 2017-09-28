@@ -33,7 +33,7 @@ require('db.php');
 
 
         for ($i = 0; $i < count($data); $i++) {
-            $query2 =  "INSERT INTO review_relations (versionID, reviewID) VALUES"."('" .  $data[$i] ."', '" . $reviewID . "')";
+            $query2 =  "INSERT INTO review_relations (versionID, username, reviewID) VALUES"."('" .  $data[$i] ."', '" . $username."', '" . $reviewID . "')";
             $result = mysqli_query($conn, $query2) or die(mysqli_error($conn));
         }
              

@@ -724,6 +724,16 @@ a.versionButton {
 	text-align: center;
 }
 
+.removeVersionReview {
+	margin-left: 7px;
+	cursor: pointer;
+	font-size: 85%;
+}
+
+.removeVersionReview:hover {
+	color: #dd155b;
+}
+
 .visibleElement{
 	visibility: visible !important;
 }

@@ -404,8 +404,7 @@ function reviewAddVersion(input1, input2){
 		var check = isVersionStored(input2);
 		if(check === true){
 			var temp = document.getElementById("rightPanelContainer");
-			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+"</p>"+
-			'<span onclick="removeReviewVersion('+"'"+input+"'"+')>✖</span>';
+			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+ '<span class="removeVersionReview"onclick="removeReviewVersion('+"'"+input2+"'"+')">✖</span>'+"</p>";
 			statusUpdate("Version "+input1+" added for review!");
 		}else{
 			removeReviewVersion(input2);
@@ -780,8 +779,6 @@ $(document).ready(function() {
 						cleanDiv("content");
 						loadProject(data.projectID);
 						LoadVersionInfo(data.versionID);
-							
-						
 				}
 			})
 
@@ -799,9 +796,7 @@ function submitReviewAjax(){
 $(document).ready(function() {
 	
 		reviewArray.unshift($('#datepickerfrom').val(), $('#datepickerto').val());
-	
 		var json_arr = JSON.stringify(reviewArray);
-	
 
 		var formData = {
 			'data' 					: json_arr
@@ -821,8 +816,9 @@ $(document).ready(function() {
 					statusUpdate("Review posting was not successful");
 
 				} else {
-
-
+					statusUpdate("Review created successfully");
+					cleanDiv("rightPanel");
+					$("#rightPanel").append('<p id="reviewHeader">Review created successfully!</p>');
 				}
 			})
 
