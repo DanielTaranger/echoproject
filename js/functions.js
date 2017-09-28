@@ -795,9 +795,9 @@ $(document).ready(function() {
 function submitReviewAjax(){
 $(document).ready(function() {
 	
-		reviewArray.unshift($('#datepickerfrom').val(), $('#datepickerto').val());
+		reviewArray.unshift($('#datepickerfrom').val(), $('#datepickerto').val(), projectIDStore);
 		var json_arr = JSON.stringify(reviewArray);
-
+		console.log(json_arr);
 		var formData = {
 			'data' 					: json_arr
 		};

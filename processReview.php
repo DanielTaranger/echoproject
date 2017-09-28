@@ -11,6 +11,7 @@ require('db.php');
         $data = json_decode($dataencoded,true);
         $datefrom = $data[0];
         $dateto = $data[1];
+        $projectID = $data[2];
     
 
         $datefrom = new DateTime($data[0]);
@@ -19,9 +20,9 @@ require('db.php');
         $dateto = new DateTime($data[1]);
         $dateto =  $dateto->format('y-m-d');
 
-        $data = array_slice($data, 2); 
+        $data = array_slice($data, 3); 
 
-        $query =  "INSERT INTO reviews (datefrom, dateto) VALUES ('".$datefrom."', '".$dateto."')";
+        $query =  "INSERT INTO reviews (username, datefrom, dateto) VALUES ('".$username."', '".$datefrom."', '".$dateto."')";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         
         $query = "SELECT * FROM reviews ORDER BY date DESC LIMIT 1";
@@ -33,7 +34,7 @@ require('db.php');
 
 
         for ($i = 0; $i < count($data); $i++) {
-            $query2 =  "INSERT INTO review_relations (versionID, username, reviewID) VALUES"."('" .  $data[$i] ."', '" . $username."', '" . $reviewID . "')";
+            $query2 =  "INSERT INTO review_relations (projectID, versionID, reviewID) VALUES"."('" .  $projectID ."', '".  $data[$i] ."', '" . $reviewID . "')";
             $result = mysqli_query($conn, $query2) or die(mysqli_error($conn));
         }
              

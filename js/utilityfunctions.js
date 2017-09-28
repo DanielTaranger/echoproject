@@ -23,12 +23,12 @@ function statusUpdate(input){
 		$("#status").fadeIn(1);
 		document.getElementById("status").innerHTML = input;
 		$( "#status" ).delay(2222).fadeOut(2000);
-
 }
 
 function dashboard(){
-	window.location.href = "dashboard.php";
-	$( "#contentDash" ).load( "dashboardLoader.php");	
+	$(document).ready(function() {
+		$( "#contentDash" ).load( "dashboardLoader.php");	
+	});
 }
 
 function indexScreen(){
