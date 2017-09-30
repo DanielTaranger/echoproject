@@ -15,6 +15,7 @@ session_start();
 		if($rows>=1){
            
 			while($row = mysqli_fetch_array($result)) {
+                            $reviewID = $row[0];
                             $query = "SELECT * FROM review_relations WHERE reviewID='$row[0]'";
                             $resultB = mysqli_query($conn, $query) or die(mysqli_error($conn));
                             $rowsB = mysqli_num_rows($resultB);
@@ -86,7 +87,7 @@ session_start();
 
 
 
-                    $data = $data . '<div id="reviewBox">'.'<span>'.$username.$color.'</span>'.'</div>';
+                    $data = $data . '<div id="reviewBox" onclick="loadReview('."'".$reviewID."'".')">'.'<span>'.$username.$color.'</span>'.'</div>';
                 }
             }
             echo $data;

@@ -22,7 +22,7 @@ require('db.php');
 
         $data = array_slice($data, 3); 
 
-        $query =  "INSERT INTO reviews (username, datefrom, dateto) VALUES ('".$username."', '".$datefrom."', '".$dateto."')";
+        $query =  "INSERT INTO reviews (projectID, username, datefrom, dateto) VALUES ('".$projectID."', '".$username."', '".$datefrom."', '".$dateto."')";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         
         $query = "SELECT * FROM reviews ORDER BY date DESC LIMIT 1";

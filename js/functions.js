@@ -288,6 +288,37 @@ function loadTreeReview(input) {
 			event.preventDefault();
 }
 
+function loadReview(input){ 
+$(document).ready(function() {
+		var reviewID = input;
+        var formData = {
+			'reviewID' : input
+		};
+
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'reviewLoader.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+					cleanDiv("contentDash");
+					document.getElementById("contentDash").innerHTML = data.reviews;	
+
+					
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+			
+			event.preventDefault();
+	});
+}
+
 function getProjectInfo(input){ 
 $(document).ready(function() {
 		var projectID = input;
@@ -310,7 +341,6 @@ $(document).ready(function() {
 					if(data.active > 0){
 						LoadVersionInfo(data.active);
 					}
-					console.log(projectIDStore);
 					
 			})
 

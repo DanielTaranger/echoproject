@@ -326,6 +326,7 @@ a.projectContainer p {
 	max-width: 760px;
 	margin-top: 60px;
 	color: white;	
+	text-align: center;
 }
 
 #container {
@@ -472,6 +473,42 @@ h1 {
 	cursor: pointer;
 	background-color: white;
 	color: black;
+}
+
+.reviewContainer{
+	background-color: #ffffff;
+	display: inline-block;
+	padding-bottom: 4px;
+	margin-bottom: 35px;
+}
+
+.voteContainer{
+	float: left;
+	margin-left: 10px;
+}
+
+.voteText {
+	color: #3d3d3d;
+	margin-bottom: 4px;
+}
+
+.thumbUp, .thumbDown{
+	display: inline;
+	fill: #ff0059;
+    -webkit-transition: opacity .1s;
+    transition: opacity.1s;
+}
+
+.thumbDown{
+	position: relative;
+	top: 4px;
+	transform: rotate(-180deg); 
+	margin-left: 15px;
+}
+
+.thumbDown:hover, .thumbUp:hover{
+	opacity: 0.5;
+	cursor: pointer;
 }
 
 #NB {
