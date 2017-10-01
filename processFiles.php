@@ -4,7 +4,7 @@ session_start();
 	$uploadProjectSelect = $_POST['uploadProjectSelect'];
 	
 	$valid_formats = array("mp3");
-	$max_file_size = 2*1024*1000; //100 kb
+	$max_file_size = 115*1024*1000; //100 kb
 	$path = "uploaded_files/"; // Upload directory
 
 	if (!file_exists($path . $uploadProjectSelect)) {

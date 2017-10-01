@@ -350,7 +350,7 @@ h1 {
 	float: left;
 	width: auto;
 	padding-left: 240px;
-
+	clear: both;
 }
 
 #statusBar {
@@ -473,12 +473,17 @@ h1 {
 	display: inline-block;
 	padding-bottom: 4px;
 	margin-bottom: 35px;
+	padding: 15px;
+	max-width: 670px;
 }
 
 .voteContainer{
-	float: left;
-	margin-left: 10px;
+	width: 138px;
+	display: inline-block;
+	margin-right: 10px;
+	float: right;
 }
+
 
 .voteText {
 	color: #3d3d3d;
@@ -503,6 +508,26 @@ h1 {
 	opacity: 0.5;
 	cursor: pointer;
 }
+
+.reviewContainerHeader{
+	margin: 0px;
+	text-align: left;
+}
+
+.reviewComment {
+	float: left;
+}
+
+.reviewAudio {
+	float: left;
+}
+
+.commentSubmit{
+	display: block;
+	float: left;
+	clear: both;
+}
+
 
 #NB {
 	color: #ff387e;

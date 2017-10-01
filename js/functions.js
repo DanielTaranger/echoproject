@@ -8,6 +8,13 @@ var reviewActive = false;
 var reviewArray = [];
 var overviewScrollPos = "";
 
+$("audio").on("play", function(){
+    var _this = $(this);
+    $("audio").each(function(i,el){
+        if(!$(el).is(_this))
+            $(el).get(0).pause();
+    });
+});
 
 function locationHashChanged() {
     if (location.hash.substr(0, 8) === "#project") {
