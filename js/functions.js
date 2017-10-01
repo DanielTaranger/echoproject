@@ -605,9 +605,10 @@ $(document).ready(function() {
 
 				} else {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
-                                        loadProjects();
+                                       
 										loadTree(data.projectID);
 										LoadVersionInfo(data.versionID);
+
 				}
 			})
 
@@ -942,4 +943,51 @@ $('#overview').animate({scrollLeft: overviewScrollPos+271}, 900);
 
 }
 
+
+
+function submitCommentFormAjax(versionID,reviewID){
+$(document).ready(function() {
+statusUpdate("works hher 1");
+
+
+		var formData = {
+			'comment'				: $('#textarea'+reviewID).val(),
+			'reviewID'				: reviewID,
+			'versionID'				: versionID
+		};
+
+		// process the form
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'processReviewComment.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+
+				if ( ! data.success) {
+						statusUpdate($('#textarea'+reviewID).val());
+					if (data.errors.description) {
+						console.log("errors");
+						statusUpdate("Errors!");
+					}
+
+				} else {
+						$('#textarea'+reviewID).remove();
+						$('#subCommentBtn'+reviewID).remove();
+						statusUpdate("Thanks for your comment!");
+
+				}
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+
+event.preventDefault();
+});
+
+}
 

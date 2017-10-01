@@ -25,7 +25,7 @@ session_start();
                             if($rowsB>=1){
 
                                 while($rowB = mysqli_fetch_array($resultB)) {
-                                $projectID = $rowB[1];
+                                $projectID = $rowB[2];
                                 }
                             }
 

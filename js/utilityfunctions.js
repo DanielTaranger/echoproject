@@ -91,7 +91,7 @@ function isItEmpty(input){
 
 function menuOpen(input){
 	$(document).ready(function() {
-			$('#'+input).delay(100).attr("class", "buttonVisible");
+			$('#'+input).attr("class", "buttonVisible");
 			toggle = "off";
 	});
 }

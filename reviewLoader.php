@@ -30,23 +30,34 @@ session_start();
 				if($row[5]=="no file"){
                      $dataOut =  $dataOut . '<div class="reviewContainer">' .'<p>Track missing</p>'.'</div>';
 				}else {
+                     $index = 1;
 					 $dataOut =  $dataOut . '<div class="reviewContainer">' .
                      '<h2 class="reviewContainerHeader">Anonymous track #'. $index .'</h2>'. 
                     '<audio controls class="reviewAudio">'.
 					'<source src="uploaded_files/'. $row[0] ."/".$row[5].
 					'" type="audio/mpeg">'.
 					'Your browser does not support the audio element.'.
-					'</audio>'.
-                    '<textarea class="reviewComment" class="form-control" rows="3" name="comment" placeholder="Please type what you think of this track"></textarea>'.
-                        '<div class="voteContainer">'.
-                            '<p class="voteText">Did you like the track?</p>'.
-                            '<img class="thumbUp" src="img/thmbup.svg" alt="thumb" width="20px" height="20px">'.
-                            '<img class="thumbDown" src="img/thmbup.svg" alt="thumb" width="20px" height="20px">'. 
-                        '</div>'.  
-                        '<div class="commentSubmit">'.
-                        '<input type="submit" onclick="submitCommentFormAjax('."'".$row[1]."', '". $reviewID ."'".')" value="Submit">'.
-                        '</div>'.
-                    '</div>';
+					'</audio>';
+                    /*
+                    $query = "SELECT * FROM review_comments  WHERE versionID IN".
+                    '(SELECT versionID FROM review_relations WHERE reviewID = "'.$reviewID.'")';
+                    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                    $rows = mysqli_num_rows($result);
+               
+                    if($rows>=1){
+                        */
+                     $dataOut =  $dataOut .
+                        '<textarea class="reviewComment"'.'id="textarea'.  $reviewID .'" class="form-control" rows="3" name="comment" placeholder="Please type what you think of this track"></textarea>'.
+                            '<div class="voteContainer">'.
+                                '<p class="voteText">Did you like the track?</p>'.
+                                '<img class="thumbUp" src="img/thmbup.svg" alt="thumb" width="20px" height="20px">'.
+                                '<img class="thumbDown" src="img/thmbup.svg" alt="thumb" width="20px" height="20px">'. 
+                            '</div>'.  
+                            '<div class="commentSubmit">'.
+                            '<input type="submit"'.'id="subCommentBtn'.  $reviewID .'" onclick="submitCommentFormAjax('."'".$row[1]."', '". $reviewID ."'".')" value="Comment">'.
+                            '</div>'.
+                        '</div>';
+                 //   }
 				}
                   $index = $index + 1;
 			}
