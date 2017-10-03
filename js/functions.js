@@ -919,9 +919,6 @@ $(document).ready(function() {
 				} else {
 					$('form').append('<div class="alert alert-success">' + data.message + '</div>');
 										overviewScrollPos = $('#overview').scrollLeft();
-										
-                                        loadProjects();
-										menuOpen(input);
 										loadTree(input);
 										LoadVersionInfo(data.versionID);
 										getProjectInfo(input);
