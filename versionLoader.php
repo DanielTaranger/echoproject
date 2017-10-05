@@ -46,19 +46,19 @@ session_start();
 							$comment = $row3[4];
 							$timestamp = $row3[5];
 	
-							$commentTemp = '<div class="commentContentBox">'. $username. $comment. $timestamp . "</div>";
+							$commentTemp = '<hr><div class="commentContentBox"><p>'. $username. $comment. $timestamp . "</p></div>";
 							$comments = $comments . $commentTemp;
 						}
 					}
 					
-					$data['comments'] =	$comments;
+					
 
 					$data['data'] = $dataOut . 
 					'<audio controls>'.
 					'<source src="uploaded_files/'. $row[0] ."/".$row[5].
 					'" type="audio/mpeg">'.
 					'Your browser does not support the audio element.'.
-					'</audio>'."</div>";
+					'</audio>'.$comments."</div>";
 				}
 										 		//sets the last used version of a project 
 				$query2 = "UPDATE projects SET last_version = '$versionID' WHERE projectID='$row[0]'";

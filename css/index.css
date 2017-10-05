@@ -529,11 +529,15 @@ h1 {
 }
 
 .commentContentBox {
-	position: absolute;
-	width: 500px;
-	height: 100px;
+	display: block;
+	width: 500px; 
 	background-color: white;
-	color: black;
+	height: auto;
+	box-shadow: 0 1px 2px rgba(0,0,0,.1);
+	z-index: 2;
+	padding: 20px;
+	padding-top: 0px;
+	border-radius: 2px;
 }
 
 

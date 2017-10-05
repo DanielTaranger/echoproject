@@ -428,8 +428,7 @@ $(document).ready(function() {
 		
 			.done(function(data) {
 					cleanDiv("versionContainer");
-					document.getElementById("versionContainer").innerHTML = data.data + data.comments;	
-					console.log(data.comments);
+					document.getElementById("versionContainer").innerHTML = data.data ;	
 					if(reviewActive == true){
 						$('#reviewButton').addClass('visibleElement');
 					}
