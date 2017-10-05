@@ -31,10 +31,12 @@ require('db.php');
         $row = mysqli_fetch_array($result);
 
         $reviewID= $row[0];
+        $rating = 0.00;
 
 
         for ($i = 0; $i < count($data); $i++) {
-            $query2 =  "INSERT INTO review_relations (username, projectID, versionID, reviewID) VALUES"."('" .  $username ."', '".  $projectID ."', '".  $data[$i] ."', '" . $reviewID . "')";
+            $query2 =  "INSERT INTO review_relations (username, projectID, versionID, reviewID, rating) VALUES"."('" .  $username .
+                                                    "', '".  $projectID ."', '".  $data[$i] ."', '" . $reviewID ."', '" . $rating . "')";
             $result = mysqli_query($conn, $query2) or die(mysqli_error($conn));
         }
              

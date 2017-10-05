@@ -326,6 +326,43 @@ $(document).ready(function() {
 	});
 }
 
+function reviewRate(reviewID, versionID, rating){ 
+	$(document).ready(function() {
+			console.log(versionID);
+
+			var formData = {
+				'reviewID' : reviewID,
+				'versionID' : versionID,
+				'rating' : rating
+			};
+	
+	
+			$.ajax({
+				type 		: 'POST',
+				url 		: 'processReviewRating.php', 
+				data 		: formData,
+				dataType 	: 'json',
+				encode 		: true
+			})
+	
+				.done(function(data) {
+					if(rating == "down"){
+						$('#thumbDown'+versionID).attr('src','img/thmbupA.svg');
+						$('#thumbUp'+versionID).attr('src','img/thmbup.svg');						
+					}else if(rating == "up"){
+						$('#thumbUp'+versionID).attr('src','img/thmbupA.svg');
+						$('#thumbDown'+versionID).attr('src','img/thmbup.svg');	
+					}
+				})
+	
+				.fail(function(data) {
+					console.log(data);
+				});
+				
+				event.preventDefault();
+		});
+}
+
 function getProjectInfo(input){ 
 $(document).ready(function() {
 		var projectID = input;
@@ -391,7 +428,8 @@ $(document).ready(function() {
 		
 			.done(function(data) {
 					cleanDiv("versionContainer");
-					document.getElementById("versionContainer").innerHTML = data.data;	
+					document.getElementById("versionContainer").innerHTML = data.data + data.comments;	
+					console.log(data.comments);
 					if(reviewActive == true){
 						$('#reviewButton').addClass('visibleElement');
 					}
@@ -441,10 +479,10 @@ function reviewAddVersion(input1, input2){
 		var check = isVersionStored(input2);
 		if(check === true){
 			var temp = document.getElementById("rightPanelContainer");
-			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+ '<span class="removeVersionReview"onclick="removeReviewVersion('+"'"+input2+"'"+')">✖</span>'+"</p>";
+			temp.innerHTML = temp.innerHTML + '<p class="reviewVersionTitle">'+input1+ '<span class="reviewAddVersion"onclick="reviewAddVersion('+"'"+input1+"', '"+input2+"'"+')">✖</span>'+"</p>";
 			statusUpdate("Version "+input1+" added for review!");
 		}else{
-			removeReviewVersion(input2);
+			removeReviewVersion(input1, input2);
 				statusUpdate("Version "+input1+" removed");
 		}
 

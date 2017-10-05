@@ -33,12 +33,32 @@ session_start();
 				if($row[5]=="no file"){
 					$data['data'] = $dataOut . '</div>';
 				}else {
+					$query = "SELECT * FROM review_comments  WHERE versionID='$versionID'";
+					$result3 = mysqli_query($conn, $query) or die(mysqli_error($conn));
+					$rows3 = mysqli_num_rows($result3);
+					
+					$comments = "";
+					
+					if($rows>=1){
+						while($row3 = mysqli_fetch_array($result3)) {
+							$commentTemp = "";
+							$username = $row3[3];
+							$comment = $row3[4];
+							$timestamp = $row3[5];
+	
+							$commentTemp = '<div class="commentContentBox">'. $username. $comment. $timestamp . "</div>";
+							$comments = $comments . $commentTemp;
+						}
+					}
+					
+					$data['comments'] =	$comments;
+
 					$data['data'] = $dataOut . 
 					'<audio controls>'.
 					'<source src="uploaded_files/'. $row[0] ."/".$row[5].
 					'" type="audio/mpeg">'.
 					'Your browser does not support the audio element.'.
-					'</audio>'.'</div>';
+					'</audio>'."</div>";
 				}
 										 		//sets the last used version of a project 
 				$query2 = "UPDATE projects SET last_version = '$versionID' WHERE projectID='$row[0]'";

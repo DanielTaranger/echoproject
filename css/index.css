@@ -528,6 +528,14 @@ h1 {
 	clear: both;
 }
 
+.commentContentBox {
+	position: absolute;
+	width: 500px;
+	height: 100px;
+	background-color: white;
+	color: black;
+}
+
 
 #NB {
 	color: #ff387e;

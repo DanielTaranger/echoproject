@@ -205,14 +205,15 @@ function isVersionStored(input){
 	return check;
 }
 
-
-function removeReviewVersion(input){
+function removeReviewVersion(input1,input2){
 	$(document).ready(function() {  
-			var query = document.querySelector('[onclick="removeReviewVersion('+"'"+input+"'"+')"]');
+			var query = document.querySelector('[onclick="reviewAddVersion('+"'"+input1+"', '"+input2+"'"+ ')"]');
 			if(query != null){
 				$(query).parent().remove();
 			}else{
-				console.log("no project found");
+				console.log("no projectLK found");
+				console.log(query);
+
 			}
 	});  
 }
