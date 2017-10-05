@@ -565,10 +565,13 @@ h1 {
 
 #hideComments {
 	position: relative;
-	top: 2px;
+	top: 20px;
+	left: -20px;
 	border: none;
 	z-index: 3;
 	padding: 5px;
+	background-color: #dd155b;
+	color: white;
 }
 
 #hideComments:hover {

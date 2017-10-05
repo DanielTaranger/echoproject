@@ -12,6 +12,13 @@ require('db.php');
         $datefrom = $data[0];
         $dateto = $data[1];
         $projectID = $data[2];
+        $datefrom = new DateTime($data[0]);
+        $datefrom = $datefrom->format('y-m-d');
+
+        $dateto = new DateTime($data[1]);
+        $dateto =  $dateto->format('y-m-d');
+
+        $data = array_slice($data, 3); 
 
         $query = "SELECT * FROM reviews WHERE projectID='$projectID'";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -20,13 +27,7 @@ require('db.php');
 
         if($row[1] != $projectID){
 
-                $datefrom = new DateTime($data[0]);
-                $datefrom = $datefrom->format('y-m-d');
 
-                $dateto = new DateTime($data[1]);
-                $dateto =  $dateto->format('y-m-d');
-
-                $data = array_slice($data, 3); 
 
                 $query =  "INSERT INTO reviews (projectID, username, datefrom, dateto) VALUES ('".$projectID."', '".$username."', '".$datefrom."', '".$dateto."')";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));

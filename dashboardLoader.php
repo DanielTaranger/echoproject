@@ -4,8 +4,7 @@ session_start();
 	
     // If form submitted, insert values into the database.
     if (isset($_SESSION['username'])){
-        $username = $_SESSION['username'];
-		$username = stripslashes($username);
+        $username = "No username found";
         $data = "<h2>Active project reviews</h2>";
 
         $query = "SELECT * FROM reviews WHERE dateto >= curdate()";
@@ -28,6 +27,10 @@ session_start();
                                 $projectID = $rowB[2];
                                 }
                             }
+
+                            $username = $row[2];
+                                
+                            
 
                 		    $query = "SELECT * FROM project_icons WHERE projectID='$projectID'";
                             $resultB = mysqli_query($conn, $query) or die(mysqli_error($conn));

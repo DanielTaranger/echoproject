@@ -3,7 +3,7 @@ html, body {
 	font-family: 'Roboto', sans-serif;
 	font-size: 14px;
 	color: #333333;
-	background-color: #272727;
+	background-color: #282828;
 	overflow: auto;
 }
 
@@ -571,10 +571,13 @@ h1 {
 
 #hideComments {
 	position: relative;
-	top: 2px;
+	top: 20px;
+	left: -20px;
 	border: none;
 	z-index: 3;
 	padding: 5px;
+	background-color: #dd155b;
+	color: white;
 }
 
 #hideComments:hover {
