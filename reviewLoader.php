@@ -25,14 +25,12 @@ session_start();
             
             $index = 1;
             if($rows>=1){
-
                 while($row = mysqli_fetch_array($result)) {
                 
-                    
                     if($row[5]=="no file"){
                         $dataOut =  $dataOut . '<div class="reviewContainer">' .'<p>Track missing</p>'.'</div>';
                     }else {
-                        $index = 1;
+                       
                         $dataOut =  $dataOut . '<div class="reviewContainer">' .
                         '<h2 class="reviewContainerHeader">Anonymous track #'. $index .'</h2>'. 
                     '<audio controls class="reviewAudio">'.
@@ -52,9 +50,9 @@ session_start();
                             '<input type="submit"'.'id="subCommentBtn'.  $reviewID .'" onclick="submitCommentFormAjax('."'".$row[1]."', '". $reviewID ."'".')" value="Comment">'.
                             '</div>'. '</div>';
                     
-                            }
+                    }
                             $index = $index + 1;
-                        }
+                    }
                         
 
                     }else{
@@ -90,7 +88,7 @@ session_start();
 
             $dataOut = 
             '<span class="reviewEditButton" onclick="reviewPanelMenu('."'"."reviewLoad"."'".')"'.'"'.">back</span>".
-            '<span class="reviewEditButton" onclick="deleteReview">delete review</span>'. 
+            '<span class="reviewEditButton" onclick="deleteReview('."'".$reviewID."'".')">delete review</span>'. 
             '<p>'.$reviewDateTo.'</p>'.
             '<p>'.$reviewDateFrom.'</p>'.
             $reviewVersions;

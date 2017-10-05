@@ -502,6 +502,46 @@ function reviewPanelMenu(input){
 				
 }
 
+function deleteReview(reviewID){
+$(document).ready(function() {
+var result = confirm("Are you sure you want to delete this review? only the listing will be deleted, your versions and projects will still be intact");
+if (result) {
+
+        var formData = {
+			'reviewID' : reviewID
+		};
+
+		$.ajax({
+			type 		: 'POST',
+			url 		: 'reviewDelete.php', 
+			data 		: formData,
+			dataType 	: 'json',
+			encode 		: true
+		})
+
+			.done(function(data) {
+
+				if(data.success == true){
+				
+				LoadVersionInfo(data.parent);
+				statusUpdate(data.data);
+				loadTree(input);
+				}else{
+					alert ("Something went wrong!");
+				}
+
+				
+			})
+
+			.fail(function(data) {
+				console.log(data);
+			});
+			
+			event.preventDefault();
+	}
+	});
+}
+
 
 function reviewAddVersion(input1, input2){
 	$(document).ready(function(){
