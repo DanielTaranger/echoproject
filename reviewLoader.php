@@ -89,7 +89,7 @@ session_start();
             }
 
             $dataOut = 
-            '<span class="reviewEditButton" onclick="reviewProject('."'".$projectID."')".'"'.">back</span>".
+            '<span class="reviewEditButton" onclick="reviewPanelMenu('."'"."reviewLoad"."'".')"'.'"'.">back</span>".
             '<span class="reviewEditButton" onclick="deleteReview">delete review</span>'. 
             '<p>'.$reviewDateTo.'</p>'.
             '<p>'.$reviewDateFrom.'</p>'.

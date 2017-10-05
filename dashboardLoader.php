@@ -87,7 +87,7 @@ session_start();
 
 
 
-                    $data = $data . '<div id="reviewBox" onclick="loadReview('."'".$reviewID."'".')">'.'<span>'.$username.$color.'</span>'.'</div>';
+                    $data = $data . '<div id="reviewBox" onclick="loadReview('."'".$reviewID."', '".$projectID."'".')">'.'<span>'.$username.$color.'</span>'.'</div>';
                 }
             }
             echo $data;

@@ -871,6 +871,20 @@ a.versionButton {
 	cursor: pointer;
 }
 
+#reviewInsert, #reviewLoad{
+	padding: 15px;
+	text-align: center;
+	font-size: 120%;
+	background-color: #4c4c4c;
+	color: white;
+	margin: 10px;
+}
+
+#reviewInsert:hover, #reviewLoad:hover{
+	cursor: pointer;
+	background-color: #707070;
+}
+
 .visibleElement{
 	visibility: visible !important;
 }

@@ -296,13 +296,12 @@ function loadTreeReview(input) {
 			event.preventDefault();
 }
 
-function loadReview(input){ 
+function loadReview(reviewID, projectID){ 
 $(document).ready(function() {
 
-		var reviewID = input;
         var formData = {
 			'projectID' : projectIDStore,
-			'reviewID' : input
+			'reviewID' : reviewID
 		};
 
 
@@ -319,6 +318,7 @@ $(document).ready(function() {
 					if(projectIDStore){
 						cleanDiv("rightPanel");
 						document.getElementById("rightPanel").innerHTML = data.rightPanelReviews;
+						
 					}else{
 						cleanDiv("contentDash");
 						document.getElementById("contentDash").innerHTML = data.reviews;
@@ -466,6 +466,7 @@ window.location.hash = '#review/'+input;
 				if($('#versionContainer').is(':empty')){
 					getProjectInfo(input);
 				}
+				$('#rightPanel').append('<h2>Insert or check reviews that are active</h2>');
 				$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">post review</p>');
 				$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">load reviews</p>');
 				
@@ -473,8 +474,7 @@ window.location.hash = '#review/'+input;
 				$('#rightPanel').addClass('rightPanel');
 				$('#reviewButton').addClass('visibleElement');
 				$('#rightPanel').addClass('visibleElement');	
-				$( "#datepickerfrom" ).datepicker();
-				$( "#datepickerto" ).datepicker();
+	
 				loadTree(projectIDStore);	
 
 	});
@@ -483,14 +483,21 @@ window.location.hash = '#review/'+input;
 }
 
 function reviewPanelMenu(input){
+	cleanDiv('rightPanel');
 				if(input == "reviewInsert"){
+					$('#rightPanel').delay(300).prepend('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">post review</p>');
+					$('#rightPanel').delay(300).prepend('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">load reviews</p>');
+						
 				$('#rightPanel').append('<p id="reviewHeader">Get feedback</p>'+'<p id="reviewHeaderInfo">click the add button on a version to add it here</p>'+'<div id="rightPanelContainer"></div>')
 				$('#rightPanel').append('<p>Date from:</p> <input type="text" id="datepickerfrom">');
 				$('#rightPanel').append('<p>Date to:</p> <input type="text" id="datepickerto">');
 				$('#rightPanel').append('<input type="submit" id="submitReviewButton" onclick="submitReviewAjax()" value="Submit reivew">');
-				}if(input == "reviewLoad"){
-				
+				$( "#datepickerfrom" ).datepicker();
+				$( "#datepickerto" ).datepicker();
+			}if(input == "reviewLoad"){
 					$('#rightPanel').load('dashboardLoader.php');	
+					$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">post review</p>').delay(3000);
+					$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">load reviews</p>').delay(3000);
 				}
 				
 }
@@ -911,12 +918,12 @@ $(document).ready(function() {
 			.done(function(data) {
 
 				if ( ! data.success) {
-					statusUpdate("Review posting was not successful");
+					statusUpdate("Review for this project already running");
 
 				} else {
 					statusUpdate("Review created successfully");
 					cleanDiv("rightPanel");
-					$("#rightPanel").append('<p id="reviewHeader">Review created successfully!</p>');
+					reviewPanelMenu("reviewLoad");
 				}
 			})
 
