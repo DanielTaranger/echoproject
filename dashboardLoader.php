@@ -6,7 +6,7 @@ session_start();
     if (isset($_SESSION['username'])){
         $username = $_SESSION['username'];
 		$username = stripslashes($username);
-        $data = "<h2>Projects artists are working on:</h2>";
+        $data = "<h2>Active project reviews</h2>";
 
         $query = "SELECT * FROM reviews WHERE dateto >= curdate()";
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));

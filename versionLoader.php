@@ -14,8 +14,6 @@ session_start();
 		$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 		$rows = mysqli_num_rows($result);
 		
-
-		
 		if($rows>=1){
 			while($row = mysqli_fetch_array($result)) {
 				$timestamp = strtotime($row['6']);
@@ -45,8 +43,9 @@ session_start();
 							$username = $row3[3];
 							$comment = $row3[4];
 							$timestamp = $row3[5];
+
 	
-							$commentTemp = '<hr><div class="commentContentBox"><p>'. $username. $comment. $timestamp . "</p></div>";
+							$commentTemp = '<div class="commentContentBox"><div class="commentMeta"><p class="commentUsername">'. $username.'</p><p class="commentTimestamp">posted: '. $timestamp."</p></div><p>". $comment . "</p></div>";
 							$comments = $comments . $commentTemp;
 						}
 					}
@@ -58,7 +57,7 @@ session_start();
 					'<source src="uploaded_files/'. $row[0] ."/".$row[5].
 					'" type="audio/mpeg">'.
 					'Your browser does not support the audio element.'.
-					'</audio>'.$comments."</div>";
+					'</audio>'.'<button id="hideComments" onclick="hideComments()" value="hide comments">hide comments</button>'."</div>".$comments;
 				}
 										 		//sets the last used version of a project 
 				$query2 = "UPDATE projects SET last_version = '$versionID' WHERE projectID='$row[0]'";

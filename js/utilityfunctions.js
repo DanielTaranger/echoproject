@@ -218,3 +218,18 @@ function removeReviewVersion(input1,input2){
 	});  
 }
 
+function hideComments(){
+	if(commentsHidden == false){
+		$('.commentContentBox').addClass('hiddenElement');
+	    $('.commentContentBox').removeClass('visibleElement');
+		commentsHidden 	= true;
+	    $('#hideComments').html('show comments');
+		console.log(commentsHidden);
+	}else{
+		commentsHidden 	= false;
+		$('.commentContentBox').addClass('visibleElement');	
+	    $('.commentContentBox').removeClass('hiddenElement');
+	    $('#hideComments').html('hide comments');
+		console.log(commentsHidden);
+	}
+}
