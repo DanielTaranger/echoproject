@@ -44,16 +44,16 @@ require('db.php');
       
         //selection of files
         $filename = 'uploaded_files/'.$projectID;
-        $fileSelect = "<p><b>No files connected to this project!</b> click File Manager to add files</p>"; 
+        $fileSelect = "<p><b>No audio files on this project!</b> click Audio Files menu  to add files</p>"; 
 
         if (is_dir($filename)) {
             if($fileData=="no file"){
-                $fileSelect = '<p id="fileAlert"><b>No files attached!</b> click here to pick track to use </p>'; 
                 $clickList = '<input type="submit" onclick="getFileList'."('" . $projectID . "', '". $versionID ."')".'" value="Add File">';    
+                $fileSelect = '<p id="fileAlert"><b>No files attached!</b> click here to pick track to use </p>'; 
                 $filePicker = '<div id="fileSelector"></div>';
 
 
-                $fileSelect = $fileSelect . $clickList. $filePicker ;
+                $fileSelect =  $clickList .$fileSelect . $filePicker ;
             }else {
 
                 $fileListing = "";

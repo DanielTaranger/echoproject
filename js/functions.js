@@ -30,8 +30,7 @@ function locationHashChanged() {
 	}else if (location.hash.substr(0, 10) === "#dashboard"){	
 		 dashboard();
 	}else if (location.hash.substr(0, 7) === "#review"){	
-		 reviewProject(location.hash.substr(8));
-		 menuCollapse(location.hash.substr(8));
+		// reviewProject(location.hash.substr(8));
 	}
 	loadTheme();
 	fillMenu();
@@ -218,8 +217,9 @@ function getLastProject() {
 
 			.done(function(data) {
 				if(data.success){
-					loadProject(data.last_project);
-				}
+					reviewProject(data.last_project);
+
+				}		
 
 			})
 
@@ -262,43 +262,11 @@ cleanDiv("overview");
 			event.preventDefault();
 }
 
-function loadTreeReview(input) {
-	
-		cleanDiv("overview");
-		var projectID = input;
-        var formData = {
-			'projectID' : input
-		};
 
-		$.ajax({
-			type 		: 'POST',
-			url 		: 'versionTreeLoader.php', 
-			data 		: formData,
-			dataType 	: 'json',
-			encode 		: true
-		})
-
-			.done(function(data) {
-			$(document).ready(function() {
-				
-				if(data['success']==false){
-				
-				}else {
-					makeTree(data);
-				}
-				});
-			})
-
-			.fail(function(data) {
-				console.log(data);
-			});
-			
-			event.preventDefault();
-}
 
 function loadReview(reviewID, projectID){ 
 $(document).ready(function() {
-
+		//	window.location = "dashboard.php?review="+reviewID;	
         var formData = {
 			'projectID' : projectIDStore,
 			'reviewID' : reviewID
@@ -422,7 +390,7 @@ function buttonLoadProject(input){
 function LoadVersionInfo(input){ 
 $(document).ready(function() {
 		var versionID = input;
-		console.log(commentsHidden);
+
         var formData = {
 			'versionID' : input,
 			'comments'  : commentsHidden
@@ -440,6 +408,9 @@ $(document).ready(function() {
 			.done(function(data) {
 					cleanDiv("versionContainer");
 					document.getElementById("versionContainer").innerHTML = data.data;	
+					hideComments();
+					hideComments();
+					
 					if(reviewActive == true){
 						$('#reviewButton').addClass('visibleElement');
 					}
@@ -454,50 +425,86 @@ $(document).ready(function() {
 }
 
 function reviewProject(input){
-if(reviewActive == !true || projectIDStore == !input){
+// something something to refresh rightpanel
+//if(reviewActive == !true || projectIDStore == !input){
 cleanDiv('versionContainer');
 cleanDiv('content');
 cleanDiv('rightPanel');
 reviewArray = [];
-reviewActive = true;
 window.location.hash = '#review/'+input;
 
 	$(document).ready(function() {
 				if($('#versionContainer').is(':empty')){
 					getProjectInfo(input);
 				}
-				$('#rightPanel').append('<h2>Insert or check reviews that are active</h2>');
-				$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">post review</p>');
-				$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">load reviews</p>');
-				
+				$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">Create review</p>');
+				$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">Active reviews</p>');
+				$('#rightPanel').append('<p>Create and post reviews for your versions, or check reviews that are active</p>');
 				$('#reviewHeader').addClass('visibleElement');
 				$('#rightPanel').addClass('rightPanel');
-				$('#reviewButton').addClass('visibleElement');
 				$('#rightPanel').addClass('visibleElement');	
-	
-				loadTree(projectIDStore);	
+				projectIDStore = input;
+
+				
+				loadTree(input);
+				
+
+				activeProject(input);
+				menuCollapse(input);
+				
 
 	});
 	setTimeout(scrollFunction(), 1);
-	}
+//	}
 }
+
+function reviewProjectButton(input){
+	// something something to refresh rightpanel
+	//if(reviewActive == !true || projectIDStore == !input){
+	cleanDiv('versionContainer');
+	cleanDiv('content');
+	cleanDiv('rightPanel');
+	reviewArray = [];
+	window.location.hash = '#review/'+input;
+	
+		$(document).ready(function() {
+					if($('#versionContainer').is(':empty')){
+						getProjectInfo(input);
+					}
+					$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">Create review</p>');
+					$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">Active reviews</p>');
+					$('#rightPanel').append('<p>Create and post reviews for your versions, or check reviews that are active</p>');
+					$('#reviewHeader').addClass('visibleElement');
+					$('#rightPanel').addClass('rightPanel');
+					$('#rightPanel').addClass('visibleElement');	
+		
+					loadTree(input);
+					
+		});
+		setTimeout(scrollFunction(), 1);
+	//	}
+	}
 
 function reviewPanelMenu(input){
 	cleanDiv('rightPanel');
 				if(input == "reviewInsert"){
-					$('#rightPanel').delay(300).prepend('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">post review</p>');
-					$('#rightPanel').delay(300).prepend('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">load reviews</p>');
-						
-				$('#rightPanel').append('<p id="reviewHeader">Get feedback</p>'+'<p id="reviewHeaderInfo">click the add button on a version to add it here</p>'+'<div id="rightPanelContainer"></div>')
+					$('#rightPanel').prepend('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">Active reviews</p>');
+					$('#rightPanel').prepend('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">Create review</p>');
+					$('#reviewButton').addClass('visibleElement').hide().fadeIn('slow');
+					reviewActive = true;
+				$('#rightPanel').append('<p id="reviewHeader">Get feedback</p>'+'<p id="reviewHeaderInfo">click the thumb button on the active version to add it here</p>'+'<div id="rightPanelContainer"></div>')
 				$('#rightPanel').append('<p>Date from:</p> <input type="text" id="datepickerfrom">');
 				$('#rightPanel').append('<p>Date to:</p> <input type="text" id="datepickerto">');
 				$('#rightPanel').append('<input type="submit" id="submitReviewButton" onclick="submitReviewAjax()" value="Submit reivew">');
 				$( "#datepickerfrom" ).datepicker();
 				$( "#datepickerto" ).datepicker();
+				statusUpdate("Review form loaded");
 			}if(input == "reviewLoad"){
-					$('#rightPanel').load('dashboardLoader.php');	
-					$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">post review</p>').delay(3000);
-					$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">load reviews</p>').delay(3000);
+					$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">Create review</p>');
+					$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">Active reviews</p>');
+					$('#rightPanel').append('<div id="rightPanelcontent"></div>');
+					$('#rightPanelcontent').load('dashboardLoader.php');	
+					statusUpdate("Review form loaded");
 				}
 				
 }
@@ -525,7 +532,7 @@ if (result) {
 				
 				LoadVersionInfo(data.parent);
 				statusUpdate(data.data);
-				loadTree(input);
+
 				}else{
 					alert ("Something went wrong!");
 				}
@@ -919,11 +926,13 @@ $(document).ready(function() {
 
 				} else {
 						loadProjects();
-						menuOpen(data.projectID);
+						
 						statusUpdate("Project created successfully!" + projectIDStore);
 						cleanDiv("content");
-						loadProject(data.projectID);
+						reviewProject(data.projectID);
+						
 						LoadVersionInfo(data.versionID);
+					
 				}
 			})
 

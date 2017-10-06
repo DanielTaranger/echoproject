@@ -117,7 +117,7 @@ function activeProject(input){
 	$(document).ready(function() {  
 			unactiveProjects();
 
-			var query = document.querySelector('[onclick="loadProject('+"'"+input+"'"+')"]');
+			var query = document.querySelector('[onclick="reviewProject('+"'"+input+"'"+')"]');
 			if(query != null){
 				query.setAttribute('id', 'active');
 				menuOpen(input);
@@ -211,9 +211,7 @@ function removeReviewVersion(input1,input2){
 			if(query != null){
 				$(query).parent().remove();
 			}else{
-				console.log("no projectLK found");
-				console.log(query);
-
+				console.log("no project found");
 			}
 	});  
 }
@@ -224,12 +222,12 @@ function hideComments(){
 	    $('.commentContentBox').removeClass('visibleElement');
 		commentsHidden 	= true;
 	    $('#hideComments').html('show comments');
-		console.log(commentsHidden);
+
 	}else{
 		commentsHidden 	= false;
 		$('.commentContentBox').addClass('visibleElement');	
 	    $('.commentContentBox').removeClass('hiddenElement');
 	    $('#hideComments').html('hide comments');
-		console.log(commentsHidden);
+
 	}
 }

@@ -21,7 +21,8 @@ session_start();
 				$dataOut= '<div id="contentBox">'.
 				'<div id="versionButtons">'.
 					'<p id="timestamp">'.'updated: '.$date.'</p>'.
-					'<a id="reviewButton" class="versionButton"  title="Add version to review" onclick="reviewAddVersion('."'". $row[2] ."',"."'".$versionID."'".')"></a>'.
+				//	'<a id="reviewButton" class="versionButton"  title="Add version to review" onclick="reviewAddVersion('."'". $row[2] ."',"."'".$versionID."'".')">'.
+					'<img src="img/thmbupA.svg" id="reviewButton"  width="17" height="17" onclick="reviewAddVersion('."'". $row[2] ."',"."'".$versionID."'".')">'.
 					'<a id="newVersionButton" class="versionButton" onclick="loadVersionForm('."'". $row[0] ."',"."'".$versionID."'".')"></a>'.
 					'<a id="editButton" class="versionButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
 					'<a id="deleteButton" class="versionButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		
@@ -37,7 +38,7 @@ session_start();
 					
 					$comments = "";
 					
-					if($rows>=1){
+					if($rows3>=1){
 						while($row3 = mysqli_fetch_array($result3)) {
 							$commentTemp = "";
 							$username = $row3[3];
@@ -45,11 +46,38 @@ session_start();
 							$timestamp = $row3[5];
 
 	
-							$commentTemp = '<div class="commentContentBox"><div class="commentMeta"><p class="commentUsername">'. $username.'</p><p class="commentTimestamp">posted: '. $timestamp."</p></div><p>". $comment . "</p></div>";
+							$commentTemp = 
+							'<div class="commentContentBox"><div class="commentMeta"><p class="commentUsername">'. $username.'</p><p class="commentTimestamp">posted: '. $timestamp."</p></div><p>". $comment . "</p></div>";
 							$comments = $comments . $commentTemp;
 						}
+
+						
+						$comments = '<button id="hideComments" onclick="hideComments()" >hide comments</button>'."</div>".$comments;
 					}
+
+					$query = "SELECT * FROM review_relations WHERE versionID='$versionID'";
+					$result4 = mysqli_query($conn, $query) or die(mysqli_error($conn));
+					$rows4 = mysqli_num_rows($result4);
 					
+					$rating = "";
+					
+					if($rows4>=1){
+						while($row4 = mysqli_fetch_array($result4)) {
+							$rateRatio = $row4[5]*100;
+							$ratioNega = 100 - $rateRatio;
+							$rating = 
+							'<div id="ratingsbar" style="overflow: hidden;">'.
+						//	'<img class="thumbUpf"   src="img/thmbup.svg" alt="thumb" width="15px" height="15px">'.
+							'<p>rating: '.$rateRatio.'%</p>'.
+						//	'<img class="thumbDownf"  src="img/thmbup.svg" alt="thumb" width="15px" height="15px">'.
+							'<div style="background-color: #dd155b; height: 4px; float: left; width: '.$rateRatio.'%;"></div>'.
+							'<div style="background-color: #ccc; height: 4px; float: left; width: '.$ratioNega.'%;"></div>'.
+						    '</div>';
+						 
+							
+							
+						}
+					}					
 					
 
 					$data['data'] = $dataOut . 
@@ -57,7 +85,7 @@ session_start();
 					'<source src="uploaded_files/'. $row[0] ."/".$row[5].
 					'" type="audio/mpeg">'.
 					'Your browser does not support the audio element.'.
-					'</audio>'.'<button id="hideComments" onclick="hideComments()" value="hide comments">hide comments</button>'."</div>".$comments;
+					'</audio>'.$rating .$comments;
 				}
 										 		//sets the last used version of a project 
 				$query2 = "UPDATE projects SET last_version = '$versionID' WHERE projectID='$row[0]'";

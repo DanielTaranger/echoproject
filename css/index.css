@@ -509,6 +509,7 @@ h1 {
 	cursor: pointer;
 }
 
+
 .reviewContainerHeader{
 	margin: 0px;
 	text-align: left;
@@ -565,8 +566,8 @@ h1 {
 
 #hideComments {
 	position: relative;
-	top: 20px;
-	left: -20px;
+	top: 12px;
+	left: -11px;
 	border: none;
 	z-index: 3;
 	padding: 5px;
@@ -811,21 +812,7 @@ a.versionButton {
 	color: #ff7aa9;
 }
 
-#reviewButton {
-	background-color: #797979;
-    text-decoration: none;
-    color: white;
-    padding-bottom: 5px;
-	visibility: hidden;
-}
 
-#reviewButton:before {
-	content: "★";
-}
-
-#reviewButton:hover {
-	color: #ff4083;
-}
 
 #reviewTitle{
 	font-size: 110%;
@@ -852,7 +839,31 @@ a.versionButton {
 .reviewVersionTitle{
 	margin: 0px auto;
 	text-align: center;
+	font-size: 120%;
 }
+.reviewAddVersion{
+	margin-left: 4px;
+}
+
+.reviewAddVersion:hover{
+	cursor: pointer;
+}
+
+#ratingsbar{
+	float: right;
+	width: 130px;
+	padding-top: 10px;
+	text-align: center;
+}
+
+#ratingsbar p{
+	color: #8e8e8e;
+	margin: 0px;
+	font-size: 95%;
+	margin-bottom: 4px;
+	display: inline-block;
+}
+
 
 .removeVersionReview {
 	margin-left: 7px;
@@ -865,27 +876,46 @@ a.versionButton {
 }
 
 .reviewEditButton{
-	background-color: gray;
-	padding: 10px;
+	background-color: #bf3667;
+	padding: 5px;
+	display: inline-block;
 	color: white;
+	width: 150px;
 }
 
 .reviewEditButton:hover{
 	cursor: pointer;
+	background-color: #ff7aa9;
 }
 
 #reviewInsert, #reviewLoad{
-	padding: 15px;
+	padding: 10px;
 	text-align: center;
-	font-size: 120%;
 	background-color: #4c4c4c;
 	color: white;
-	margin: 10px;
 }
 
 #reviewInsert:hover, #reviewLoad:hover{
 	cursor: pointer;
-	background-color: #707070;
+	background-color: #707070
+}
+
+
+
+#reviewButton {
+	visibility: hidden;
+}
+
+#reviewButton:hover {
+	opacity: 0.5;
+	cursor: pointer;
+}
+
+#editReviewContent {
+	background-color: #4d4d4d;
+	padding: 10px;
+	text-align: center;
+	color: white;
 }
 
 .visibleElement{
