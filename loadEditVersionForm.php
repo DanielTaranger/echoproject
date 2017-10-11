@@ -48,8 +48,9 @@ require('db.php');
 
         if (is_dir($filename)) {
             if($fileData=="no file"){
-                $clickList = '<input type="submit" onclick="getFileList'."('" . $projectID . "', '". $versionID ."')".'" value="Add File">';    
-                $fileSelect = '<p id="fileAlert"><b>No files attached!</b> click here to pick track to use </p>'; 
+                 $clickList ="";
+            //    $clickList = '<input type="submit" onclick="getFileList'."('" . $projectID . "', '". $versionID ."')".'" value="Add File">';    
+                $fileSelect = '<p id="fileAlert"><b>No audio files attached!</b> click ' .'<a href="#"'.' onclick="getFileList'."('" . $projectID . "', '". $versionID ."')".'"'.">here</a>". ' to pick a audio file to use </p>'; 
                 $filePicker = '<div id="fileSelector"></div>';
 
 

@@ -67,11 +67,12 @@ function loadProjectForm(){
 
 //fills the menubar for first time login
 function fillMenu(){
-	
-		var menuButton0 = '<a href="purge.php" class="menuButton"'+ '>purge projects'+'</a>';
-		var menuButton1 = '<a href="dashboard.php" class="menuButton"'+ '>Dashboard'+'</a>';
+		var menuButton0 = "";
+	//	var menuButton0 = '<a href="purge.php" class="menuButton"'+ '>purge projects'+'</a>';
+		var menuButton1 = '<a href="dashboard.php" class="menuButton"'+ '>Reviews'+'</a>';
 		var menuButton2 = '<a href="index.php" class="menuButton"'+ '>echo'+'<span id="NB">BETA</span>'+ '</a>';
-		var menuButton3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
+		var menuButton3 = "";
+	//	var menuButton3 = '<a href="profile" class="menuButton"' + '>My Profile</a>';
 
 		var	output = menuButton0 + menuButton1 + menuButton2 + menuButton3;
 		document.getElementById("menuBarDashboard").innerHTML = output;		
@@ -91,7 +92,8 @@ function isItEmpty(input){
 
 function menuOpen(input){
 	$(document).ready(function() {
-			$('#'+input).attr("class", "buttonVisible");
+			$('#'+input).addClass("buttonVisible");
+			$('#'+input).removeClass("menuButtons");
 			toggle = "off";
 	});
 }
@@ -116,13 +118,14 @@ function unactiveProjects(){
 function activeProject(input){
 	$(document).ready(function() {  
 			unactiveProjects();
-
-			var query = document.querySelector('[onclick="reviewProject('+"'"+input+"'"+')"]');
+			var query = $('[onclick="reviewProject('+"'"+input+"'"+')"]').get();
+			//var query = document.querySelector('[onclick="reviewProject('+"'"+input+"'"+')"]');
 			if(query != null){
-				query.setAttribute('id', 'active');
-				menuOpen(input);
+				$("#"+input).attr('id', 'active');
+				
 			}else{
 				console.log("no project found");
+				console.log(query);
 			}
 	});  
 }
@@ -139,10 +142,19 @@ function menuCollapse(input){
 	    toggleID = input;
 				buttonClean();
 				menuOpen(input);
+				
 
 	}else if (toggleID == ""){
 	    toggleID = input;
 				menuOpen(input);
+	}
+}
+
+function menuForceOpen(projectID){
+	if($("#"+projectID).attr('class') == "menuButtons"){
+		buttonClean();
+		$("#"+projectID).removeClass("menuButtons");
+		$("#"+projectID).addClass("buttonVisible");
 	}
 }
 

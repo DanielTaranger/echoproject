@@ -59,6 +59,11 @@ $data 			= array(); 		// array to pass back data
 							$data['projectID'] = $row[1];
 						}
 				}
+
+				
+                $query2 = "UPDATE user_settings SET last_project = '$projectID' WHERE username='$username'";
+                $result = mysqli_query($conn, $query2) or die(mysqli_error($conn));
+               
 				
 				$timestamp = date('Y-m-d h:i:s');
 

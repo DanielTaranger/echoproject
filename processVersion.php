@@ -6,11 +6,13 @@ $data 			= array(); 		// array to pass back data
 // validate the variables ======================================================
 	// if any of these variables don't exist, add an error to our $errors array
 
-	if (empty($_POST['title']))
+	if (empty($_POST['title'])){
 		$errors['title'] = 'Title is required.';
+	}
 
-	if (empty($_POST['description']))
+	if (empty($_POST['description'])){
 		$errors['description'] = 'Description is required.';
+	}
 
 
 	if ( ! empty($errors)) {
@@ -69,6 +71,7 @@ $data 			= array(); 		// array to pass back data
 					
 				$timestamp = date('Y-m-d h:i:s');
 
+
                 $query =  "INSERT INTO versions (projectID, title, description, parent, file, timestamp, username) VALUES ('".$projectID."', '".
 																										$title."', '".
 																										$description."', '".
@@ -92,3 +95,4 @@ $data 			= array(); 		// array to pass back data
 
 	// return all our data to an AJAX call
 	echo json_encode($data);
+?>

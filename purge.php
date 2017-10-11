@@ -17,7 +17,8 @@ session_start();
         mysqli_query($conn,$sql);
         $sql = "DELETE FROM review_comments WHERE username='$username'";
         mysqli_query($conn,$sql);
-
+        $sql = "DELETE FROM reviews WHERE username='$username'";
+        mysqli_query($conn,$sql);
 
 
         header('Location: index.php');

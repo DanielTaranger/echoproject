@@ -30,6 +30,15 @@ session_start();
 				'</div>'.
 				'<h1 id="versionHeading">'.$row[2].'</h1><p>'.$row[3].'</p>';
 				if($row[5]=="no file"){
+					$dataOut= '<div id="contentBox">'.
+					'<div id="versionButtons">'.
+						'<p id="timestamp">'.'updated: '.$date.'</p>'.
+						'<a id="newVersionButton" class="versionButton" onclick="loadVersionForm('."'". $row[0] ."',"."'".$versionID."'".')"></a>'.
+						'<a id="editButton" class="versionButton" onclick="editVersion('."'". $versionID ."'".')"></a>'.
+						'<a id="deleteButton" class="versionButton" onclick="deleteVersion('."'". $row[0] ."', '" . $versionID . "'".')"><img src="img/dump.png" alt="Delete" height="15" width="15"></a>'.		
+						'<a id="boxclose" class="versionButton" onclick="cleanDiv('."'"."versionContainer"."'".')"></a>'.
+					'</div>'.
+					'<h1 id="versionHeading">'.$row[2].'</h1><p>'.$row[3].'</p>';
 					$data['data'] = $dataOut . '</div>';
 				}else {
 					$query = "SELECT * FROM review_comments  WHERE versionID='$versionID'";
@@ -68,7 +77,7 @@ session_start();
 							$rating = 
 							'<div id="ratingsbar" style="overflow: hidden;">'.
 						//	'<img class="thumbUpf"   src="img/thmbup.svg" alt="thumb" width="15px" height="15px">'.
-							'<p>rating: '.$rateRatio.'%</p>'.
+							'<p>rating: '.floor($rateRatio).'%</p>'.
 						//	'<img class="thumbDownf"  src="img/thmbup.svg" alt="thumb" width="15px" height="15px">'.
 							'<div style="background-color: #dd155b; height: 4px; float: left; width: '.$rateRatio.'%;"></div>'.
 							'<div style="background-color: #ccc; height: 4px; float: left; width: '.$ratioNega.'%;"></div>'.

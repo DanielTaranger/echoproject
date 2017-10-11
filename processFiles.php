@@ -35,8 +35,7 @@ session_start();
 				else{ // No error found! Move uploaded files 
 					if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.$name))
 					$count++; // Number of successfully uploaded file
-					header('Location: index.php#upload/'.$uploadProjectSelect);
-					echo "<h1>Upload successful</h1>";
+					header('Location: index.php#review/'.$uploadProjectSelect);
 					}
 				}
 			}

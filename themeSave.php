@@ -19,9 +19,8 @@ session_start();
                 $dataOut['success'] = true;
 
         }else{
-            $query =  "INSERT INTO user_settings (username, theme) VALUES ('".$username."', '".$state."')";
+            $query =  "INSERT INTO user_settings (username, theme, last_project, pre_last_project) VALUES ('".$username."', '".$state."', '0', '0')";
             $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-            $rows = mysqli_num_rows($result);
              $dataOut['success'] = true;
 
         }

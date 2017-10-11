@@ -22,7 +22,6 @@ function locationHashChanged() {
        //loadProject(location.hash.substr(9));
     }else if(location.hash.substr(0, 7) === "#upload"){
 		 loadUploadForm(location.hash.substr(8));
-		 activeProject(location.hash.substr(8));
 	}else if (location.hash.substr(0, 8) === "#version"){	
 		 LoadVersionInfo(location.hash.substr(9));
 	}else if (location.hash.substr(0, 6) === "#index"){	
@@ -187,7 +186,7 @@ function loadProject(input) {
 							cleanDiv("rightPanel");
 							makeTree(data);
 							statusUpdate("Project loaded successfully!");
-							activeProject(input);
+						//	activeProject(input);
 							isWorking == false;
 						}
 						});
@@ -202,7 +201,7 @@ function loadProject(input) {
 	});
 }
 
-function getLastProject() {
+function getLastProject(input) {
 		var data = "test";
         var formData = {
 			'state' : data
@@ -217,7 +216,11 @@ function getLastProject() {
 
 			.done(function(data) {
 				if(data.success){
-					reviewProject(data.last_project);
+					if(input === true){
+						reviewProject(data.last_project);
+					}else{
+						reviewProject(data.pre_last_project);
+					}
 
 				}		
 
@@ -424,7 +427,7 @@ $(document).ready(function() {
 		});
 }
 
-function reviewProject(input){
+function reviewProject(input, projectCreated){
 // something something to refresh rightpanel
 //if(reviewActive == !true || projectIDStore == !input){
 cleanDiv('versionContainer');
@@ -445,13 +448,16 @@ window.location.hash = '#review/'+input;
 				$('#rightPanel').addClass('visibleElement');	
 				projectIDStore = input;
 
-				
 				loadTree(input);
-				
-
-				activeProject(input);
-				menuCollapse(input);
-				
+				if(projectCreated === true){
+				setTimeout(function() {
+					menuForceOpen(input);
+				}, 200);
+				}else{
+					menuCollapse(input);
+				}
+				//setTimeout(console.log("232323"), 900);
+			
 
 	});
 	setTimeout(scrollFunction(), 1);
@@ -492,7 +498,7 @@ function reviewPanelMenu(input){
 					$('#rightPanel').prepend('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">Create review</p>');
 					$('#reviewButton').addClass('visibleElement').hide().fadeIn('slow');
 					reviewActive = true;
-				$('#rightPanel').append('<p id="reviewHeader">Get feedback</p>'+'<p id="reviewHeaderInfo">click the thumb button on the active version to add it here</p>'+'<div id="rightPanelContainer"></div>')
+				$('#rightPanel').append('<p id="reviewHeaderInfo">Click the thumb button on the active version to add it here. If no thumb appear on the version box it is because no audio file has been attached</p>'+'<div id="rightPanelContainer"></div>')
 				$('#rightPanel').append('<p>Date from:</p> <input type="text" id="datepickerfrom">');
 				$('#rightPanel').append('<p>Date to:</p> <input type="text" id="datepickerto">');
 				$('#rightPanel').append('<input type="submit" id="submitReviewButton" onclick="submitReviewAjax()" value="Submit reivew">');
@@ -503,7 +509,8 @@ function reviewPanelMenu(input){
 					$('#rightPanel').append('<p id="reviewInsert" onclick="reviewPanelMenu('+"'reviewInsert'"+')">Create review</p>');
 					$('#rightPanel').append('<p id="reviewLoad" onclick="reviewPanelMenu('+"'reviewLoad'"+')">Active reviews</p>');
 					$('#rightPanel').append('<div id="rightPanelcontent"></div>');
-					$('#rightPanelcontent').load('dashboardLoader.php');	
+			//		$('#rightPanelcontent').load('dashboardLoader.php');	
+					$('#rightPanelcontent').load('reviewPanelLoader.php');	
 					statusUpdate("Review form loaded");
 				}
 				
@@ -929,9 +936,11 @@ $(document).ready(function() {
 						
 						statusUpdate("Project created successfully!" + projectIDStore);
 						cleanDiv("content");
-						reviewProject(data.projectID);
-						
-						LoadVersionInfo(data.versionID);
+						$(document).ready(function() {
+							LoadVersionInfo(data.versionID);
+							reviewProject(data.projectID, true);
+							console.log(data.projectID);
+						});
 					
 				}
 			})
@@ -945,6 +954,7 @@ $(document).ready(function() {
 });
 
 }
+
 
 function submitReviewAjax(){
 $(document).ready(function() {
