@@ -107,7 +107,7 @@ session_start();
                 
 
 		}else{
-            echo "<p>No projects found</p>";
+          $data['project'] = "<p>No projects created yet, click 'Create project' on the top left</p>";
 		} 
 
         echo json_encode($data);

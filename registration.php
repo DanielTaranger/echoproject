@@ -31,6 +31,10 @@
 		$trn_date = date("Y-m-d H:i:s");
         $query = "INSERT into `users` (username, password, trn_date) VALUES ('$username', '".md5($password)."', '$trn_date')";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
+        $query = "INSERT into `user_settings` (username, theme, last_project, pre_last_project) VALUES ('$username', 'on', '0', '0')";
+        $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+
         if($result){
             echo '<div class="form" id="loginRegisterForm">'."<h3>You are registered successfully.</h3><br/>Click here to <a href='login.php'>Login</a></div>";
         }
